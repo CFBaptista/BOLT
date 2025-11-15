@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    tags: ["*"]
+  pull_request:
+    
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+
+jobs:
+  Linux-64-Debug-Ninja-Clang:
+    name: Linux 64 Debug (Ninja + Clang)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y catch2
+          sudo apt-get install -y clang
+          sudo apt-get install -y doxygen
+          sudo apt-get install -y libstd++-14-dev
+          sudo apt-get install -y lld
+          sudo apt-get install -y ninja-build
+          
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v1
+        with:
+          cmake-version: "3.30.5"
+
+      - name: Configure
+        run: cmake --preset linux-64-debug-ninja-clang
+
+      - name: Build
+        run: cmake --build --preset linux-64-debug-ninja-clang
+
+      - name: Run tests
+        run: ctest --preset linux-64-debug-ninja-clang
