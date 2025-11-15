@@ -1,0 +1,80 @@
+#include "../../src/lbm/D2Q9.hpp"
+
+#include <numeric>
+
+#include <catch2/catch_approx.hpp>
+#include <catch2/catch_test_macros.hpp>
+
+SCENARIO("D2Q9 lattice model properties")
+{
+    GIVEN("A D2Q9 lattice model")
+    {
+        using Model = D2Q9<float>;
+
+        const auto expectedDimension{2};
+        const auto expectedSize{9};
+        const auto expectedVelocities = std::array<std::array<int, 2>, 9>{
+            std::array<int, 2>{0, 0},  std::array<int, 2>{1, 0},   std::array<int, 2>{0, 1},
+            std::array<int, 2>{-1, 0}, std::array<int, 2>{0, -1},  std::array<int, 2>{1, 1},
+            std::array<int, 2>{-1, 1}, std::array<int, 2>{-1, -1}, std::array<int, 2>{1, -1}
+        };
+        const auto expectedWeights =
+            std::array<float, 9>{4.0F / 9,  1.0F / 9,  1.0F / 9,  1.0F / 9, 1.0F / 9,
+                                 1.0F / 36, 1.0F / 36, 1.0F / 36, 1.0F / 36};
+
+        WHEN("Getting the dimension")
+        {
+            const auto dimension = Model::dimension();
+
+            THEN("The dimension is 2")
+            {
+                CHECK(dimension == expectedDimension);
+            }
+        }
+
+        WHEN("Getting the size")
+        {
+            const auto size = Model::size();
+
+            THEN("The size is 9")
+            {
+                CHECK(size == expectedSize);
+            }
+        }
+
+        WHEN("Getting the velocities")
+        {
+            const auto velocities = Model::velocities();
+
+            THEN("The 9 velocities are correct")
+            {
+                CHECK(velocities.size() == expectedVelocities.size());
+                CHECK(velocities == expectedVelocities);
+            }
+
+            THEN("Sum of velocities is zero")
+            {
+                std::array<int, 2> sum{0, 0};
+                for (const auto& velocity : velocities)
+                {
+                    sum[0] += velocity[0];
+                    sum[1] += velocity[1];
+                }
+
+                CHECK(sum == std::array<int, 2>{0, 0});
+            }
+        }
+
+        WHEN("Getting the weights")
+        {
+            const auto weights = Model::weights();
+
+            THEN("The 9 weights are correct")
+            {
+                CHECK(weights.size() == expectedWeights.size());
+                CHECK(weights == expectedWeights);
+                CHECK(std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0));
+            }
+        }
+    }
+}

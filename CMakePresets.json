@@ -1,0 +1,121 @@
+{
+    "version": 9,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 30,
+        "patch": 5
+    },
+    "configurePresets": [
+        {
+            "name": "linux-64-base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_LINKER": "lld",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "environment": {
+                "LDFLAGS": "-fuse-ld=lld"
+            }
+        },
+        {
+            "inherits": [
+                "linux-64-base"
+            ],
+            "name": "linux-64-debug-ninja-clang",
+            "displayName": "Linux 64 Debug (Ninja + Clang)",
+            "hidden": false,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "inherits": [
+                "linux-64-base"
+            ],
+            "name": "linux-64-release-ninja-clang",
+            "displayName": "Linux 64 Release (Ninja + Clang)",
+            "hidden": false,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "inherits": [
+                "linux-64-base"
+            ],
+            "name": "linux-64-relWithDebInfo-ninja-clang",
+            "displayName": "Linux 64 RelWithDebInfo (Ninja + Clang)",
+            "hidden": false,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "linux-64-base",
+            "hidden": true,
+            "inheritConfigureEnvironment": true,
+            "verbose": true,
+            "jobs": 4
+        },
+        {
+            "inherits": "linux-64-base",
+            "name": "linux-64-debug-ninja-clang",
+            "displayName": "Linux 64 Debug (Ninja + Clang)",
+            "hidden": false,
+            "configuration": "Debug",
+            "configurePreset": "linux-64-debug-ninja-clang"
+        },
+        {
+            "inherits": "linux-64-base",
+            "name": "linux-64-release-ninja-clang",
+            "displayName": "Linux 64 Release (Ninja + Clang)",
+            "hidden": false,
+            "configuration": "Release",
+            "configurePreset": "linux-64-release-ninja-clang"
+        },
+        {
+            "inherits": "linux-64-base",
+            "name": "linux-64-relWithDebInfo-ninja-clang",
+            "displayName": "Linux 64 RelWithDebInfo (Ninja + Clang)",
+            "hidden": false,
+            "configuration": "RelWithDebInfo",
+            "configurePreset": "linux-64-relWithDebInfo-ninja-clang"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "linux-64-base",
+            "hidden": true,
+            "inheritConfigureEnvironment": true,
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": false
+            }
+        },
+        {
+            "inherits": "linux-64-base",
+            "name": "linux-64-debug-ninja-clang",
+            "displayName": "Linux 64 Debug (Ninja + Clang)",
+            "hidden": false,
+            "configuration": "Debug",
+            "configurePreset": "linux-64-debug-ninja-clang"
+        },
+        {
+            "inherits": "linux-64-base",
+            "name": "linux-64-relWithDebInfo-ninja-clang",
+            "displayName": "Linux 64 RelWithDebInfo (Ninja + Clang)",
+            "hidden": false,
+            "configuration": "RelWithDebInfo",
+            "configurePreset": "linux-64-relWithDebInfo-ninja-clang"
+        }
+    ]
+}
