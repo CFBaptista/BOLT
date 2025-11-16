@@ -14,31 +14,16 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Enable export of compile commands for tooling
+# Enable export of compile commands
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Add a build target that copies compile_commands.json from the preset build directory to the root
-# build directory
-if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_custom_target(export_compile_commands ALL
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${CMAKE_BINARY_DIR}/compile_commands.json"
-            "${CMAKE_BINARY_DIR}/../compile_commands.json"
-        COMMENT "Copying compile_commands.json to the parent directory of ${CMAKE_BINARY_DIR}"
-        VERBATIM
-    )
-endif()
+# Add source root directory
+add_subdirectory(src)
 
 # Add test root directory
-set(TESTABLE_BUILD_TYPES 
-    Debug
-    RelWithDebInfo
-)
-if (CMAKE_BUILD_TYPE IN_LIST TESTABLE_BUILD_TYPES)
-    include(CTest)
-    enable_testing()
-    add_subdirectory(test)
-endif()
+include(CTest)
+enable_testing()
+add_subdirectory(test)
 
 # Add documentation root directory
 add_subdirectory(doc)

@@ -1,4 +1,4 @@
-if (ENABLE_DOCUMENTATION)
+if(ENABLE_DOCUMENTATION)
     find_package(Doxygen REQUIRED)
     set(ALWAYS_BUILD_DOCUMENTATION "ALL")
 else()
@@ -6,7 +6,7 @@ else()
     set(ALWAYS_BUILD_DOCUMENTATION "")
 endif()
 
-if (DOXYGEN_FOUND)
+if(DOXYGEN_FOUND)
     set(DOXYGEN_IN ${CMAKE_SOURCE_DIR}/doc/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_BINARY_DIR}/doc/doxygen/Doxyfile)
 
