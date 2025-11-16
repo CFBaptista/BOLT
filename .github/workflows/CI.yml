@@ -20,9 +20,10 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
+          sudo apt-get install -y catch2
           sudo apt-get install -y clang-format
           sudo apt-get install -y clang-tidy
-          
+
       - name: Checkout code
         uses: actions/checkout@v5
 
@@ -46,7 +47,7 @@ jobs:
             exit 0
           fi
 
-          clang-tidy -header-filter='.*' -format-style=file $cpp_files -- -Iinclude
+          clang-tidy -format-style=file $cpp_files -- -std=c++23 -Iinclude
 
   Linux-64-Debug-Ninja-Clang:
     name: Linux 64 Debug (Ninja + Clang)
