@@ -12,9 +12,46 @@ concurrency:
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 
 jobs:
+  Code-Quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format
+          sudo apt-get install -y clang-tidy
+          
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Run formatter
+        run: |
+          files=$(git ls-files '*.cpp' '*.hpp' '*.tpp' || true)
+          
+          if [ -z "$files" ]; then
+            echo "No .cpp/.hpp/.tpp files to check"
+            exit 0
+          fi
+        
+          printf '%s\n' $files | xargs -r clang-format --style=file -n --
+          
+      - name: Run linter
+        run: |
+          cpp_files=$(git ls-files '*.cpp' || true)
+
+          if [ -z "$cpp_files" ]; then
+            echo "No .cpp files to run clang-tidy on"
+            exit 0
+          fi
+
+          clang-tidy -header-filter='.*' -format-style=file $cpp_files -- -Iinclude
+
   Linux-64-Debug-Ninja-Clang:
     name: Linux 64 Debug (Ninja + Clang)
     runs-on: ubuntu-latest
+    needs: Code-Quality
 
     steps:
       - name: Install dependencies
@@ -22,7 +59,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y catch2
           sudo apt-get install -y clang
-          sudo apt-get install -y doxygen
           sudo apt-get install -y libstdc++-14-dev
           sudo apt-get install -y lld
           sudo apt-get install -y ninja-build
