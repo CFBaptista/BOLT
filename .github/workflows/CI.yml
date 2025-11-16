@@ -26,14 +26,14 @@ jobs:
           sudo apt-get install -y libstdc++-14-dev
           sudo apt-get install -y lld
           sudo apt-get install -y ninja-build
-          
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up CMake
-        uses: jwlawson/actions-setup-cmake@v1
+      
+      - name: Install CMake
+        uses: jwlawson/actions-setup-cmake@v2
         with:
           cmake-version: "3.30.5"
+          
+      - name: Checkout code
+        uses: actions/checkout@v5
 
       - name: Configure
         run: cmake --preset linux-64-debug-ninja-clang
@@ -41,5 +41,5 @@ jobs:
       - name: Build
         run: cmake --build --preset linux-64-debug-ninja-clang
 
-      - name: Run tests
+      - name: Test
         run: ctest --preset linux-64-debug-ninja-clang
