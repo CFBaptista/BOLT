@@ -6,7 +6,7 @@ on:
       - master
     tags: ["*"]
   pull_request:
-    
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
@@ -15,29 +15,24 @@ jobs:
   Code-Quality:
     name: Code Quality
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:bolt-latest
 
     steps:
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y catch2
-          sudo apt-get install -y clang-format
-          sudo apt-get install -y clang-tidy
-
       - name: Checkout code
         uses: actions/checkout@v5
 
       - name: Run formatter
         run: |
           files=$(git ls-files '*.cpp' '*.hpp' '*.tpp' || true)
-          
+
           if [ -z "$files" ]; then
             echo "No .cpp/.hpp/.tpp files to check"
             exit 0
           fi
-        
+
           printf '%s\n' $files | xargs -r clang-format --style=file -n --
-          
+
       - name: Run linter
         run: |
           cpp_files=$(git ls-files '*.cpp' || true)
@@ -49,34 +44,82 @@ jobs:
 
           clang-tidy -format-style=file $cpp_files -- -std=c++23 -Iinclude
 
-  Linux-64-Debug-Ninja-Clang:
-    name: Linux 64 Debug (Ninja + Clang)
+  Ubuntu-x86-64-Debug-Ninja-Clang:
+    name: Ubuntu x86-64 Debug (Ninja + Clang)
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:bolt-latest
     needs: Code-Quality
 
     steps:
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y catch2
-          sudo apt-get install -y clang
-          sudo apt-get install -y libstdc++-14-dev
-          sudo apt-get install -y lld
-          sudo apt-get install -y ninja-build
-      
-      - name: Install CMake
-        uses: jwlawson/actions-setup-cmake@v2
-        with:
-          cmake-version: "3.30.5"
-          
-      - name: Checkout code
+      - name: Checkout project
         uses: actions/checkout@v5
 
-      - name: Configure
-        run: cmake --preset linux-64-debug-ninja-clang
+      - name: Configure project
+        run: cmake --preset ubuntu-x86-64-debug-ninja-clang
 
-      - name: Build
-        run: cmake --build --preset linux-64-debug-ninja-clang
+      - name: Build project
+        run: cmake --build --preset ubuntu-x86-64-debug-ninja-clang
 
-      - name: Test
-        run: ctest --preset linux-64-debug-ninja-clang
+      - name: Test project
+        run: ctest --preset ubuntu-x86-64-debug-ninja-clang
+  
+  Ubuntu-x86-64-Release-Ninja-Clang:
+    name: Ubuntu x86-64 Release (Ninja + Clang)
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:bolt-latest
+    needs: Ubuntu-x86-64-Debug-Ninja-Clang
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset ubuntu-x86-64-release-ninja-clang
+
+      - name: Build project
+        run: cmake --build --preset ubuntu-x86-64-release-ninja-clang
+
+      - name: Test project
+        run: ctest --preset ubuntu-x86-64-release-ninja-clang
+        
+  Ubuntu-x86-64-Debug-Make-GCC:
+    name: Ubuntu x86-64 Debug (Make + GCC)
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:bolt-latest
+    needs: Code-Quality
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset ubuntu-x86-64-debug-make-gcc
+
+      - name: Build project
+        run: cmake --build --preset ubuntu-x86-64-debug-make-gcc
+
+      - name: Test project
+        run: ctest --preset ubuntu-x86-64-debug-make-gcc
+
+  Ubuntu-x86-64-Release-Make-GCC:
+    name: Ubuntu x86-64 Release (Make + GCC)
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:bolt-latest
+    needs: Ubuntu-x86-64-Debug-Make-GCC
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset ubuntu-x86-64-release-make-gcc
+
+      - name: Build project
+        run: cmake --build --preset ubuntu-x86-64-release-make-gcc
+
+      - name: Test project
+        run: ctest --preset ubuntu-x86-64-release-make-gcc
