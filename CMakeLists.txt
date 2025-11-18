@@ -1,5 +1,5 @@
 # Set minimum CMake version
-cmake_minimum_required(VERSION 3.30.5)
+cmake_minimum_required(VERSION 3.28.3)
 
 # Set project information
 project(

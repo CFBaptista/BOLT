@@ -36,3 +36,6 @@ build
 
 # Caches
 .cache
+
+# Tokens
+*.token
