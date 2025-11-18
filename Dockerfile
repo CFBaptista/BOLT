@@ -7,7 +7,7 @@ RUN \
     \
     # GNU toolchain
     apt-get install -y binutils && \
-    apt-get install -y gcc && \
+    apt-get install -y g++ && \
     apt-get install -y lcov && \
     apt-get install -y make && \
     \
