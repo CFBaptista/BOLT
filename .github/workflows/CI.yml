@@ -24,14 +24,27 @@ jobs:
 
       - name: Run formatter
         run: |
-          files=$(git ls-files '*.cpp' '*.hpp' '*.tpp' || true)
+          set -euo pipefail
+
+          if ! command -v clang-format >/dev/null 2>&1; then
+            echo "clang-format not found"
+            exit 1
+          fi
+
+          files=$(git ls-files '*.cpp' '*.hpp' '*.tpp')
 
           if [ -z "$files" ]; then
             echo "No .cpp/.hpp/.tpp files to check"
             exit 0
           fi
 
-          printf '%s\n' $files | xargs -r clang-format --style=file -n --
+          output=$(printf '%s\n' $files | xargs -r clang-format --style=file -n --)
+
+          if [ -n "$output" ]; then
+            printf '%s\n' "$output"
+            echo "Some files are not formatted. Run: clang-format --style=file -i <files>"
+            exit 1
+          fi
 
       - name: Run linter
         run: |
@@ -63,7 +76,7 @@ jobs:
 
       - name: Test project
         run: ctest --preset ubuntu-x86-64-debug-ninja-clang
-  
+
   Ubuntu-x86-64-Release-Ninja-Clang:
     name: Ubuntu x86-64 Release (Ninja + Clang)
     runs-on: ubuntu-latest
@@ -83,7 +96,7 @@ jobs:
 
       - name: Test project
         run: ctest --preset ubuntu-x86-64-release-ninja-clang
-        
+
   Ubuntu-x86-64-Debug-Make-GCC:
     name: Ubuntu x86-64 Debug (Make + GCC)
     runs-on: ubuntu-latest
