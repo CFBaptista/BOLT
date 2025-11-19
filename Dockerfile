@@ -3,6 +3,7 @@ FROM ubuntu:24.04
 WORKDIR /app
 
 RUN \
+    # Update package lists
     apt-get update && \
     \
     # GNU toolchain
@@ -23,6 +24,9 @@ RUN \
     apt-get install -y cmake && \
     apt-get install -y doxygen && \
     apt-get install -y ninja-build && \
+    \
+    # CI job dependencies
+    apt-get install -y git && \
     \
     # Clean up
     apt-get clean && \
