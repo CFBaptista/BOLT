@@ -1,4 +1,4 @@
-#include "../../src/lbm/D1Q3.hpp"
+#include "lbm/D1Q3.hpp"
 
 #include <numeric>
 
