@@ -21,14 +21,14 @@ public:
     friend class LatticeModelBase<D1Q3<Real>>;
 
 private:
-    static inline constexpr std::size_t dimension_{1};
-    static inline constexpr std::size_t size_{3};
+    static constexpr std::size_t dimension_{1};
+    static constexpr std::size_t size_{3};
 
-    static inline constexpr std::array<std::array<int, dimension_>, size_> velocities_{
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
         {{{0}}, {{1}}, {{-1}}}
     };
 
-    static inline constexpr std::array<Real, size_> weights_ = {
+    static constexpr std::array<Real, size_> weights_ = {
         static_cast<Real>(4) / static_cast<Real>(6), static_cast<Real>(1) / static_cast<Real>(6),
         static_cast<Real>(1) / static_cast<Real>(6)
     };

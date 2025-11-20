@@ -21,10 +21,10 @@ public:
     friend class LatticeModelBase<D2Q9<Real>>;
 
 private:
-    static inline constexpr std::size_t dimension_{2};
-    static inline constexpr std::size_t size_{9};
+    static constexpr std::size_t dimension_{2};
+    static constexpr std::size_t size_{9};
 
-    static inline constexpr std::array<std::array<int, dimension_>, size_> velocities_{
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
         {{{0, 0}},
          {{1, 0}},
          {{0, 1}},
@@ -36,7 +36,7 @@ private:
          {{1, -1}}}
     };
 
-    static inline constexpr std::array<Real, size_> weights_ = {
+    static constexpr std::array<Real, size_> weights_ = {
         static_cast<Real>(4) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
         static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
         static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(36),

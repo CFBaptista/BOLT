@@ -5,6 +5,7 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("D2Q9 lattice model properties")
 {
     GIVEN("A D2Q9 lattice model")
@@ -28,7 +29,7 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The dimension is 2")
             {
-                CHECK(dimension == expectedDimension);
+                CHECK((dimension == expectedDimension));
             }
         }
 
@@ -38,7 +39,7 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The size is 9")
             {
-                CHECK(size == expectedSize);
+                CHECK((size == expectedSize));
             }
         }
 
@@ -48,8 +49,8 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The 9 velocities are correct")
             {
-                CHECK(velocities.size() == expectedVelocities.size());
-                CHECK(velocities == expectedVelocities);
+                CHECK((velocities.size() == expectedVelocities.size()));
+                CHECK((velocities == expectedVelocities));
             }
 
             THEN("Sum of velocities is zero")
@@ -61,7 +62,7 @@ SCENARIO("D2Q9 lattice model properties")
                     sum[1] += velocity[1];
                 }
 
-                CHECK(sum == std::array<int, 2>{0, 0});
+                CHECK((sum == std::array<int, 2>{0, 0}));
             }
         }
 
@@ -71,9 +72,9 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The 9 weights are correct")
             {
-                CHECK(weights.size() == expectedWeights.size());
-                CHECK(weights == expectedWeights);
-                CHECK(std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0));
+                CHECK((weights.size() == expectedWeights.size()));
+                CHECK((weights == expectedWeights));
+                CHECK((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0)));
             }
         }
     }

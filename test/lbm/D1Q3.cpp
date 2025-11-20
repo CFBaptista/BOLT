@@ -5,6 +5,7 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("D1Q3 lattice model properties")
 {
     GIVEN("A D1Q3 lattice model")
@@ -24,7 +25,7 @@ SCENARIO("D1Q3 lattice model properties")
 
             THEN("The dimension is 1")
             {
-                CHECK(dimension == expectedDimension);
+                CHECK((dimension == expectedDimension));
             }
         }
 
@@ -34,7 +35,7 @@ SCENARIO("D1Q3 lattice model properties")
 
             THEN("The size is 3")
             {
-                CHECK(size == expectedSize);
+                CHECK((size == expectedSize));
             }
         }
 
@@ -44,8 +45,8 @@ SCENARIO("D1Q3 lattice model properties")
 
             THEN("The 3 velocities are correct")
             {
-                CHECK(velocities.size() == expectedVelocities.size());
-                CHECK(velocities == expectedVelocities);
+                CHECK((velocities.size() == expectedVelocities.size()));
+                CHECK((velocities == expectedVelocities));
             }
 
             THEN("Sum of velocities is zero")
@@ -56,7 +57,7 @@ SCENARIO("D1Q3 lattice model properties")
                     sum += velocity[0];
                 }
 
-                CHECK(sum == 0);
+                CHECK((sum == 0));
             }
         }
 
@@ -66,9 +67,9 @@ SCENARIO("D1Q3 lattice model properties")
 
             THEN("The 3 weights are correct")
             {
-                CHECK(weights.size() == expectedWeights.size());
-                CHECK(weights == expectedWeights);
-                CHECK(std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0));
+                CHECK((weights.size() == expectedWeights.size()));
+                CHECK((weights == expectedWeights));
+                CHECK((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0)));
             }
         }
     }
