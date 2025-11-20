@@ -3,10 +3,10 @@ Checks: >
     -*,
     bugprone-*,
     cert-*,
+    clang-*,
     clang-analyzer-*,
     cppcoreguidelines-*,
     modernize-*,
-    -modernize-use-nodiscard,
     performance-*,
     readability-*
 FormatStyle: file
