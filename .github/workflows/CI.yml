@@ -25,6 +25,7 @@ jobs:
       - name: Run formatter
         run: |
           set -euo pipefail
+          trap 'echo "An unexpected error occured during the formatting step. Exiting."' ERR
 
           if ! command -v clang-format >/dev/null 2>&1; then
             echo "clang-format not found"
@@ -38,24 +39,45 @@ jobs:
             exit 0
           fi
 
-          output=$(printf '%s\n' $files | xargs -r clang-format --style=file -n --)
+          fail=0
+          for file in $files; do
+            output=$(diff -u "$file" <(clang-format --style=file "$file"))
+            if [ -n "$output" ]; then
+              printf '%s\n' "$output"
+              fail=1
+            fi
+          done
 
-          if [ -n "$output" ]; then
-            printf '%s\n' "$output"
-            echo "Some files are not formatted. Run: clang-format --style=file -i <files>"
+          if [ $fail -ne 0 ]; then
+            echo "clang-format found unformatted files"
             exit 1
           fi
 
       - name: Run linter
         run: |
-          cpp_files=$(git ls-files '*.cpp' || true)
+          set -euo pipefail
+          trap 'echo "An unexpected error occured during the linting step. Exiting."' ERR
 
-          if [ -z "$cpp_files" ]; then
-            echo "No .cpp files to run clang-tidy on"
+          if ! command -v clang-tidy >/dev/null 2>&1; then
+            echo "clang-tidy not found"
+            exit 1
+          fi
+
+          files=$(git ls-files '*.cpp' '*.hpp')
+
+          if [ -z "$files" ]; then
+            echo "No .cpp/.hpp files to lint"
             exit 0
           fi
 
-          clang-tidy -format-style=file $cpp_files -- -std=c++23 -Iinclude
+          output=$(clang-tidy $files -p build -format-style=file -warnings-as-errors=* -quiet 2>&1)
+          status=$?
+          
+          if [ $status -ne 0 ]; then
+            printf '%s\n' "$output"
+            echo "clang-tidy found errors."
+            exit 1
+          fi
 
   Ubuntu-x86-64-Debug-Ninja-Clang:
     name: Ubuntu x86-64 Debug (Ninja + Clang)
