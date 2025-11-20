@@ -41,12 +41,14 @@ jobs:
 
           fail=0
           for file in $files; do
-            output=$(diff -u "$file" <(clang-format --style=file "$file"))
+            clang-format --style=file "$file" > tmp
+            output=$(diff -u "$file" tmp)
             if [ -n "$output" ]; then
               printf '%s\n' "$output"
               fail=1
             fi
           done
+          rm tmp
 
           if [ $fail -ne 0 ]; then
             echo "clang-format found unformatted files"
