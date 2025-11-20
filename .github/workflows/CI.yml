@@ -19,6 +19,9 @@ jobs:
       image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
 
     steps:
+      - name: Fix dubious ownership warning
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Checkout code
         uses: actions/checkout@v5
 
