@@ -33,6 +33,8 @@ jobs:
 
       - name: Run formatter
         run: |
+          set -x
+
           if ! command -v clang-format >/dev/null 2>&1; then
             echo "clang-format not found"
             exit 1
@@ -63,6 +65,8 @@ jobs:
 
       - name: Run linter
         run: |
+          set -x
+          
           if ! command -v clang-tidy >/dev/null 2>&1; then
             echo "clang-tidy not found"
             exit 1
