@@ -1,10 +1,11 @@
-#include "../../src/lbm/D3Q27.hpp"
+#include "lbm/D3Q27.hpp"
 
 #include <numeric>
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("D3Q27 lattice model properties")
 {
     GIVEN("A D3Q27 lattice model")
@@ -30,9 +31,9 @@ SCENARIO("D3Q27 lattice model properties")
             std::array<int, 3>{-1, -1, -1}
         };
         const auto expectedWeights = std::array<float, 27>{
-            8.0F / 27, 2.0F / 27, 2.0F / 27, 2.0F / 27,  2.0F / 27,  2.0F / 27, 2.0F / 27,
-            1.0F / 54, 1.0F / 54, 1.0F / 54, 1.0F / 54,  1.0F / 54,  1.0F / 54, 1.0F / 54,
-            1.0F / 54, 1.0F / 54, 1.0F / 54, 1.0F / 54,  1.0F / 54,  1.0F / 216, 1.0F / 216,
+            8.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,
+            1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,
+            1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 216, 1.0F / 216,
             1.0F / 216, 1.0F / 216, 1.0F / 216, 1.0F / 216, 1.0F / 216, 1.0F / 216
         };
 
@@ -42,7 +43,7 @@ SCENARIO("D3Q27 lattice model properties")
 
             THEN("The dimension is 3")
             {
-                CHECK(dimension == expectedDimension);
+                CHECK((dimension == expectedDimension));
             }
         }
 
@@ -52,7 +53,7 @@ SCENARIO("D3Q27 lattice model properties")
 
             THEN("The size is 27")
             {
-                CHECK(size == expectedSize);
+                CHECK((size == expectedSize));
             }
         }
 
@@ -62,8 +63,8 @@ SCENARIO("D3Q27 lattice model properties")
 
             THEN("The 27 velocities are correct")
             {
-                CHECK(velocities.size() == expectedVelocities.size());
-                CHECK(velocities == expectedVelocities);
+                CHECK((velocities.size() == expectedVelocities.size()));
+                CHECK((velocities == expectedVelocities));
             }
 
             THEN("Sum of velocities is zero")
@@ -76,7 +77,7 @@ SCENARIO("D3Q27 lattice model properties")
                     sum[2] += velocity[2];
                 }
 
-                CHECK(sum == std::array<int, 3>{0, 0, 0});
+                CHECK((sum == std::array<int, 3>{0, 0, 0}));
             }
         }
 
@@ -86,9 +87,9 @@ SCENARIO("D3Q27 lattice model properties")
 
             THEN("The 27 weights are correct")
             {
-                CHECK(weights.size() == expectedWeights.size());
-                CHECK(weights == expectedWeights);
-                CHECK(std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0));
+                CHECK((weights.size() == expectedWeights.size()));
+                CHECK((weights == expectedWeights));
+                CHECK((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0)));
             }
         }
     }

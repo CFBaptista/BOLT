@@ -16,39 +16,83 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.1.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
 
     steps:
+      - name: Fix dubious ownership warning
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Checkout code
         uses: actions/checkout@v5
 
+      - name: Configure project
+        run: cmake --preset ubuntu-x86-64-debug-ninja-clang
+
+      - name: Build project
+        run: cmake --build --preset ubuntu-x86-64-debug-ninja-clang
+
       - name: Run formatter
         run: |
-          files=$(git ls-files '*.cpp' '*.hpp' '*.tpp' || true)
+          set -x
+
+          if ! command -v clang-format >/dev/null 2>&1; then
+            echo "clang-format not found"
+            exit 1
+          fi
+
+          files=$(git ls-files '*.cpp' '*.hpp' '*.tpp')
 
           if [ -z "$files" ]; then
             echo "No .cpp/.hpp/.tpp files to check"
             exit 0
           fi
 
-          printf '%s\n' $files | xargs -r clang-format --style=file -n --
+          fail=0
+          for file in $files; do
+            clang-format --style=file "$file" > tmp
+            output=$(diff -u "$file" tmp)
+            if [ -n "$output" ]; then
+              printf '%s\n' "$output"
+              fail=1
+            fi
+          done
+          rm tmp
+
+          if [ $fail -ne 0 ]; then
+            echo "clang-format found unformatted files"
+            exit 1
+          fi
 
       - name: Run linter
         run: |
-          cpp_files=$(git ls-files '*.cpp' || true)
+          set -x
+          
+          if ! command -v clang-tidy >/dev/null 2>&1; then
+            echo "clang-tidy not found"
+            exit 1
+          fi
 
-          if [ -z "$cpp_files" ]; then
-            echo "No .cpp files to run clang-tidy on"
+          files=$(git ls-files '*.cpp' '*.hpp')
+
+          if [ -z "$files" ]; then
+            echo "No .cpp/.hpp files to lint"
             exit 0
           fi
 
-          clang-tidy -format-style=file $cpp_files -- -std=c++23 -Iinclude
+          output=$(clang-tidy $files -p build/ubuntu-x86-64-debug-ninja-clang -format-style=file -warnings-as-errors=* -quiet 2>&1)
+          status=$?
+
+          if [ $status -ne 0 ]; then
+            printf '%s\n' "$output"
+            echo "clang-tidy found errors."
+            exit 1
+          fi
 
   Ubuntu-x86-64-Debug-Ninja-Clang:
     name: Ubuntu x86-64 Debug (Ninja + Clang)
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.1.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
     needs: Code-Quality
 
     steps:
@@ -63,12 +107,12 @@ jobs:
 
       - name: Test project
         run: ctest --preset ubuntu-x86-64-debug-ninja-clang
-  
+
   Ubuntu-x86-64-Release-Ninja-Clang:
     name: Ubuntu x86-64 Release (Ninja + Clang)
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.1.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
     needs: Ubuntu-x86-64-Debug-Ninja-Clang
 
     steps:
@@ -83,12 +127,12 @@ jobs:
 
       - name: Test project
         run: ctest --preset ubuntu-x86-64-release-ninja-clang
-        
+
   Ubuntu-x86-64-Debug-Make-GCC:
     name: Ubuntu x86-64 Debug (Make + GCC)
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.1.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
     needs: Code-Quality
 
     steps:
@@ -108,7 +152,7 @@ jobs:
     name: Ubuntu x86-64 Release (Make + GCC)
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.1.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
     needs: Ubuntu-x86-64-Debug-Make-GCC
 
     steps:

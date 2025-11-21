@@ -6,3 +6,5 @@ add_custom_target(export_compile_commands ALL
     COMMENT "Copying compile_commands.json to root build directory"
     VERBATIM
 )
+
+add_subdirectory(lbm)
