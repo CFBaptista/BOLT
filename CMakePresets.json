@@ -12,11 +12,9 @@
             "binaryDir": "${sourceDir}/build/${presetName}"
         },
         {
-            "inherits": [
-                "base"
-            ],
             "name": "ubuntu-x86-64-llvm-base",
             "hidden": true,
+            "inherits": "base",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_LINKER": "lld",
@@ -27,47 +25,39 @@
             }
         },
         {
-            "inherits": [
-                "ubuntu-x86-64-llvm-base"
-            ],
             "name": "ubuntu-x86-64-debug-ninja-clang",
             "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
             "hidden": false,
+            "inherits": "ubuntu-x86-64-llvm-base",
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
-            "inherits": [
-                "ubuntu-x86-64-llvm-base"
-            ],
             "name": "ubuntu-x86-64-release-ninja-clang",
             "displayName": "Ubuntu x86-64 Release (Ninja + Clang)",
             "hidden": false,
+            "inherits": "ubuntu-x86-64-llvm-base",
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
-            "inherits": [
-                "ubuntu-x86-64-llvm-base"
-            ],
             "name": "ubuntu-x86-64-relWithDebInfo-ninja-clang",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Ninja + Clang)",
             "hidden": false,
+            "inherits": "ubuntu-x86-64-llvm-base",
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
             }
         },
         {
-            "inherits": [
-                "base"
-            ],
             "name": "ubuntu-x86-64-gnu-base",
             "hidden": true,
+            "inherits": "base",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_LINKER": "ld",
@@ -75,36 +65,30 @@
             }
         },
         {
-            "inherits": [
-                "ubuntu-x86-64-gnu-base"
-            ],
             "name": "ubuntu-x86-64-debug-make-gcc",
             "displayName": "Ubuntu x86-64 Debug (Make + GCC)",
             "hidden": false,
+            "inherits": "ubuntu-x86-64-gnu-base",
             "generator": "Unix Makefiles",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
-            "inherits": [
-                "ubuntu-x86-64-gnu-base"
-            ],
             "name": "ubuntu-x86-64-release-make-gcc",
             "displayName": "Ubuntu x86-64 Release (Make + GCC)",
             "hidden": false,
+            "inherits": "ubuntu-x86-64-gnu-base",
             "generator": "Unix Makefiles",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
-            "inherits": [
-                "ubuntu-x86-64-gnu-base"
-            ],
             "name": "ubuntu-x86-64-relWithDebInfo-make-gcc",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Make + GCC)",
             "hidden": false,
+            "inherits": "ubuntu-x86-64-gnu-base",
             "generator": "Unix Makefiles",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
@@ -120,50 +104,50 @@
             "jobs": 4
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-debug-ninja-clang",
             "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Debug",
             "configurePreset": "ubuntu-x86-64-debug-ninja-clang"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-release-ninja-clang",
             "displayName": "Ubuntu x86-64 Release (Ninja + Clang)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Release",
             "configurePreset": "ubuntu-x86-64-release-ninja-clang"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-relWithDebInfo-ninja-clang",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Ninja + Clang)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "RelWithDebInfo",
             "configurePreset": "ubuntu-x86-64-relWithDebInfo-ninja-clang"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-debug-make-gcc",
             "displayName": "Ubuntu x86-64 Debug (Make + GCC)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Debug",
             "configurePreset": "ubuntu-x86-64-debug-make-gcc"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-release-make-gcc",
             "displayName": "Ubuntu x86-64 Release (Make + GCC)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Release",
             "configurePreset": "ubuntu-x86-64-release-make-gcc"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-relWithDebInfo-make-gcc",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Make + GCC)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "RelWithDebInfo",
             "configurePreset": "ubuntu-x86-64-relWithDebInfo-make-gcc"
         }
@@ -182,50 +166,50 @@
             }
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-debug-ninja-clang",
             "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Debug",
             "configurePreset": "ubuntu-x86-64-debug-ninja-clang"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-release-ninja-clang",
             "displayName": "Ubuntu x86-64 Release (Ninja + Clang)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Release",
             "configurePreset": "ubuntu-x86-64-release-ninja-clang"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-relWithDebInfo-ninja-clang",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Ninja + Clang)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "RelWithDebInfo",
             "configurePreset": "ubuntu-x86-64-relWithDebInfo-ninja-clang"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-debug-make-gcc",
             "displayName": "Ubuntu x86-64 Debug (Make + GCC)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Debug",
             "configurePreset": "ubuntu-x86-64-debug-make-gcc"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-release-make-gcc",
             "displayName": "Ubuntu x86-64 Release (Make + GCC)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "Release",
             "configurePreset": "ubuntu-x86-64-release-make-gcc"
         },
         {
-            "inherits": "base",
             "name": "ubuntu-x86-64-relWithDebInfo-make-gcc",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Make + GCC)",
             "hidden": false,
+            "inherits": "base",
             "configuration": "RelWithDebInfo",
             "configurePreset": "ubuntu-x86-64-relWithDebInfo-make-gcc"
         }
