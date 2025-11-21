@@ -8,6 +8,7 @@
     "configurePresets": [
         {
             "name": "base",
+            "description": "Base configure preset",
             "hidden": true,
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
@@ -16,6 +17,7 @@
         },
         {
             "name": "llvm",
+            "description": "Configure preset using the LLVM toolchain",
             "hidden": true,
             "inherits": "base",
             "generator": "Ninja",
@@ -29,6 +31,7 @@
         },
         {
             "name": "gnu",
+            "description": "Configure preset using the GNU toolchain",
             "hidden": true,
             "inherits": "base",
             "generator": "Unix Makefiles",
@@ -39,6 +42,7 @@
         },
         {
             "name": "debug",
+            "description": "Configure preset for Debug build",
             "hidden": true,
             "inherits": "base",
             "cacheVariables": {
@@ -47,6 +51,7 @@
         },
         {
             "name": "release",
+            "description": "Configure preset for Release build",
             "hidden": true,
             "inherits": "base",
             "cacheVariables": {
@@ -55,6 +60,7 @@
         },
         {
             "name": "relWithDebInfo",
+            "description": "Configure preset for RelWithDebInfo build",
             "hidden": true,
             "inherits": "base",
             "cacheVariables": {
@@ -62,38 +68,44 @@
             }
         },
         {
-            "name": "ubuntu-x86-64-debug-ninja-clang",
-            "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-debug",
+            "displayName": "Linux x86-64 LLVM Debug",
+            "description": "Configure preset using the LLVM toolchain for Debug build",
             "hidden": false,
             "inherits": ["llvm", "debug"]
         },
         {
-            "name": "ubuntu-x86-64-release-ninja-clang",
-            "displayName": "Ubuntu x86-64 Release (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-release",
+            "displayName": "Linux x86-64 LLVM Release",
+            "description": "Configure preset using the LLVM toolchain for Release build",
             "hidden": false,
             "inherits": ["llvm", "release"]
         },
         {
-            "name": "ubuntu-x86-64-relWithDebInfo-ninja-clang",
-            "displayName": "Ubuntu x86-64 RelWithDebInfo (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-relWithDebInfo",
+            "displayName": "Linux x86-64 LLVM RelWithDebInfo",
+            "description": "Configure preset using the LLVM toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": ["llvm", "relWithDebInfo"]
         },
         {
-            "name": "ubuntu-x86-64-debug-make-gcc",
-            "displayName": "Ubuntu x86-64 Debug (Make + GCC)",
+            "name": "linux-x86-64-gnu-debug",
+            "displayName": "Linux x86-64 GNU Debug",
+            "description": "Configure preset using the GNU toolchain for Debug build",
             "hidden": false,
             "inherits": ["gnu", "debug"]
         },
         {
-            "name": "ubuntu-x86-64-release-make-gcc",
-            "displayName": "Ubuntu x86-64 Release (Make + GCC)",
+            "name": "linux-x86-64-gnu-release",
+            "displayName": "Linux x86-64 GNU Release",
+            "description": "Configure preset using the GNU toolchain for Release build",
             "hidden": false,
             "inherits": ["gnu", "release"]
         },
         {
-            "name": "ubuntu-x86-64-relWithDebInfo-make-gcc",
-            "displayName": "Ubuntu x86-64 RelWithDebInfo (Make + GCC)",
+            "name": "linux-x86-64-gnu-relWithDebInfo",
+            "displayName": "Linux x86-64 GNU RelWithDebInfo",
+            "description": "Configure preset using the GNU toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": ["gnu", "relWithDebInfo"]
         }
@@ -101,63 +113,71 @@
     "buildPresets": [
         {
             "name": "base",
+            "description": "Base build preset",
             "hidden": true,
             "inheritConfigureEnvironment": true,
             "verbose": true,
             "jobs": 4
         },
         {
-            "name": "ubuntu-x86-64-debug-ninja-clang",
-            "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-debug",
+            "displayName": "Linux x86-64 LLVM Debug",
+            "description": "Build preset using the LLVM toolchain for Debug build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "ubuntu-x86-64-debug-ninja-clang"
+            "configurePreset": "linux-x86-64-llvm-debug"
         },
         {
-            "name": "ubuntu-x86-64-release-ninja-clang",
-            "displayName": "Ubuntu x86-64 Release (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-release",
+            "displayName": "Linux x86-64 LLVM Release",
+            "description": "Build preset using the LLVM toolchain for Release build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "ubuntu-x86-64-release-ninja-clang"
+            "configurePreset": "linux-x86-64-llvm-release"
         },
         {
-            "name": "ubuntu-x86-64-relWithDebInfo-ninja-clang",
-            "displayName": "Ubuntu x86-64 RelWithDebInfo (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-relWithDebInfo",
+            "displayName": "Linux x86-64 LLVM RelWithDebInfo",
+            "description": "Build preset using the LLVM toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "ubuntu-x86-64-relWithDebInfo-ninja-clang"
+            "configurePreset": "linux-x86-64-llvm-relWithDebInfo"
         },
         {
-            "name": "ubuntu-x86-64-debug-make-gcc",
-            "displayName": "Ubuntu x86-64 Debug (Make + GCC)",
+            "name": "linux-x86-64-gnu-debug",
+            "displayName": "Linux x86-64 GNU Debug",
+            "description": "Build preset using the GNU toolchain for Debug build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "ubuntu-x86-64-debug-make-gcc"
+            "configurePreset": "linux-x86-64-gnu-debug"
         },
         {
-            "name": "ubuntu-x86-64-release-make-gcc",
-            "displayName": "Ubuntu x86-64 Release (Make + GCC)",
+            "name": "linux-x86-64-gnu-release",
+            "displayName": "Linux x86-64 GNU Release",
+            "description": "Build preset using the GNU toolchain for Release build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "ubuntu-x86-64-release-make-gcc"
+            "configurePreset": "linux-x86-64-gnu-release"
         },
         {
-            "name": "ubuntu-x86-64-relWithDebInfo-make-gcc",
-            "displayName": "Ubuntu x86-64 RelWithDebInfo (Make + GCC)",
+            "name": "linux-x86-64-gnu-relWithDebInfo",
+            "displayName": "Linux x86-64 GNU RelWithDebInfo",
+            "description": "Build preset using the GNU toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "ubuntu-x86-64-relWithDebInfo-make-gcc"
+            "configurePreset": "linux-x86-64-gnu-relWithDebInfo"
         }
     ],
     "testPresets": [
         {
             "name": "base",
+            "description": "Base test preset",
             "hidden": true,
             "inheritConfigureEnvironment": true,
             "output": {
@@ -169,52 +189,58 @@
             }
         },
         {
-            "name": "ubuntu-x86-64-debug-ninja-clang",
-            "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-debug",
+            "displayName": "Linux x86-64 LLVM Debug",
+            "description": "Test preset for Debug build built with the LLVM toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "ubuntu-x86-64-debug-ninja-clang"
+            "configurePreset": "linux-x86-64-llvm-debug"
         },
         {
-            "name": "ubuntu-x86-64-release-ninja-clang",
-            "displayName": "Ubuntu x86-64 Release (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-release",
+            "displayName": "Linux x86-64 LLVM Release",
+            "description": "Test preset for Release build built with the LLVM toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "ubuntu-x86-64-release-ninja-clang"
+            "configurePreset": "linux-x86-64-llvm-release"
         },
         {
-            "name": "ubuntu-x86-64-relWithDebInfo-ninja-clang",
-            "displayName": "Ubuntu x86-64 RelWithDebInfo (Ninja + Clang)",
+            "name": "linux-x86-64-llvm-relWithDebInfo",
+            "displayName": "Linux x86-64 LLVM RelWithDebInfo",
+            "description": "Test preset for RelWithDebInfo build built with the LLVM toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "ubuntu-x86-64-relWithDebInfo-ninja-clang"
+            "configurePreset": "linux-x86-64-llvm-relWithDebInfo"
         },
         {
-            "name": "ubuntu-x86-64-debug-make-gcc",
-            "displayName": "Ubuntu x86-64 Debug (Make + GCC)",
+            "name": "linux-x86-64-gnu-debug",
+            "displayName": "Linux x86-64 GNU Debug",
+            "description": "Test preset for Debug build built with the GNU toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "ubuntu-x86-64-debug-make-gcc"
+            "configurePreset": "linux-x86-64-gnu-debug"
         },
         {
-            "name": "ubuntu-x86-64-release-make-gcc",
-            "displayName": "Ubuntu x86-64 Release (Make + GCC)",
+            "name": "linux-x86-64-gnu-release",
+            "displayName": "Linux x86-64 GNU Release",
+            "description": "Test preset for Release build built with the GNU toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "ubuntu-x86-64-release-make-gcc"
+            "configurePreset": "linux-x86-64-gnu-release"
         },
         {
-            "name": "ubuntu-x86-64-relWithDebInfo-make-gcc",
-            "displayName": "Ubuntu x86-64 RelWithDebInfo (Make + GCC)",
+            "name": "linux-x86-64-gnu-relWithDebInfo",
+            "displayName": "Linux x86-64 GNU RelWithDebInfo",
+            "description": "Test preset for RelWithDebInfo build built with the GNU toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "ubuntu-x86-64-relWithDebInfo-make-gcc"
+            "configurePreset": "linux-x86-64-gnu-relWithDebInfo"
         }
     ]
 }
