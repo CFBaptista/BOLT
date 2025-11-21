@@ -66,7 +66,7 @@ jobs:
       - name: Run linter
         run: |
           set -x
-          
+
           if ! command -v clang-tidy >/dev/null 2>&1; then
             echo "clang-tidy not found"
             exit 1
@@ -88,82 +88,29 @@ jobs:
             exit 1
           fi
 
-  Linux-x86-64-LLVM-Debug:
-    name: Linux x86-64 LLVM Debug
+  Configure-Build-Test:
+    name: Build and Test (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
     needs: Code-Quality
+    strategy:
+      matrix:
+        preset:
+          - linux-x86-64-gnu-debug
+          - linux-x86-64-gnu-release
+          - linux-x86-64-llvm-debug
+          - linux-x86-64-llvm-release
 
     steps:
       - name: Checkout project
         uses: actions/checkout@v5
 
       - name: Configure project
-        run: cmake --preset linux-x86-64-llvm-debug
+        run: cmake --preset ${{ matrix.preset }}
 
       - name: Build project
-        run: cmake --build --preset linux-x86-64-llvm-debug
+        run: cmake --build --preset ${{ matrix.preset }}
 
       - name: Test project
-        run: ctest --preset linux-x86-64-llvm-debug
-
-  Linux-x86-64-LLVM-Release:
-    name: Linux x86-64 LLVM Release
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
-    needs: Linux-x86-64-LLVM-Debug
-
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v5
-
-      - name: Configure project
-        run: cmake --preset linux-x86-64-llvm-release
-
-      - name: Build project
-        run: cmake --build --preset linux-x86-64-llvm-release
-
-      - name: Test project
-        run: ctest --preset linux-x86-64-llvm-release
-
-  Linux-x86-64-GNU-Debug:
-    name: Linux x86-64 GNU Debug
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
-    needs: Code-Quality
-
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v5
-
-      - name: Configure project
-        run: cmake --preset linux-x86-64-gnu-debug
-
-      - name: Build project
-        run: cmake --build --preset linux-x86-64-gnu-debug
-
-      - name: Test project
-        run: ctest --preset linux-x86-64-gnu-debug
-
-  Linux-x86-64-GNU-Release:
-    name: Linux x86-64 GNU Release
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
-    needs: Linux-x86-64-GNU-Debug
-
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v5
-
-      - name: Configure project
-        run: cmake --preset linux-x86-64-gnu-release
-
-      - name: Build project
-        run: cmake --build --preset linux-x86-64-gnu-release
-
-      - name: Test project
-        run: ctest --preset linux-x86-64-gnu-release
+        run: ctest --preset ${{ matrix.preset }}
