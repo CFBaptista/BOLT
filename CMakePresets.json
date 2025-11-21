@@ -9,90 +9,93 @@
         {
             "name": "base",
             "hidden": true,
-            "binaryDir": "${sourceDir}/build/${presetName}"
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
         },
         {
-            "name": "ubuntu-x86-64-llvm-base",
+            "name": "llvm",
             "hidden": true,
             "inherits": "base",
+            "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clang++",
-                "CMAKE_LINKER": "lld",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+                "CMAKE_LINKER": "lld"
             },
             "environment": {
                 "LDFLAGS": "-fuse-ld=lld"
             }
         },
         {
-            "name": "ubuntu-x86-64-debug-ninja-clang",
-            "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
-            "hidden": false,
-            "inherits": "ubuntu-x86-64-llvm-base",
-            "generator": "Ninja",
+            "name": "gnu",
+            "hidden": true,
+            "inherits": "base",
+            "generator": "Unix Makefiles",
+            "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_LINKER": "ld"
+            }
+        },
+        {
+            "name": "debug",
+            "hidden": true,
+            "inherits": "base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
+        },
+        {
+            "name": "release",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "relWithDebInfo",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "ubuntu-x86-64-debug-ninja-clang",
+            "displayName": "Ubuntu x86-64 Debug (Ninja + Clang)",
+            "hidden": false,
+            "inherits": ["llvm", "debug"]
         },
         {
             "name": "ubuntu-x86-64-release-ninja-clang",
             "displayName": "Ubuntu x86-64 Release (Ninja + Clang)",
             "hidden": false,
-            "inherits": "ubuntu-x86-64-llvm-base",
-            "generator": "Ninja",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
+            "inherits": ["llvm", "release"]
         },
         {
             "name": "ubuntu-x86-64-relWithDebInfo-ninja-clang",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Ninja + Clang)",
             "hidden": false,
-            "inherits": "ubuntu-x86-64-llvm-base",
-            "generator": "Ninja",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
-            }
-        },
-        {
-            "name": "ubuntu-x86-64-gnu-base",
-            "hidden": true,
-            "inherits": "base",
-            "cacheVariables": {
-                "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_LINKER": "ld",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            }
+            "inherits": ["llvm", "relWithDebInfo"]
         },
         {
             "name": "ubuntu-x86-64-debug-make-gcc",
             "displayName": "Ubuntu x86-64 Debug (Make + GCC)",
             "hidden": false,
-            "inherits": "ubuntu-x86-64-gnu-base",
-            "generator": "Unix Makefiles",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
+            "inherits": ["gnu", "debug"]
         },
         {
             "name": "ubuntu-x86-64-release-make-gcc",
             "displayName": "Ubuntu x86-64 Release (Make + GCC)",
             "hidden": false,
-            "inherits": "ubuntu-x86-64-gnu-base",
-            "generator": "Unix Makefiles",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
+            "inherits": ["gnu", "release"]
         },
         {
             "name": "ubuntu-x86-64-relWithDebInfo-make-gcc",
             "displayName": "Ubuntu x86-64 RelWithDebInfo (Make + GCC)",
             "hidden": false,
-            "inherits": "ubuntu-x86-64-gnu-base",
-            "generator": "Unix Makefiles",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
-            }
+            "inherits": ["gnu", "relWithDebInfo"]
         }
     ],
     "buildPresets": [
