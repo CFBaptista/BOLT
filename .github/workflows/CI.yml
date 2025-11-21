@@ -6,6 +6,8 @@ on:
       - master
     tags: ["*"]
   pull_request:
+    branches:
+      - master
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -89,7 +91,7 @@ jobs:
           fi
 
   Configure-Build-Test:
-    name: Build and Test (${{ matrix.preset }})
+    name: Configure-Build-Test (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
