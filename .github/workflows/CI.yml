@@ -103,6 +103,7 @@ jobs:
           - linux-x86-64-gnu-release
           - linux-x86-64-llvm-debug
           - linux-x86-64-llvm-release
+      fail-fast: true
 
     steps:
       - name: Checkout project
