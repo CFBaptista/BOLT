@@ -36,7 +36,7 @@
             "inherits": "base",
             "generator": "Unix Makefiles",
             "cacheVariables": {
-                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_COMPILER": "g++-13",
                 "CMAKE_LINKER": "ld"
             }
         },
