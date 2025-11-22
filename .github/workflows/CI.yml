@@ -6,6 +6,8 @@ on:
       - master
     tags: ["*"]
   pull_request:
+    branches:
+      - master
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,10 +28,10 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Configure project
-        run: cmake --preset ubuntu-x86-64-debug-ninja-clang
+        run: cmake --preset linux-x86-64-llvm-debug
 
       - name: Build project
-        run: cmake --build --preset ubuntu-x86-64-debug-ninja-clang
+        run: cmake --build --preset linux-x86-64-llvm-debug
 
       - name: Run formatter
         run: |
@@ -66,7 +68,7 @@ jobs:
       - name: Run linter
         run: |
           set -x
-          
+
           if ! command -v clang-tidy >/dev/null 2>&1; then
             echo "clang-tidy not found"
             exit 1
@@ -79,7 +81,7 @@ jobs:
             exit 0
           fi
 
-          output=$(clang-tidy $files -p build/ubuntu-x86-64-debug-ninja-clang -format-style=file -warnings-as-errors=* -quiet 2>&1)
+          output=$(clang-tidy $files -p build/linux-x86-64-llvm-debug -format-style=file -warnings-as-errors=* -quiet 2>&1)
           status=$?
 
           if [ $status -ne 0 ]; then
@@ -88,82 +90,30 @@ jobs:
             exit 1
           fi
 
-  Ubuntu-x86-64-Debug-Ninja-Clang:
-    name: Ubuntu x86-64 Debug (Ninja + Clang)
+  Configure-Build-Test:
+    name: Configure-Build-Test (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
     needs: Code-Quality
+    strategy:
+      matrix:
+        preset:
+          - linux-x86-64-gnu-debug
+          - linux-x86-64-gnu-release
+          - linux-x86-64-llvm-debug
+          - linux-x86-64-llvm-release
+      fail-fast: true
 
     steps:
       - name: Checkout project
         uses: actions/checkout@v5
 
       - name: Configure project
-        run: cmake --preset ubuntu-x86-64-debug-ninja-clang
+        run: cmake --preset ${{ matrix.preset }}
 
       - name: Build project
-        run: cmake --build --preset ubuntu-x86-64-debug-ninja-clang
+        run: cmake --build --preset ${{ matrix.preset }}
 
       - name: Test project
-        run: ctest --preset ubuntu-x86-64-debug-ninja-clang
-
-  Ubuntu-x86-64-Release-Ninja-Clang:
-    name: Ubuntu x86-64 Release (Ninja + Clang)
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
-    needs: Ubuntu-x86-64-Debug-Ninja-Clang
-
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v5
-
-      - name: Configure project
-        run: cmake --preset ubuntu-x86-64-release-ninja-clang
-
-      - name: Build project
-        run: cmake --build --preset ubuntu-x86-64-release-ninja-clang
-
-      - name: Test project
-        run: ctest --preset ubuntu-x86-64-release-ninja-clang
-
-  Ubuntu-x86-64-Debug-Make-GCC:
-    name: Ubuntu x86-64 Debug (Make + GCC)
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
-    needs: Code-Quality
-
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v5
-
-      - name: Configure project
-        run: cmake --preset ubuntu-x86-64-debug-make-gcc
-
-      - name: Build project
-        run: cmake --build --preset ubuntu-x86-64-debug-make-gcc
-
-      - name: Test project
-        run: ctest --preset ubuntu-x86-64-debug-make-gcc
-
-  Ubuntu-x86-64-Release-Make-GCC:
-    name: Ubuntu x86-64 Release (Make + GCC)
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
-    needs: Ubuntu-x86-64-Debug-Make-GCC
-
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v5
-
-      - name: Configure project
-        run: cmake --preset ubuntu-x86-64-release-make-gcc
-
-      - name: Build project
-        run: cmake --build --preset ubuntu-x86-64-release-make-gcc
-
-      - name: Test project
-        run: ctest --preset ubuntu-x86-64-release-make-gcc
+        run: ctest --preset ${{ matrix.preset }}
