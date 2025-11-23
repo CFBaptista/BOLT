@@ -38,45 +38,18 @@ jobs:
 
       - name: Run formatter
         run: |
-          set -x
-
-          if ! command -v clang-format >/dev/null 2>&1; then
-            echo "clang-format not found"
-            exit 1
-          fi
-
-          files=$(git ls-files '*.cpp' '*.hpp' '*.tpp')
-
-          if [ -z "$files" ]; then
-            echo "No .cpp/.hpp/.tpp files to check"
-            exit 0
-          fi
-
-          clang-format --style=file $files --dry-run --Werror
+          output=$(clang-format --style=file $(git ls-files '*.cpp' '*.hpp' '*.tpp') --dry-run --Werror)
           status=$?
 
           if [ $status -ne 0 ]; then
+            printf '%s\n' "$output"
             echo "clang-format found formatting issues."
             exit 1
           fi
 
       - name: Run linter
         run: |
-          set -x
-
-          if ! command -v clang-tidy >/dev/null 2>&1; then
-            echo "clang-tidy not found"
-            exit 1
-          fi
-
-          files=$(git ls-files '*.cpp' '*.hpp')
-
-          if [ -z "$files" ]; then
-            echo "No .cpp/.hpp files to lint"
-            exit 0
-          fi
-
-          output=$(clang-tidy $files -p build/linux-x86-64-llvm-debug -format-style=file -warnings-as-errors=* -quiet 2>&1)
+          output=$(clang-tidy $(git ls-files '*.cpp' '*.hpp') -p build/linux-x86-64-llvm-debug -format-style=file -warnings-as-errors=* -quiet 2>&1)
           status=$?
 
           if [ $status -ne 0 ]; then
@@ -86,7 +59,15 @@ jobs:
           fi
 
       - name: Run static analysis
-        run: cppcheck --enable=all --inconclusive --force --suppress=missingIncludeSystem --std=c++23 --error-exitcode=1 --quiet -I src src test
+        run: |
+          output=$(cppcheck --enable=all --inconclusive --force --suppress=missingIncludeSystem --std=c++23 --error-exitcode=1 --quiet -I src src test)
+          status=$?
+
+          if [ $status -ne 0 ]; then
+            printf '%s\n' "$output"
+            echo "cppcheck found errors."
+            exit 1
+          fi
 
       - name: Run coverage
         run: cmake --build build/linux-x86-64-llvm-debug --target Coverage
