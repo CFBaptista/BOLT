@@ -52,11 +52,10 @@ jobs:
             exit 0
           fi
 
-          output=clang-format --style=file $files --dry-run --Werror
+          clang-format --style=file $files --dry-run --Werror
           status=$?
 
           if [ $status -ne 0 ]; then
-            printf '%s\n' "$output"
             echo "clang-format found formatting issues."
             exit 1
           fi
