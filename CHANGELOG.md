@@ -14,7 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `D3Q27`: Class template for the D3Q27 lattice model.
 
 - `CI`: GitHub workflow for configuring, building and testing the project
-- Dockerfile for the image that `CI` uses to avoid installing build dependencies on each run
+- `Dockerfile`: Ubuntu 24.04 docker image for running `CI` jobs
+- CMake target `Coverage` for running code coverage analysis
 
 ### Changed
 
