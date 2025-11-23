@@ -22,7 +22,6 @@ add_subdirectory(src)
 
 # Add test root directory
 include(CTest)
-enable_testing()
 add_subdirectory(test)
 
 # Add documentation root directory

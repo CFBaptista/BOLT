@@ -10,16 +10,10 @@ target_link_libraries(lbm_test PRIVATE
 # Set compile flags for test executable
 target_compile_options(lbm_test PRIVATE
     ${COMPILE_FLAGS}
-    ${COVERAGE_FLAGS}
     -Wall
     -Wextra
     -Werror
     -Wpedantic
-)
-
-# Set link flags for test executable
-target_link_options(lbm_test PRIVATE
-    ${COVERAGE_FLAGS}
 )
 
 # Discover tests from test executable
