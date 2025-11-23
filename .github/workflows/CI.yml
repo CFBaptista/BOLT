@@ -18,7 +18,7 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.3.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.4.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -38,55 +38,34 @@ jobs:
 
       - name: Run formatter
         run: |
-          set -x
-
-          if ! command -v clang-format >/dev/null 2>&1; then
-            echo "clang-format not found"
-            exit 1
-          fi
-
-          files=$(git ls-files '*.cpp' '*.hpp' '*.tpp')
-
-          if [ -z "$files" ]; then
-            echo "No .cpp/.hpp/.tpp files to check"
-            exit 0
-          fi
-
-          status=0
-          for file in $files; do
-            clang-format --style=file "$file" --dry-run --Werror
-            if [ $? -ne 0 ]; then
-              status=1
-            fi
-          done
+          output=$(clang-format --style=file $(git ls-files '*.cpp' '*.hpp' '*.tpp') --dry-run --Werror)
+          status=$?
 
           if [ $status -ne 0 ]; then
+            printf '%s\n' "$output"
             echo "clang-format found formatting issues."
             exit 1
           fi
 
       - name: Run linter
         run: |
-          set -x
-
-          if ! command -v clang-tidy >/dev/null 2>&1; then
-            echo "clang-tidy not found"
-            exit 1
-          fi
-
-          files=$(git ls-files '*.cpp' '*.hpp')
-
-          if [ -z "$files" ]; then
-            echo "No .cpp/.hpp files to lint"
-            exit 0
-          fi
-
-          output=$(clang-tidy $files -p build/linux-x86-64-llvm-debug -format-style=file -warnings-as-errors=* -quiet 2>&1)
+          output=$(clang-tidy $(git ls-files '*.cpp' '*.hpp') -p build/linux-x86-64-llvm-debug -format-style=file -warnings-as-errors=* -quiet 2>&1)
           status=$?
 
           if [ $status -ne 0 ]; then
             printf '%s\n' "$output"
             echo "clang-tidy found errors."
+            exit 1
+          fi
+
+      - name: Run static analysis
+        run: |
+          output=$(cppcheck --enable=all --inconclusive --force --suppress=missingIncludeSystem --std=c++23 --error-exitcode=1 --quiet -I src src test)
+          status=$?
+
+          if [ $status -ne 0 ]; then
+            printf '%s\n' "$output"
+            echo "cppcheck found errors."
             exit 1
           fi
 
@@ -97,7 +76,7 @@ jobs:
     name: Configure-Build-Test (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.3.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.4.0
     needs: Code-Quality
     strategy:
       matrix:

@@ -22,6 +22,7 @@ RUN \
     # Miscellaneous
     apt-get install -y catch2 && \
     apt-get install -y cmake && \
+    apt-get install -y cppcheck && \
     apt-get install -y doxygen && \
     apt-get install -y git && \
     apt-get install -y python3 && \
