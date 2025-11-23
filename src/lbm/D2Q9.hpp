@@ -36,7 +36,7 @@ private:
          {{1, -1}}}
     };
 
-    static constexpr std::array<Real, size_> weights_ = {
+    static constexpr std::array<Real, size_> weights_{
         static_cast<Real>(4) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
         static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
         static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(36),
