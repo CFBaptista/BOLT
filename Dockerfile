@@ -19,14 +19,13 @@ RUN \
     apt-get install -y libstdc++-14-dev && \
     apt-get install -y lld && \
     \
-    # Other build dependencies
+    # Miscellaneous
     apt-get install -y catch2 && \
     apt-get install -y cmake && \
     apt-get install -y doxygen && \
-    apt-get install -y ninja-build && \
-    \
-    # CI job dependencies
     apt-get install -y git && \
+    apt-get install -y python3 && \
+    apt-get install -y ninja-build && \
     \
     # Clean up
     apt-get clean && \

@@ -18,7 +18,7 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.3.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -32,6 +32,9 @@ jobs:
 
       - name: Build project
         run: cmake --build --preset linux-x86-64-llvm-debug
+
+      - name: Test project
+        run: ctest --preset linux-x86-64-llvm-debug
 
       - name: Run formatter
         run: |
@@ -49,21 +52,15 @@ jobs:
             exit 0
           fi
 
-          fail=0
+          status=0
           for file in $files; do
-            clang-format --style=file "$file" > tmp
-            output=$(diff -u "$file" tmp)
-            if [ -n "$output" ]; then
-              printf '%s\n' "$output"
-              fail=1
+            clang-format --style=file "$file" --dry-run --Werror
+            if [ $? -ne 0 ]; then
+              status=1
             fi
           done
-          rm tmp
 
-          if [ $fail -ne 0 ]; then
-            echo "clang-format found unformatted files"
-            exit 1
-          fi
+          exit $status
 
       - name: Run linter
         run: |
@@ -90,18 +87,20 @@ jobs:
             exit 1
           fi
 
+      - name: Run coverage
+        run: cmake --build . --target Coverage
+
   Configure-Build-Test:
     name: Configure-Build-Test (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt:bolt-0.2.0
+      image: ghcr.io/cfbaptista/bolt:bolt-0.3.0
     needs: Code-Quality
     strategy:
       matrix:
         preset:
           - linux-x86-64-gnu-debug
           - linux-x86-64-gnu-release
-          - linux-x86-64-llvm-debug
           - linux-x86-64-llvm-release
       fail-fast: true
 
