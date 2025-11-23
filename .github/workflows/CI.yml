@@ -52,15 +52,11 @@ jobs:
             exit 0
           fi
 
-          status=0
-          for file in $files; do
-            clang-format --style=file "$file" --dry-run --Werror
-            if [ $? -ne 0 ]; then
-              status=1
-            fi
-          done
+          output=clang-format --style=file $files --dry-run --Werror
+          status=$?
 
           if [ $status -ne 0 ]; then
+            printf '%s\n' "$output"
             echo "clang-format found formatting issues."
             exit 1
           fi
@@ -89,6 +85,9 @@ jobs:
             echo "clang-tidy found errors."
             exit 1
           fi
+
+      - name: Run static analysis
+        run: cppcheck --enable=all --inconclusive --force --suppress=missingIncludeSystem --std=c++23 --error-exitcode=1 --quiet -I src src test
 
       - name: Run coverage
         run: cmake --build build/linux-x86-64-llvm-debug --target Coverage

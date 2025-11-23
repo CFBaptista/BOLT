@@ -54,7 +54,7 @@ SCENARIO("D1Q3 lattice model properties")
                 int sum{0};
                 for (const auto& velocity : velocities)
                 {
-                    sum += velocity[0];
+                    sum = std::accumulate(velocity.begin(), velocity.end(), sum);
                 }
 
                 CHECK((sum == 0));
