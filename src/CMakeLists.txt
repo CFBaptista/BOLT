@@ -20,7 +20,8 @@ endif()
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(COVERAGE_FLAGS -fprofile-instr-generate -fcoverage-mapping -fno-inline -fno-elide-constructors -Wno-unused-template)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(COVERAGE_FLAGS --coverage fno-inline -fno-inline-functions -fno-inline-small-functions)
+    # set(COVERAGE_FLAGS --coverage fno-inline -fno-inline-functions -fno-inline-small-functions)
+    set(COVERAGE_FLAGS --coverage)
 endif()
 
 # Custom target for coverage report using LLVM toolchain
@@ -33,8 +34,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         add_custom_target(Coverage
             COMMAND ${PYTHON_EXECUTABLE_PATH} ${CMAKE_SOURCE_DIR}/script/collect_extension_files.py ${CMAKE_BINARY_DIR}/coverage/llvm profraw
             COMMAND ${LLVM_PROFDATA_PATH} merge -sparse @${CMAKE_BINARY_DIR}/coverage/llvm/profraw_files.dat -o ${CMAKE_BINARY_DIR}/coverage/llvm/coverage.profdata
-            COMMAND ${LLVM_COV_PATH} show ${CMAKE_BINARY_DIR}/test/lbm/lbm_test -instr-profile=${CMAKE_BINARY_DIR}/coverage/llvm/coverage.profdata -format=html -output-dir=${CMAKE_BINARY_DIR}/coverage -ignore-filename-regex=${CMAKE_SOURCE_DIR}/test
-            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            COMMAND ${LLVM_COV_PATH} show ${CMAKE_BINARY_DIR}/test/lbm/lbm_test -instr-profile=${CMAKE_BINARY_DIR}/coverage/llvm/coverage.profdata -format=html -output-dir=${CMAKE_BINARY_DIR}/coverage
             COMMENT "Running coverage analysis"
             VERBATIM
         )
@@ -56,9 +56,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
     if(LCOV_PATH AND GENHTML_PATH)
         add_custom_target(Coverage
-            COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
-            COMMAND ${LCOV_PATH} --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/coverage.info
-            COMMAND ${GENHTML_PATH} ${CMAKE_BINARY_DIR}/coverage.info --output-directory ${CMAKE_BINARY_DIR}/coverage
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/coverage/gnu"
+            COMMAND ${LCOV_PATH} --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/coverage/gnu/coverage.info
+            COMMAND ${LCOV_PATH} --remove ${CMAKE_BINARY_DIR}/coverage/gnu/coverage.info "/usr/*" --output-file ${CMAKE_BINARY_DIR}/coverage/gnu/coverage_filtered.info
+            COMMAND ${GENHTML_PATH} ${CMAKE_BINARY_DIR}/coverage/gnu/coverage_filtered.info --output-directory ${CMAKE_BINARY_DIR}/coverage
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
             COMMENT "Running coverage analysis"
             VERBATIM
