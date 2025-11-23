@@ -60,7 +60,10 @@ jobs:
             fi
           done
 
-          exit $status
+          if [ $status -ne 0 ]; then
+            echo "clang-format found formatting issues."
+            exit 1
+          fi
 
       - name: Run linter
         run: |
@@ -88,7 +91,7 @@ jobs:
           fi
 
       - name: Run coverage
-        run: cmake --build . --target Coverage
+        run: cmake --build build/linux-x86-64-llvm-debug --target Coverage
 
   Configure-Build-Test:
     name: Configure-Build-Test (${{ matrix.preset }})

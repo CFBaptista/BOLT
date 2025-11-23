@@ -33,4 +33,7 @@ RUN \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* var/cache/apt/archives/*
 
+RUN ln -s /usr/bin/llvm-cov-18 /usr/local/bin/llvm-cov && \
+    ln -s /usr/bin/llvm-profdata-18 /usr/local/bin/llvm-profdata
+
 ENTRYPOINT ["/bin/bash"]
