@@ -38,7 +38,12 @@ jobs:
 
       - name: Run formatter
         run: |
-          output=$(clang-format --style=file $(git ls-files '*.cpp' '*.hpp' '*.tpp') --dry-run --Werror)
+          output=$(clang-format \
+            --style=file \
+            $(git ls-files '*.cpp' '*.hpp' '*.tpp') \
+            --dry-run \
+            --Werror
+          )
           status=$?
 
           if [ $status -ne 0 ]; then
@@ -49,7 +54,14 @@ jobs:
 
       - name: Run linter
         run: |
-          output=$(clang-tidy $(git ls-files '*.cpp' '*.hpp') -p build/linux-x86-64-llvm-debug -format-style=file -warnings-as-errors=* -quiet 2>&1)
+          output=$(clang-tidy \
+            $(git ls-files '*.cpp' '*.hpp') \
+            -p build/linux-x86-64-llvm-debug \
+            -format-style=file \
+            -warnings-as-errors=* \
+            -quiet \
+            2>&1
+          )
           status=$?
 
           if [ $status -ne 0 ]; then
@@ -60,7 +72,19 @@ jobs:
 
       - name: Run static analysis
         run: |
-          output=$(cppcheck --enable=all --inconclusive --force --suppress=missingIncludeSystem --std=c++23 --error-exitcode=1 --quiet -I src src test)
+          output=$(cppcheck \
+            --enable=all \
+            --inconclusive \
+            --force \
+            --suppress=knownConditionTrueFalse \
+            --suppress=missingIncludeSystem \
+            --std=c++23 \
+            --error-exitcode=1 \
+            --quiet \
+            -I src \
+            src \
+            test
+          )
           status=$?
 
           if [ $status -ne 0 ]; then

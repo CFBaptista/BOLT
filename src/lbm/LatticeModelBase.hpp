@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+#include <concepts>
 #include <cstddef>
 
 /**
@@ -12,7 +14,7 @@
  *
  * @tparam Derived Lattice model type.
  */
-template <typename Derived>
+template <typename Derived, std::floating_point Real, std::size_t Dimension, std::size_t Size>
 class LatticeModelBase
 {
 public:
@@ -35,14 +37,14 @@ public:
      *
      * @return The discrete velocity vectors in lattice units.
      */
-    static constexpr auto velocities();
+    static constexpr auto velocities() -> std::array<std::array<int, Dimension>, Size>;
 
     /**
      * @brief Returns the quadrature weight for each discrete velocity vector.
      *
      * @return The weight for each discrete velocity vector.
      */
-    static constexpr auto weights();
+    static constexpr auto weights() -> std::array<Real, Size>;
 };
 
 #include "LatticeModelBase.tpp"
