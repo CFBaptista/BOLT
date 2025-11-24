@@ -76,7 +76,7 @@ jobs:
             --enable=all \
             --inconclusive \
             --force \
-            --supress=knownConditionTrueFalse \
+            --suppress=knownConditionTrueFalse \
             --suppress=missingIncludeSystem \
             --std=c++23 \
             --error-exitcode=1 \
