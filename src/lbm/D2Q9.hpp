@@ -5,6 +5,9 @@
 
 #include "LatticeModelBase.hpp"
 
+constexpr std::size_t D2Q9Dimension = 2;
+constexpr std::size_t D2Q9Size = 9;
+
 /**
  * @class D2Q9
  * @brief Class template representing the D2Q9 lattice model.
@@ -15,16 +18,13 @@
  * @tparam Real The floating-point type.
  */
 template <std::floating_point Real>
-class D2Q9 : public LatticeModelBase<D2Q9<Real>>
+class D2Q9 : public LatticeModelBase<D2Q9<Real>, Real, D2Q9Dimension, D2Q9Size>
 {
 public:
-    friend class LatticeModelBase<D2Q9<Real>>;
+    friend class LatticeModelBase<D2Q9<Real>, Real, D2Q9Dimension, D2Q9Size>;
 
 private:
-    static constexpr std::size_t dimension_{2};
-    static constexpr std::size_t size_{9};
-
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
+    static constexpr std::array<std::array<int, D2Q9Dimension>, D2Q9Size> velocities_{
         {{{0, 0}},
          {{1, 0}},
          {{0, 1}},
@@ -36,7 +36,7 @@ private:
          {{1, -1}}}
     };
 
-    static constexpr std::array<Real, size_> weights_{
+    static constexpr std::array<Real, D2Q9Size> weights_{
         static_cast<Real>(4) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
         static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
         static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(36),
