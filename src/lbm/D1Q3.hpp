@@ -9,17 +9,15 @@
  * @class D1Q3
  * @brief Class template representing the D1Q3 lattice model.
  *
- * This class template contains the data specific to the D1Q3 lattice model.
- * Accessors are implemented in the CRTP base class LatticeModelBase.
+ * This class template contains the data specific to the `D1Q3` lattice model.
+ * It provides `static constexpr` methods to access the data.
+ * Use the concept `LatticeModel` to restrict template parameters to valid lattice models.
  *
- * @tparam Real The floating-point type.
+ * @tparam T The floating-point type.
  */
-template <std::floating_point Real>
-class D1Q3 : public LatticeModelBase<D1Q3<Real>>
+template <std::floating_point T>
+class D1Q3 : public LatticeModelBase
 {
-public:
-    friend class LatticeModelBase<D1Q3<Real>>;
-
 private:
     static constexpr int dimension_{1};
 
@@ -29,8 +27,42 @@ private:
         {{{0}}, {{1}}, {{-1}}}
     };
 
-    static constexpr std::array<Real, size_> weights_{
-        static_cast<Real>(4) / static_cast<Real>(6), static_cast<Real>(1) / static_cast<Real>(6),
-        static_cast<Real>(1) / static_cast<Real>(6)
+    static constexpr std::array<T, size_> weights_{
+        static_cast<T>(4) / static_cast<T>(6), static_cast<T>(1) / static_cast<T>(6),
+        static_cast<T>(1) / static_cast<T>(6)
     };
+
+public:
+    using Real = T;
+
+    /**
+     * @brief Returns the spatial dimension D1Q3 (i.e. 1).
+     *
+     * @return The spatial dimension.
+     */
+    static constexpr auto dimension() -> std::size_t;
+
+    /**
+     * @brief Returns the number of discrete velocity vectors for D1Q3 (i.e. 3).
+     *
+     * @return The number of discrete velocity vectors.
+     */
+    static constexpr auto size() -> std::size_t;
+
+    /**
+     * @brief Returns the discrete velocity vectors of D1Q3.
+     *
+     * @return The discrete velocity vectors in lattice units.
+     */
+    static constexpr auto
+    velocities() -> std::array<std::array<int, D1Q3<T>::dimension_>, D1Q3<T>::size_>;
+
+    /**
+     * @brief Returns the quadrature weight for each discrete velocity vector of D1Q3.
+     *
+     * @return The weight for each discrete velocity vector.
+     */
+    static constexpr auto weights() -> std::array<T, D1Q3<T>::size_>;
 };
+
+#include "D1Q3.tpp"
