@@ -2,27 +2,26 @@
 
 #include "LatticeModelBase.hpp"
 
-template <typename Derived, std::floating_point Real, std::size_t Dimension, std::size_t Size>
-constexpr auto LatticeModelBase<Derived, Real, Dimension, Size>::dimension() -> std::size_t
+template <typename Derived>
+constexpr auto LatticeModelBase<Derived>::dimension() -> std::size_t
 {
-    return Dimension;
+    return Derived::dimension_;
 }
 
-template <typename Derived, std::floating_point Real, std::size_t Dimension, std::size_t Size>
-constexpr auto LatticeModelBase<Derived, Real, Dimension, Size>::size() -> std::size_t
+template <typename Derived>
+constexpr auto LatticeModelBase<Derived>::size() -> std::size_t
 {
-    return Size;
+    return Derived::size_;
 }
 
-template <typename Derived, std::floating_point Real, std::size_t Dimension, std::size_t Size>
-constexpr auto LatticeModelBase<Derived, Real, Dimension, Size>::velocities()
-    -> std::array<std::array<int, Dimension>, Size>
+template <typename Derived>
+constexpr auto LatticeModelBase<Derived>::velocities() -> decltype(auto)
 {
     return Derived::velocities_;
 }
 
-template <typename Derived, std::floating_point Real, std::size_t Dimension, std::size_t Size>
-constexpr auto LatticeModelBase<Derived, Real, Dimension, Size>::weights() -> std::array<Real, Size>
+template <typename Derived>
+constexpr auto LatticeModelBase<Derived>::weights() -> decltype(auto)
 {
     return Derived::weights_;
 }
