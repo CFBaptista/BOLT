@@ -51,14 +51,14 @@ public:
      *
      * @return The spatial dimension.
      */
-    static constexpr auto dimension() -> std::size_t;
+    static constexpr auto dimension() noexcept -> std::size_t;
 
     /**
      * @brief Returns the number of discrete velocity vectors for D2Q9 (i.e. 9).
      *
      * @return The number of discrete velocity vectors.
      */
-    static constexpr auto size() -> std::size_t;
+    static constexpr auto size() noexcept -> std::size_t;
 
     /**
      * @brief Returns the discrete velocity vectors of D2Q9.
@@ -66,14 +66,14 @@ public:
      * @return The discrete velocity vectors in lattice units.
      */
     static constexpr auto
-    velocities() -> std::array<std::array<int, D2Q9<T>::dimension_>, D2Q9<T>::size_>;
+    velocities() noexcept -> std::array<std::array<int, D2Q9<T>::dimension_>, D2Q9<T>::size_>;
 
     /**
      * @brief Returns the quadrature weight for each discrete velocity vector of D2Q9.
      *
      * @return The weight for each discrete velocity vector.
      */
-    static constexpr auto weights() -> std::array<T, D2Q9<T>::size_>;
+    static constexpr auto weights() noexcept -> std::array<T, D2Q9<T>::size_>;
 };
 
 #include "D2Q9.tpp"
