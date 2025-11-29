@@ -15,7 +15,7 @@
  *
  * @tparam T The floating-point type.
  */
-template <std::floating_point T>
+template <std::floating_point T = double>
 class D2Q9 : public LatticeModelBase
 {
 private:
