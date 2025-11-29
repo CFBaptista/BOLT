@@ -15,8 +15,8 @@ constexpr auto D2Q9<Real>::size() noexcept -> std::size_t
 }
 
 template <std::floating_point Real>
-constexpr auto
-D2Q9<Real>::velocities() noexcept -> std::array<std::array<int, D2Q9<Real>::dimension_>, D2Q9<Real>::size_>
+constexpr auto D2Q9<Real>::velocities() noexcept
+    -> std::array<std::array<int, D2Q9<Real>::dimension_>, D2Q9<Real>::size_>
 {
     return velocities_;
 }
