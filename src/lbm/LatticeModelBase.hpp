@@ -24,6 +24,7 @@ class LatticeModelBase
  * The `LatticeModel` concept specifies the required interface and type constraints for lattice
  * model types. A type that satisfies this concept must:
  * - Provide static member functions for dimension and size, returning a `std::size_t`.
+ * - Constrain dimension is between 1 and 3 (inclusive) and size is at least 1.
  * - Provide static member functions for velocities and weights, returning appropriate `std::array`
  * types.
  * - Define a `value_type` that is a floating-point type.
