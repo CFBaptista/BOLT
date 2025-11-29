@@ -38,7 +38,9 @@ template <typename Derived>
 concept LatticeModel = requires {
     requires std::floating_point<typename Derived::Real>;
     { Derived::dimension() } -> std::same_as<std::size_t>;
+    requires(Derived::dimension() >= 1 && Derived::dimension() <= 3);
     { Derived::size() } -> std::same_as<std::size_t>;
+    requires(Derived::size() >= 1);
     {
         Derived::velocities()
     } -> std::same_as<std::array<std::array<int, Derived::dimension()>, Derived::size()>>;
