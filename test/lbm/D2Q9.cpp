@@ -1,5 +1,7 @@
 #include "lbm/D2Q9.hpp"
 
+#include <array>
+#include <cstddef>
 #include <functional>
 #include <numeric>
 

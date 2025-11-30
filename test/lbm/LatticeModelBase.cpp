@@ -1,5 +1,8 @@
 #include "lbm/LatticeModelBase.hpp"
 
+#include <array>
+#include <cstddef>
+
 #include <catch2/catch_test_macros.hpp>
 
 class ValidLatticeModel : LatticeModelBase
@@ -161,12 +164,15 @@ static_assert(LatticeModel<NoBase>, "NoBase should not satisfy LatticeModel conc
 
 static_assert(
     !LatticeModel<InvalidValueType>,
-    "NonFloatingReal should not satisfy LatticeModel concept"
+    "InvalidValueType should not satisfy LatticeModel concept"
 );
 
-static_assert(!LatticeModel<InvalidDimension>, "BadDimension should not satisfy LatticeModel concept");
+static_assert(
+    !LatticeModel<InvalidDimension>,
+    "InvalidDimension should not satisfy LatticeModel concept"
+);
 
-static_assert(!LatticeModel<InvalidSize>, "BadSize should not satisfy LatticeModel concept");
+static_assert(!LatticeModel<InvalidSize>, "InvalidSize should not satisfy LatticeModel concept");
 
 TEST_CASE("Dummy test for LatticeModel concept")
 {

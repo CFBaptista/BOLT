@@ -1,21 +1,12 @@
 #include "lbm/D1Q3.hpp"
 
+#include <array>
+#include <cstddef>
 #include <functional>
 #include <numeric>
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
-
-template <LatticeModel T>
-class Foo
-{
-public:
-    int foo = T::size();
-};
-
-constexpr Foo<D1Q3<float>> foo{};
-
-static_assert(foo.foo == 3);
 
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("D1Q3 lattice model properties")
