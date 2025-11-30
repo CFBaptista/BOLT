@@ -1,5 +1,8 @@
 #include "lbm/D2Q9.hpp"
 
+#include <array>
+#include <cstddef>
+#include <functional>
 #include <numeric>
 
 #include <catch2/catch_approx.hpp>
@@ -11,6 +14,12 @@ SCENARIO("D2Q9 lattice model properties")
     GIVEN("A D2Q9 lattice model")
     {
         using Model = D2Q9<float>;
+
+        std::move_only_function<std::size_t()> model_dimension = &Model::dimension;
+        std::move_only_function<std::size_t()> model_size = &Model::size;
+        std::move_only_function<std::array<std::array<int, Model::dimension()>, Model::size()>()>
+            model_velocities = &Model::velocities;
+        std::move_only_function<std::array<float, Model::size()>()> model_weights = &Model::weights;
 
         const auto expectedDimension{2};
         const auto expectedSize{9};
@@ -25,7 +34,7 @@ SCENARIO("D2Q9 lattice model properties")
 
         WHEN("Getting the dimension")
         {
-            const auto dimension = Model::dimension();
+            const auto dimension = model_dimension();
 
             THEN("The dimension is 2")
             {
@@ -35,7 +44,7 @@ SCENARIO("D2Q9 lattice model properties")
 
         WHEN("Getting the size")
         {
-            const auto size = Model::size();
+            const auto size = model_size();
 
             THEN("The size is 9")
             {
@@ -45,7 +54,7 @@ SCENARIO("D2Q9 lattice model properties")
 
         WHEN("Getting the velocities")
         {
-            const auto velocities = Model::velocities();
+            const auto velocities = model_velocities();
 
             THEN("The 9 velocities are correct")
             {
@@ -68,7 +77,7 @@ SCENARIO("D2Q9 lattice model properties")
 
         WHEN("Getting the weights")
         {
-            const auto weights = Model::weights();
+            const auto weights = model_weights();
 
             THEN("The 9 weights are correct")
             {

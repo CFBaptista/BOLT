@@ -2,29 +2,29 @@
 
 #include <array>
 #include <concepts>
+#include <cstddef>
 
 #include "LatticeModelBase.hpp"
-
-constexpr std::size_t D2Q9Dimension = 2;
-constexpr std::size_t D2Q9Size = 9;
 
 /**
  * @class D2Q9
  * @brief Class template representing the D2Q9 lattice model.
  *
- * This class template contains the data specific to the D2Q9 lattice model.
- * Accessors are implemented in the CRTP base class LatticeModelBase.
+ * This class template contains the data specific to the `D2Q9` lattice model.
+ * It provides `static constexpr` methods to access the data.
+ * Use the concept `LatticeModel` to restrict template parameters to valid lattice models.
  *
- * @tparam Real The floating-point type.
+ * @tparam T The floating-point type.
  */
-template <std::floating_point Real>
-class D2Q9 : public LatticeModelBase<D2Q9<Real>, Real, D2Q9Dimension, D2Q9Size>
+template <std::floating_point T = double>
+class D2Q9 : public LatticeModelBase
 {
-public:
-    friend class LatticeModelBase<D2Q9<Real>, Real, D2Q9Dimension, D2Q9Size>;
-
 private:
-    static constexpr std::array<std::array<int, D2Q9Dimension>, D2Q9Size> velocities_{
+    static constexpr int dimension_{2};
+
+    static constexpr int size_{9};
+
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
         {{{0, 0}},
          {{1, 0}},
          {{0, 1}},
@@ -36,11 +36,45 @@ private:
          {{1, -1}}}
     };
 
-    static constexpr std::array<Real, D2Q9Size> weights_{
-        static_cast<Real>(4) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
-        static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
-        static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(36),
-        static_cast<Real>(1) / static_cast<Real>(36), static_cast<Real>(1) / static_cast<Real>(36),
-        static_cast<Real>(1) / static_cast<Real>(36)
+    static constexpr std::array<T, size_> weights_{
+        static_cast<T>(4) / static_cast<T>(9),  static_cast<T>(1) / static_cast<T>(9),
+        static_cast<T>(1) / static_cast<T>(9),  static_cast<T>(1) / static_cast<T>(9),
+        static_cast<T>(1) / static_cast<T>(9),  static_cast<T>(1) / static_cast<T>(36),
+        static_cast<T>(1) / static_cast<T>(36), static_cast<T>(1) / static_cast<T>(36),
+        static_cast<T>(1) / static_cast<T>(36)
     };
+
+public:
+    using Real = T;
+
+    /**
+     * @brief Returns the spatial dimension D2Q9 (i.e. 2).
+     *
+     * @return The spatial dimension.
+     */
+    static constexpr auto dimension() noexcept -> std::size_t;
+
+    /**
+     * @brief Returns the number of discrete velocity vectors for D2Q9 (i.e. 9).
+     *
+     * @return The number of discrete velocity vectors.
+     */
+    static constexpr auto size() noexcept -> std::size_t;
+
+    /**
+     * @brief Returns the discrete velocity vectors of D2Q9.
+     *
+     * @return The discrete velocity vectors in lattice units.
+     */
+    static constexpr auto
+    velocities() noexcept -> std::array<std::array<int, D2Q9<T>::dimension_>, D2Q9<T>::size_>;
+
+    /**
+     * @brief Returns the quadrature weight for each discrete velocity vector of D2Q9.
+     *
+     * @return The weight for each discrete velocity vector.
+     */
+    static constexpr auto weights() noexcept -> std::array<T, D2Q9<T>::size_>;
 };
+
+#include "D2Q9.tpp"
