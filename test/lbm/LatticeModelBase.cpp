@@ -5,7 +5,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-class ValidLatticeModel : LatticeModelBase
+class ValidLatticeModel : LatticeModelBase<ValidLatticeModel>
 {
 public:
     using Real = double;
@@ -65,7 +65,7 @@ public:
     }
 };
 
-class InvalidValueType : LatticeModelBase
+class InvalidValueType : LatticeModelBase<InvalidValueType>
 {
 public:
     using Real = int;
@@ -95,7 +95,7 @@ public:
     }
 };
 
-class InvalidDimension : LatticeModelBase
+class InvalidDimension : LatticeModelBase<InvalidDimension>
 {
 public:
     using Real = double;
@@ -125,7 +125,7 @@ public:
     }
 };
 
-class InvalidSize : LatticeModelBase
+class InvalidSize : LatticeModelBase<InvalidSize>
 {
 public:
     using Real = double;

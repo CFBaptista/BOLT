@@ -10,19 +10,24 @@
  * @class D2Q9
  * @brief Class template representing the D2Q9 lattice model.
  *
- * This class template contains the data specific to the `D2Q9` lattice model.
- * It provides `static constexpr` methods to access the data.
- * Use the concept `LatticeModel` to restrict template parameters to valid lattice models.
+ * This class template contains the `static constexpr` data specific to the `D2Q9` lattice model.
+ * Accessors are defined in the CRTP base class `LatticeModelBase`. Use the concept `LatticeModel`
+ * to constrain the template parameter of consumers of this class.
  *
  * @tparam T The floating-point type.
  */
 template <std::floating_point T = double>
-class D2Q9 : public LatticeModelBase
+class D2Q9 : public LatticeModelBase<D2Q9<T>>
 {
-private:
-    static constexpr int dimension_{2};
+public:
+    using Real = T;
 
-    static constexpr int size_{9};
+    friend class LatticeModelBase<D2Q9<T>>;
+
+private:
+    static constexpr std::size_t dimension_{2};
+
+    static constexpr std::size_t size_{9};
 
     static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
         {{{0, 0}},
@@ -43,38 +48,4 @@ private:
         static_cast<T>(1) / static_cast<T>(36), static_cast<T>(1) / static_cast<T>(36),
         static_cast<T>(1) / static_cast<T>(36)
     };
-
-public:
-    using Real = T;
-
-    /**
-     * @brief Returns the spatial dimension D2Q9 (i.e. 2).
-     *
-     * @return The spatial dimension.
-     */
-    static constexpr auto dimension() noexcept -> std::size_t;
-
-    /**
-     * @brief Returns the number of discrete velocity vectors for D2Q9 (i.e. 9).
-     *
-     * @return The number of discrete velocity vectors.
-     */
-    static constexpr auto size() noexcept -> std::size_t;
-
-    /**
-     * @brief Returns the discrete velocity vectors of D2Q9.
-     *
-     * @return The discrete velocity vectors in lattice units.
-     */
-    static constexpr auto
-    velocities() noexcept -> std::array<std::array<int, D2Q9<T>::dimension_>, D2Q9<T>::size_>;
-
-    /**
-     * @brief Returns the quadrature weight for each discrete velocity vector of D2Q9.
-     *
-     * @return The weight for each discrete velocity vector.
-     */
-    static constexpr auto weights() noexcept -> std::array<T, D2Q9<T>::size_>;
 };
-
-#include "D2Q9.tpp"
