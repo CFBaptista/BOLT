@@ -83,8 +83,10 @@ concept LatticeModel = requires {
     requires(Derived::size() >= 1);
     {
         Derived::velocities()
-    } -> std::same_as<std::array<std::array<int, Derived::dimension()>, Derived::size()>>;
-    { Derived::weights() } -> std::same_as<std::array<typename Derived::Real, Derived::size()>>;
+    } -> std::same_as<const std::array<std::array<int, Derived::dimension()>, Derived::size()>>;
+    {
+        Derived::weights()
+    } -> std::same_as<const std::array<typename Derived::Real, Derived::size()>>;
     std::is_base_of_v<LatticeModelBase<Derived>, Derived>;
 };
 
