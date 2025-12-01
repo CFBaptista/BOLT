@@ -24,12 +24,12 @@ public:
 
     friend class LatticeModelBase<D3Q27<T>>;
 
-    D3Q27<T>() = delete;
-    D3Q27<T>(const D3Q27<T>&) = delete;
-    D3Q27<T>(D3Q27<T>&&) = delete;
+    D3Q27() = delete;
+    D3Q27(const D3Q27&) = delete;
+    D3Q27(D3Q27&&) = delete;
     auto operator=(const D3Q27<T>&) -> D3Q27<T>& = delete;
     auto operator=(D3Q27<T>&&) -> D3Q27<T>& = delete;
-    ~D3Q27<T>() = delete;
+    ~D3Q27() = delete;
 
 private:
     static constexpr std::size_t dimension_{3};
