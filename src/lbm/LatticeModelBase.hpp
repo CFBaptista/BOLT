@@ -19,6 +19,13 @@ template <typename Derived>
 class LatticeModelBase
 {
 public:
+    LatticeModelBase<Derived>() = delete;
+    LatticeModelBase<Derived>(const LatticeModelBase<Derived>&) = delete;
+    LatticeModelBase<Derived>(LatticeModelBase<Derived>&&) = delete;
+    auto operator=(const LatticeModelBase<Derived>&) -> LatticeModelBase<Derived>& = delete;
+    auto operator=(LatticeModelBase<Derived>&&) -> LatticeModelBase<Derived>& = delete;
+    ~LatticeModelBase<Derived>() = delete;
+
     /**
      * @brief Returns the spatial dimension of the derived lattice model.
      *

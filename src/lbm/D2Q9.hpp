@@ -24,6 +24,13 @@ public:
 
     friend class LatticeModelBase<D2Q9<T>>;
 
+    D2Q9<T>() = delete;
+    D2Q9<T>(const D2Q9<T>&) = delete;
+    D2Q9<T>(D2Q9<T>&&) = delete;
+    auto operator=(const D2Q9<T>&) -> D2Q9<T>& = delete;
+    auto operator=(D2Q9<T>&&) -> D2Q9<T>& = delete;
+    ~D2Q9<T>() = delete;
+
 private:
     static constexpr std::size_t dimension_{2};
 
