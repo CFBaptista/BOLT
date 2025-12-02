@@ -39,3 +39,6 @@ build
 
 # Tokens
 *.token
+
+# Editor configuration files
+.vscode
