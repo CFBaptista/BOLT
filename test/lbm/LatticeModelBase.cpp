@@ -1,9 +1,9 @@
-#include "lbm/LatticeModelBase.hpp"
-
 #include <array>
 #include <cstddef>
 
 #include <catch2/catch_test_macros.hpp>
+
+#include "lbm/LatticeModelBase.hpp"
 
 class ValidLatticeModel : public LatticeModelBase<ValidLatticeModel>
 {

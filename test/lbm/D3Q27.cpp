@@ -1,5 +1,3 @@
-#include "lbm/D3Q27.hpp"
-
 #include <array>
 #include <cstddef>
 #include <functional>
@@ -7,6 +5,8 @@
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
+
+#include "lbm/D3Q27.hpp"
 
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("D3Q27 lattice model properties")
