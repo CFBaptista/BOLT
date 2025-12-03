@@ -25,10 +25,10 @@ public:
     friend class LatticeModelBase<D2Q9<T>>;
 
     D2Q9() = delete;
-    D2Q9(const D2Q9&) = delete;
-    D2Q9(D2Q9&&) = delete;
-    auto operator=(const D2Q9<T>&) -> D2Q9<T>& = delete;
-    auto operator=(D2Q9<T>&&) -> D2Q9<T>& = delete;
+    D2Q9(const D2Q9& other) = delete;
+    D2Q9(D2Q9&& other) = delete;
+    auto operator=(const D2Q9& other) -> D2Q9& = delete;
+    auto operator=(D2Q9&& other) -> D2Q9& = delete;
     ~D2Q9() = delete;
 
 private:

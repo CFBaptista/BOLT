@@ -12,10 +12,13 @@ class DensityDistribution : public NodeDistributionBase
 public:
     using Real = typename Model::Real;
 
-    DensityDistribution<Model>(const std::array<Real, Model::size()>& distribution);
-    DensityDistribution<Model>(const DensityDistribution<Model>& other) = delete;
-    DensityDistribution<Model>(DensityDistribution<Model>&& other) noexcept = default;
-    ~DensityDistribution<Model>() = default;
+    DensityDistribution() noexcept = default;
+    explicit DensityDistribution(const std::array<Real, Model::size()>& distribution) noexcept;
+    DensityDistribution(const DensityDistribution& other) noexcept = default;
+    DensityDistribution(DensityDistribution&& other) noexcept = default;
+    auto operator=(const DensityDistribution& other) noexcept -> DensityDistribution& = default;
+    auto operator=(DensityDistribution&& other) noexcept -> DensityDistribution& = default;
+    ~DensityDistribution() noexcept = default;
 
     static constexpr auto dimension() -> std::size_t;
 
@@ -23,10 +26,6 @@ public:
 
     auto operator[](std::size_t index) -> Real&;
     auto operator[](std::size_t index) const -> const Real&;
-
-    auto operator=(const DensityDistribution<Model>& other) -> DensityDistribution<Model>& = delete;
-    auto operator=(DensityDistribution<Model>&& other
-    ) noexcept -> DensityDistribution<Model>& = default;
 
 private:
     std::array<Real, Model::size()> distribution_;

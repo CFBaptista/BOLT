@@ -20,10 +20,10 @@ class LatticeModelBase
 {
 public:
     LatticeModelBase() = delete;
-    LatticeModelBase(const LatticeModelBase&) = delete;
-    LatticeModelBase(LatticeModelBase&&) = delete;
-    auto operator=(const LatticeModelBase<Derived>&) -> LatticeModelBase<Derived>& = delete;
-    auto operator=(LatticeModelBase<Derived>&&) -> LatticeModelBase<Derived>& = delete;
+    LatticeModelBase(const LatticeModelBase& other) = delete;
+    LatticeModelBase(LatticeModelBase&& other) = delete;
+    auto operator=(const LatticeModelBase<Derived>& other) -> LatticeModelBase& = delete;
+    auto operator=(LatticeModelBase<Derived>&& other) -> LatticeModelBase& = delete;
     ~LatticeModelBase() = delete;
 
     /**

@@ -6,7 +6,8 @@
 #include "lbm/LatticeModelBase.hpp"
 
 template <LatticeModel Model>
-DensityDistribution<Model>::DensityDistribution(const std::array<Real, Model::size()>& distribution)
+DensityDistribution<Model>::DensityDistribution(const std::array<Real, Model::size()>& distribution
+) noexcept
     : distribution_(distribution)
 {
 }
