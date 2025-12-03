@@ -9,17 +9,17 @@
 #include "lbm/D3Q27.hpp"
 
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
-SCENARIO("D3Q27 lattice model properties")
+SCENARIO("D3Q27 velocity set properties")
 {
-    GIVEN("A D3Q27 lattice model")
+    GIVEN("A D3Q27 velocity set")
     {
-        using Model = D3Q27<float>;
+        using Set = D3Q27<float>;
 
-        std::move_only_function<std::size_t()> model_dimension = &Model::dimension;
-        std::move_only_function<std::size_t()> model_size = &Model::size;
-        std::move_only_function<std::array<std::array<int, Model::dimension()>, Model::size()>()>
-            model_velocities = &Model::velocities;
-        std::move_only_function<std::array<float, Model::size()>()> model_weights = &Model::weights;
+        std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
+        std::move_only_function<std::size_t()> model_size = &Set::size;
+        std::move_only_function<std::array<std::array<int, Set::dimension()>, Set::size()>()>
+            model_velocities = &Set::velocities;
+        std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
 
         const auto expectedDimension{3};
         const auto expectedSize{27};

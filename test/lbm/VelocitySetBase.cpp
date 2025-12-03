@@ -3,14 +3,14 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "lbm/LatticeModelBase.hpp"
+#include "lbm/VelocitySetBase.hpp"
 
-class ValidLatticeModel : public LatticeModelBase<ValidLatticeModel>
+class ValidVelocitySet : public VelocitySetBase<ValidVelocitySet>
 {
 public:
     using Real = double;
 
-    friend class LatticeModelBase<ValidLatticeModel>;
+    friend class VelocitySetBase<ValidVelocitySet>;
 
     static constexpr std::size_t dimension_{2};
 
@@ -26,7 +26,7 @@ class NoBase
 public:
     using Real = double;
 
-    friend class LatticeModelBase<NoBase>;
+    friend class VelocitySetBase<NoBase>;
 
     static constexpr std::size_t dimension_ = 2;
 
@@ -37,12 +37,12 @@ public:
     static constexpr std::array<Real, size_> weights_{};
 };
 
-class InvalidValueType : public LatticeModelBase<InvalidValueType>
+class InvalidValueType : public VelocitySetBase<InvalidValueType>
 {
 public:
     using Real = int;
 
-    friend class LatticeModelBase<InvalidValueType>;
+    friend class VelocitySetBase<InvalidValueType>;
 
     static constexpr std::size_t dimension_ = 2;
 
@@ -53,12 +53,12 @@ public:
     static constexpr std::array<Real, size_> weights_{};
 };
 
-class ZeroDimensional : public LatticeModelBase<ZeroDimensional>
+class ZeroDimensional : public VelocitySetBase<ZeroDimensional>
 {
 public:
     using Real = double;
 
-    friend class LatticeModelBase<ZeroDimensional>;
+    friend class VelocitySetBase<ZeroDimensional>;
 
     static constexpr std::size_t dimension_ = 0;
 
@@ -69,12 +69,12 @@ public:
     static constexpr std::array<Real, size_> weights_{};
 };
 
-class FourDimensional : public LatticeModelBase<FourDimensional>
+class FourDimensional : public VelocitySetBase<FourDimensional>
 {
 public:
     using Real = double;
 
-    friend class LatticeModelBase<FourDimensional>;
+    friend class VelocitySetBase<FourDimensional>;
 
     static constexpr std::size_t dimension_ = 4;
 
@@ -85,12 +85,12 @@ public:
     static constexpr std::array<Real, size_> weights_{};
 };
 
-class IntSize : public LatticeModelBase<IntSize>
+class IntSize : public VelocitySetBase<IntSize>
 {
 public:
     using Real = double;
 
-    friend class LatticeModelBase<IntSize>;
+    friend class VelocitySetBase<IntSize>;
 
     static constexpr std::size_t dimension_ = 2;
 
@@ -101,12 +101,12 @@ public:
     static constexpr std::array<Real, size_> weights_{};
 };
 
-class InvalidSize : public LatticeModelBase<InvalidSize>
+class InvalidSize : public VelocitySetBase<InvalidSize>
 {
 public:
     using Real = double;
 
-    friend class LatticeModelBase<InvalidSize>;
+    friend class VelocitySetBase<InvalidSize>;
 
     static constexpr std::size_t dimension_ = 2;
 
@@ -117,12 +117,12 @@ public:
     static constexpr std::array<Real, size_> weights_{};
 };
 
-class InvalidFloatingPointWeight : public LatticeModelBase<InvalidFloatingPointWeight>
+class InvalidFloatingPointWeight : public VelocitySetBase<InvalidFloatingPointWeight>
 {
 public:
     using Real = char;
 
-    friend class LatticeModelBase<InvalidFloatingPointWeight>;
+    friend class VelocitySetBase<InvalidFloatingPointWeight>;
 
     static constexpr std::size_t dimension_ = 2;
 
@@ -133,38 +133,35 @@ public:
     static constexpr std::array<Real, size_> weights_{};
 };
 
-static_assert(
-    LatticeModel<ValidLatticeModel>,
-    "ValidLatticeModel should satisfy LatticeModel concept"
-);
+static_assert(VelocitySet<ValidVelocitySet>, "ValidVelocitySet should satisfy VelocitySet concept");
 
-static_assert(!LatticeModel<NoBase>, "NoBase should not satisfy LatticeModel concept");
+static_assert(!VelocitySet<NoBase>, "NoBase should not satisfy VelocitySet concept");
 
 static_assert(
-    !LatticeModel<InvalidValueType>,
-    "InvalidValueType should not satisfy LatticeModel concept"
+    !VelocitySet<InvalidValueType>,
+    "InvalidValueType should not satisfy VelocitySet concept"
 );
 
 static_assert(
-    !LatticeModel<ZeroDimensional>,
-    "ZeroDimensional should not satisfy LatticeModel concept"
+    !VelocitySet<ZeroDimensional>,
+    "ZeroDimensional should not satisfy VelocitySet concept"
 );
 
 static_assert(
-    !LatticeModel<FourDimensional>,
-    "FourDimensional should not satisfy LatticeModel concept"
+    !VelocitySet<FourDimensional>,
+    "FourDimensional should not satisfy VelocitySet concept"
 );
 
-static_assert(!LatticeModel<IntSize>, "IntSize should not satisfy LatticeModel concept");
+static_assert(!VelocitySet<IntSize>, "IntSize should not satisfy VelocitySet concept");
 
-static_assert(!LatticeModel<InvalidSize>, "InvalidSize should not satisfy LatticeModel concept");
+static_assert(!VelocitySet<InvalidSize>, "InvalidSize should not satisfy VelocitySet concept");
 
 static_assert(
-    !LatticeModel<InvalidFloatingPointWeight>,
-    "InvalidFloatingPointWeight should not satisfy LatticeModel concept"
+    !VelocitySet<InvalidFloatingPointWeight>,
+    "InvalidFloatingPointWeight should not satisfy VelocitySet concept"
 );
 
-TEST_CASE("Dummy test for LatticeModel concept")
+TEST_CASE("Dummy test for VelocitySet concept")
 {
     REQUIRE(true); // Ensures Catch2 runs this file
 }

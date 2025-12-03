@@ -6,50 +6,50 @@
 #include <type_traits>
 
 /**
- * @class LatticeModelBase
- * @brief Class template that serves as CRTP base class for lattice models.
+ * @class VelocitySetBase
+ * @brief Class template that serves as CRTP base class for velocity sets.
  *
- * This class template serves as the CRTP base class for lattice models. Derived classes must
- * satisfy the `LatticeModel` concept and consumers of Derived classes should contrain their
- * template parameter using the same concept.
+ * This class template serves as the CRTP base class for velocity sets. Derived classes must satisfy
+ * the `VelocitySet` concept and consumers of Derived classes should contrain their template
+ * parameter using the same concept.
  *
- * @tparam Derived The derived lattice model class.
+ * @tparam Derived The derived velocity set class.
  */
 template <typename Derived>
-class LatticeModelBase
+class VelocitySetBase
 {
 public:
-    LatticeModelBase() = delete;
-    LatticeModelBase(const LatticeModelBase& other) = delete;
-    LatticeModelBase(LatticeModelBase&& other) = delete;
-    auto operator=(const LatticeModelBase<Derived>& other) -> LatticeModelBase& = delete;
-    auto operator=(LatticeModelBase<Derived>&& other) -> LatticeModelBase& = delete;
-    ~LatticeModelBase() = delete;
+    VelocitySetBase() = delete;
+    VelocitySetBase(const VelocitySetBase& other) = delete;
+    VelocitySetBase(VelocitySetBase&& other) = delete;
+    auto operator=(const VelocitySetBase<Derived>& other) -> VelocitySetBase& = delete;
+    auto operator=(VelocitySetBase<Derived>&& other) -> VelocitySetBase& = delete;
+    ~VelocitySetBase() = delete;
 
     /**
-     * @brief Returns the spatial dimension of the derived lattice model.
+     * @brief Returns the spatial dimension of the derived velocity set.
      *
      * @return The spatial dimension.
      */
     static constexpr auto dimension() noexcept -> std::size_t;
 
     /**
-     * @brief Returns the number of discrete velocity vectors of the derived lattice model.
+     * @brief Returns the number of discrete velocity vectors of the derived velocity set.
      *
      * @return The number of discrete velocity vectors.
      */
     static constexpr auto size() noexcept -> std::size_t;
 
     /**
-     * @brief Returns the discrete velocity vectors of the derived lattice model.
+     * @brief Returns the discrete velocity vectors of the derived velocity set.
      *
      * @return The discrete velocity vectors in lattice units.
      */
     static constexpr auto velocities() noexcept -> decltype(auto);
 
     /**
-     * @brief Returns the quadrature weight for each discrete velocity vector of the derived lattice
-     * model.
+     * @brief Returns the quadrature weight for each discrete velocity vector of the derived
+     * velocity set.
      *
      * @return The weight for each discrete velocity vector.
      */
@@ -57,25 +57,25 @@ public:
 };
 
 /**
- * @concept LatticeModel
- * @brief Concept used for constraining the template parameter of consumers of lattice models.
+ * @concept VelocitySet
+ * @brief Concept used for constraining the template parameter of consumers of velocity sets.
  *
- * The `LatticeModel` concept specifies the required interface and type constraints for lattice
- * model types. A type that satisfies this concept must:
+ * The `VelocitySet` concept specifies the required interface and type constraints for velocity
+ * set types. A type that satisfies this concept must:
  * - Provide static member functions for dimension and size, returning a `std::size_t`.
  * - Constrain dimension to be between 1 and 3 (inclusive) and size to be at least 1.
  * - Provide static member functions for velocities and weights, returning appropriate `std::array`
  * types.
  * - Define a `value_type` that is a floating-point type.
- * - Inherit from `LatticeModelBase<Derived>`.
+ * - Inherit from `VelocitySetBase<Derived>`.
  *
- * This concept is used to ensure that template parameters conform to the expected lattice model
+ * This concept is used to ensure that template parameters conform to the expected velocity set
  * interface.
  *
  * @tparam Derived Lattice model type to be checked.
  */
 template <typename Derived>
-concept LatticeModel = requires {
+concept VelocitySet = requires {
     requires std::floating_point<typename Derived::Real>;
     { Derived::dimension() } -> std::same_as<std::size_t>;
     requires(Derived::dimension() >= 1 && Derived::dimension() <= 3);
@@ -87,7 +87,7 @@ concept LatticeModel = requires {
     {
         Derived::weights()
     } -> std::same_as<const std::array<typename Derived::Real, Derived::size()>>;
-    std::is_base_of_v<LatticeModelBase<Derived>, Derived>;
+    std::is_base_of_v<VelocitySetBase<Derived>, Derived>;
 };
 
-#include "LatticeModelBase.tpp"
+#include "VelocitySetBase.tpp"

@@ -4,25 +4,25 @@
 #include <concepts>
 #include <cstddef>
 
-#include "LatticeModelBase.hpp"
+#include "VelocitySetBase.hpp"
 
 /**
  * @class D1Q3
- * @brief Class template representing the D1Q3 lattice model.
+ * @brief Class template representing the D1Q3 velocity set.
  *
- * This class template contains the `static constexpr` data specific to the `D1Q3` lattice model.
- * Accessors are defined in the CRTP base class `LatticeModelBase`. Use the concept `LatticeModel`
+ * This class template contains the `static constexpr` data specific to the `D1Q3` velocity set.
+ * Accessors are defined in the CRTP base class `VelocitySetBase`. Use the concept `VelocitySet`
  * to constrain the template parameter of consumers of this class.
  *
  * @tparam T The floating-point type.
  */
 template <std::floating_point T = double>
-class D1Q3 : public LatticeModelBase<D1Q3<T>>
+class D1Q3 : public VelocitySetBase<D1Q3<T>>
 {
 public:
     using Real = T;
 
-    friend class LatticeModelBase<D1Q3<T>>;
+    friend class VelocitySetBase<D1Q3<T>>;
 
     D1Q3() = delete;
     D1Q3(const D1Q3& other) = delete;

@@ -9,17 +9,17 @@
 #include "lbm/D2Q9.hpp"
 
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
-SCENARIO("D2Q9 lattice model properties")
+SCENARIO("D2Q9 velocity set properties")
 {
-    GIVEN("A D2Q9 lattice model")
+    GIVEN("A D2Q9 velocity set")
     {
-        using Model = D2Q9<float>;
+        using Set = D2Q9<float>;
 
-        std::move_only_function<std::size_t()> model_dimension = &Model::dimension;
-        std::move_only_function<std::size_t()> model_size = &Model::size;
-        std::move_only_function<std::array<std::array<int, Model::dimension()>, Model::size()>()>
-            model_velocities = &Model::velocities;
-        std::move_only_function<std::array<float, Model::size()>()> model_weights = &Model::weights;
+        std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
+        std::move_only_function<std::size_t()> model_size = &Set::size;
+        std::move_only_function<std::array<std::array<int, Set::dimension()>, Set::size()>()>
+            model_velocities = &Set::velocities;
+        std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
 
         const auto expectedDimension{2};
         const auto expectedSize{9};

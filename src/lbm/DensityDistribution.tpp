@@ -3,35 +3,35 @@
 #include <cstddef>
 
 #include "lbm/DensityDistribution.hpp"
-#include "lbm/LatticeModelBase.hpp"
+#include "lbm/VelocitySetBase.hpp"
 
-template <LatticeModel Model>
-DensityDistribution<Model>::DensityDistribution(const std::array<Real, Model::size()>& distribution
+template <VelocitySet Set>
+DensityDistribution<Set>::DensityDistribution(const std::array<Real, Set::size()>& distribution
 ) noexcept
     : distribution_(distribution)
 {
 }
 
-template <LatticeModel Model>
-constexpr auto DensityDistribution<Model>::dimension() -> std::size_t
+template <VelocitySet Set>
+constexpr auto DensityDistribution<Set>::dimension() -> std::size_t
 {
-    return Model::dimension();
+    return Set::dimension();
 }
 
-template <LatticeModel Model>
-constexpr auto DensityDistribution<Model>::size() -> std::size_t
+template <VelocitySet Set>
+constexpr auto DensityDistribution<Set>::size() -> std::size_t
 {
-    return Model::size();
+    return Set::size();
 }
 
-template <LatticeModel Model>
-auto DensityDistribution<Model>::operator[](std::size_t index) -> Real&
+template <VelocitySet Set>
+auto DensityDistribution<Set>::operator[](std::size_t index) -> Real&
 {
     return distribution_[index];
 }
 
-template <LatticeModel Model>
-auto DensityDistribution<Model>::operator[](std::size_t index) const -> const Real&
+template <VelocitySet Set>
+auto DensityDistribution<Set>::operator[](std::size_t index) const -> const Real&
 {
     return distribution_[index];
 }

@@ -3,17 +3,17 @@
 #include <array>
 #include <cstddef>
 
-#include "lbm/LatticeModelBase.hpp"
 #include "lbm/NodeDistributionBase.hpp"
+#include "lbm/VelocitySetBase.hpp"
 
-template <LatticeModel Model>
+template <VelocitySet Set>
 class DensityDistribution : public NodeDistributionBase
 {
 public:
-    using Real = typename Model::Real;
+    using Real = typename Set::Real;
 
     DensityDistribution() noexcept = default;
-    explicit DensityDistribution(const std::array<Real, Model::size()>& distribution) noexcept;
+    explicit DensityDistribution(const std::array<Real, Set::size()>& distribution) noexcept;
     DensityDistribution(const DensityDistribution& other) noexcept = default;
     DensityDistribution(DensityDistribution&& other) noexcept = default;
     auto operator=(const DensityDistribution& other) noexcept -> DensityDistribution& = default;
@@ -28,7 +28,7 @@ public:
     auto operator[](std::size_t index) const -> const Real&;
 
 private:
-    std::array<Real, Model::size()> distribution_;
+    std::array<Real, Set::size()> distribution_;
 };
 
 #include "lbm/DensityDistribution.tpp"

@@ -22,5 +22,5 @@ target_sources(lbm INTERFACE
     D1Q3.hpp
     D2Q9.hpp
     D3Q27.hpp
-    LatticeModelBase.hpp
+    VelocitySetBase.hpp
 )
