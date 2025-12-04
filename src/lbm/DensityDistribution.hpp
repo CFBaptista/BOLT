@@ -27,6 +27,10 @@ public:
     auto operator[](std::size_t index) -> Real&;
     auto operator[](std::size_t index) const -> const Real&;
 
+    auto density() const noexcept -> Real;
+
+    auto momentum() const noexcept -> std::array<Real, Set::dimension()>;
+
 private:
     std::array<Real, Set::size()> distribution_;
 };
