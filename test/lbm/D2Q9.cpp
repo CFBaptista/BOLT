@@ -38,7 +38,7 @@ SCENARIO("D2Q9 velocity set properties")
 
             THEN("The dimension is 2")
             {
-                CHECK((dimension == expectedDimension));
+                REQUIRE((dimension == expectedDimension));
             }
         }
 
@@ -48,7 +48,7 @@ SCENARIO("D2Q9 velocity set properties")
 
             THEN("The size is 9")
             {
-                CHECK((size == expectedSize));
+                REQUIRE((size == expectedSize));
             }
         }
 
@@ -58,8 +58,8 @@ SCENARIO("D2Q9 velocity set properties")
 
             THEN("The 9 velocities are correct")
             {
-                CHECK((velocities.size() == expectedVelocities.size()));
-                CHECK((velocities == expectedVelocities));
+                REQUIRE((velocities.size() == expectedVelocities.size()));
+                REQUIRE((velocities == expectedVelocities));
             }
 
             THEN("Sum of velocities is zero")
@@ -71,7 +71,7 @@ SCENARIO("D2Q9 velocity set properties")
                     sum[1] += velocity[1];
                 }
 
-                CHECK((sum == std::array<float, 2>{0, 0}));
+                REQUIRE((sum == std::array<float, 2>{0, 0}));
             }
         }
 
@@ -81,9 +81,10 @@ SCENARIO("D2Q9 velocity set properties")
 
             THEN("The 9 weights are correct")
             {
-                CHECK((weights.size() == expectedWeights.size()));
-                CHECK((weights == expectedWeights));
-                CHECK((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0)));
+                REQUIRE((weights.size() == expectedWeights.size()));
+                REQUIRE((weights == expectedWeights));
+                REQUIRE((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0))
+                );
             }
         }
     }

@@ -34,7 +34,7 @@ SCENARIO("D1Q3 velocity set properties")
 
             THEN("The dimension is 1")
             {
-                CHECK((dimension == expectedDimension));
+                REQUIRE((dimension == expectedDimension));
             }
         }
 
@@ -44,7 +44,7 @@ SCENARIO("D1Q3 velocity set properties")
 
             THEN("The size is 3")
             {
-                CHECK((size == expectedSize));
+                REQUIRE((size == expectedSize));
             }
         }
 
@@ -54,8 +54,8 @@ SCENARIO("D1Q3 velocity set properties")
 
             THEN("The 3 velocities are correct")
             {
-                CHECK((velocities.size() == expectedVelocities.size()));
-                CHECK((velocities == expectedVelocities));
+                REQUIRE((velocities.size() == expectedVelocities.size()));
+                REQUIRE((velocities == expectedVelocities));
             }
 
             THEN("Sum of velocities is zero")
@@ -66,7 +66,7 @@ SCENARIO("D1Q3 velocity set properties")
                     sum = std::accumulate(velocity.begin(), velocity.end(), sum);
                 }
 
-                CHECK((sum == 0));
+                REQUIRE((sum == 0));
             }
         }
 
@@ -76,9 +76,10 @@ SCENARIO("D1Q3 velocity set properties")
 
             THEN("The 3 weights are correct")
             {
-                CHECK((weights.size() == expectedWeights.size()));
-                CHECK((weights == expectedWeights));
-                CHECK((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0)));
+                REQUIRE((weights.size() == expectedWeights.size()));
+                REQUIRE((weights == expectedWeights));
+                REQUIRE((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0))
+                );
             }
         }
     }
