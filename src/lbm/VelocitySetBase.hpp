@@ -83,7 +83,8 @@ concept VelocitySet = requires {
     requires(Derived::size() >= 1);
     {
         Derived::velocities()
-    } -> std::same_as<const std::array<std::array<int, Derived::dimension()>, Derived::size()>>;
+    } -> std::same_as<const std::array<
+          std::array<typename Derived::Real, Derived::dimension()>, Derived::size()>>;
     {
         Derived::weights()
     } -> std::same_as<const std::array<typename Derived::Real, Derived::size()>>;

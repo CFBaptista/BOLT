@@ -17,16 +17,16 @@ SCENARIO("D2Q9 velocity set properties")
 
         std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
         std::move_only_function<std::size_t()> model_size = &Set::size;
-        std::move_only_function<std::array<std::array<int, Set::dimension()>, Set::size()>()>
+        std::move_only_function<std::array<std::array<float, Set::dimension()>, Set::size()>()>
             model_velocities = &Set::velocities;
         std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
 
         const auto expectedDimension{2};
         const auto expectedSize{9};
-        const auto expectedVelocities = std::array<std::array<int, 2>, 9>{
-            std::array<int, 2>{0, 0},  std::array<int, 2>{1, 0},   std::array<int, 2>{0, 1},
-            std::array<int, 2>{-1, 0}, std::array<int, 2>{0, -1},  std::array<int, 2>{1, 1},
-            std::array<int, 2>{-1, 1}, std::array<int, 2>{-1, -1}, std::array<int, 2>{1, -1}
+        const auto expectedVelocities = std::array<std::array<float, 2>, 9>{
+            std::array<float, 2>{0, 0},  std::array<float, 2>{1, 0},   std::array<float, 2>{0, 1},
+            std::array<float, 2>{-1, 0}, std::array<float, 2>{0, -1},  std::array<float, 2>{1, 1},
+            std::array<float, 2>{-1, 1}, std::array<float, 2>{-1, -1}, std::array<float, 2>{1, -1}
         };
         const auto expectedWeights =
             std::array<float, 9>{4.0F / 9,  1.0F / 9,  1.0F / 9,  1.0F / 9, 1.0F / 9,
@@ -64,14 +64,14 @@ SCENARIO("D2Q9 velocity set properties")
 
             THEN("Sum of velocities is zero")
             {
-                std::array<int, 2> sum{0, 0};
+                std::array<float, 2> sum{0, 0};
                 for (const auto& velocity : velocities)
                 {
                     sum[0] += velocity[0];
                     sum[1] += velocity[1];
                 }
 
-                CHECK((sum == std::array<int, 2>{0, 0}));
+                CHECK((sum == std::array<float, 2>{0, 0}));
             }
         }
 

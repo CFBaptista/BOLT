@@ -36,12 +36,34 @@ private:
 
     static constexpr std::size_t size_{27};
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
-        {{{0, 0, 0}},   {{1, 0, 0}},   {{-1, 0, 0}},  {{0, 1, 0}},  {{0, -1, 0}},  {{0, 0, 1}},
-         {{0, 0, -1}},  {{1, 1, 0}},   {{-1, 1, 0}},  {{1, -1, 0}}, {{-1, -1, 0}}, {{1, 0, 1}},
-         {{-1, 0, 1}},  {{1, 0, -1}},  {{-1, 0, -1}}, {{0, 1, 1}},  {{0, -1, 1}},  {{0, 1, -1}},
-         {{0, -1, -1}}, {{1, 1, 1}},   {{-1, 1, 1}},  {{1, -1, 1}}, {{-1, -1, 1}}, {{1, 1, -1}},
-         {{-1, 1, -1}}, {{1, -1, -1}}, {{-1, -1, -1}}}
+    static constexpr std::array<std::array<T, dimension_>, size_> velocities_{
+        {{{static_cast<T>(0), static_cast<T>(0), static_cast<T>(0)}},
+         {{static_cast<T>(1), static_cast<T>(0), static_cast<T>(0)}},
+         {{static_cast<T>(-1), static_cast<T>(0), static_cast<T>(0)}},
+         {{static_cast<T>(0), static_cast<T>(1), static_cast<T>(0)}},
+         {{static_cast<T>(0), static_cast<T>(-1), static_cast<T>(0)}},
+         {{static_cast<T>(0), static_cast<T>(0), static_cast<T>(1)}},
+         {{static_cast<T>(0), static_cast<T>(0), static_cast<T>(-1)}},
+         {{static_cast<T>(1), static_cast<T>(1), static_cast<T>(0)}},
+         {{static_cast<T>(-1), static_cast<T>(1), static_cast<T>(0)}},
+         {{static_cast<T>(1), static_cast<T>(-1), static_cast<T>(0)}},
+         {{static_cast<T>(-1), static_cast<T>(-1), static_cast<T>(0)}},
+         {{static_cast<T>(1), static_cast<T>(0), static_cast<T>(1)}},
+         {{static_cast<T>(-1), static_cast<T>(0), static_cast<T>(1)}},
+         {{static_cast<T>(1), static_cast<T>(0), static_cast<T>(-1)}},
+         {{static_cast<T>(-1), static_cast<T>(0), static_cast<T>(-1)}},
+         {{static_cast<T>(0), static_cast<T>(1), static_cast<T>(1)}},
+         {{static_cast<T>(0), static_cast<T>(-1), static_cast<T>(1)}},
+         {{static_cast<T>(0), static_cast<T>(1), static_cast<T>(-1)}},
+         {{static_cast<T>(0), static_cast<T>(-1), static_cast<T>(-1)}},
+         {{static_cast<T>(1), static_cast<T>(1), static_cast<T>(1)}},
+         {{static_cast<T>(-1), static_cast<T>(1), static_cast<T>(1)}},
+         {{static_cast<T>(1), static_cast<T>(-1), static_cast<T>(1)}},
+         {{static_cast<T>(-1), static_cast<T>(-1), static_cast<T>(1)}},
+         {{static_cast<T>(1), static_cast<T>(1), static_cast<T>(-1)}},
+         {{static_cast<T>(-1), static_cast<T>(1), static_cast<T>(-1)}},
+         {{static_cast<T>(1), static_cast<T>(-1), static_cast<T>(-1)}},
+         {{static_cast<T>(-1), static_cast<T>(-1), static_cast<T>(-1)}}}
     };
 
     static constexpr std::array<T, size_> weights_{
