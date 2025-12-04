@@ -20,8 +20,10 @@ template <std::floating_point T = double>
 class D3Q27 : public VelocitySetBase<D3Q27<T>>
 {
 public:
+    /// The floating-point type.
     using Real = T;
 
+    /// Friend the CRTP base class to allow accessors in base to access private static data.
     friend class VelocitySetBase<D3Q27<T>>;
 
     D3Q27() = delete;
@@ -32,10 +34,13 @@ public:
     ~D3Q27() = delete;
 
 private:
+    /// The spatial dimension.
     static constexpr std::size_t dimension_{3};
 
+    /// The number of discrete velocity vectors.
     static constexpr std::size_t size_{27};
 
+    /// The discrete velocity vectors in lattice units.
     static constexpr std::array<std::array<T, dimension_>, size_> velocities_{
         {{{static_cast<T>(0), static_cast<T>(0), static_cast<T>(0)}},
          {{static_cast<T>(1), static_cast<T>(0), static_cast<T>(0)}},
@@ -66,6 +71,7 @@ private:
          {{static_cast<T>(-1), static_cast<T>(-1), static_cast<T>(-1)}}}
     };
 
+    /// The quadrature weights for each discrete velocity vector.
     static constexpr std::array<T, size_> weights_{
         static_cast<T>(8) / static_cast<T>(27),  static_cast<T>(2) / static_cast<T>(27),
         static_cast<T>(2) / static_cast<T>(27),  static_cast<T>(2) / static_cast<T>(27),

@@ -4,6 +4,7 @@
 
 /**
  * @class NodeDistributionBase
+ *
  * @brief Class that serves as a base for distribution functions at lattice nodes.
  */
 class NodeDistributionBase
@@ -12,9 +13,11 @@ class NodeDistributionBase
 
 /**
  * @concept NodeDistribution
- * @brief Concept that checks if a type is derived from NodeDistributionBase.
  *
- * This concept checks if a given type `Derived` is derived from the `NodeDistributionBase` class.
+ * @brief Concept used for constrainting the template parameter of consumers of node distributions.
+ *
+ * @details This concept checks if the type `Derived` is derived from the `NodeDistributionBase`
+ * class.
  *
  * @tparam Derived The type to be checked.
  */
