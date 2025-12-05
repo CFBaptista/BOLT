@@ -1,5 +1,3 @@
-#include "lbm/D2Q9.hpp"
-
 #include <array>
 #include <cstddef>
 #include <functional>
@@ -8,25 +6,27 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-// NOLINTNEXTLINE(readability-function-cognitive-complexity)
-SCENARIO("D2Q9 lattice model properties")
-{
-    GIVEN("A D2Q9 lattice model")
-    {
-        using Model = D2Q9<float>;
+#include "lbm/D2Q9.hpp"
 
-        std::move_only_function<std::size_t()> model_dimension = &Model::dimension;
-        std::move_only_function<std::size_t()> model_size = &Model::size;
-        std::move_only_function<std::array<std::array<int, Model::dimension()>, Model::size()>()>
-            model_velocities = &Model::velocities;
-        std::move_only_function<std::array<float, Model::size()>()> model_weights = &Model::weights;
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
+SCENARIO("D2Q9 velocity set properties")
+{
+    GIVEN("A D2Q9 velocity set")
+    {
+        using Set = D2Q9<float>;
+
+        std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
+        std::move_only_function<std::size_t()> model_size = &Set::size;
+        std::move_only_function<std::array<std::array<float, Set::dimension()>, Set::size()>()>
+            model_velocities = &Set::velocities;
+        std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
 
         const auto expectedDimension{2};
         const auto expectedSize{9};
-        const auto expectedVelocities = std::array<std::array<int, 2>, 9>{
-            std::array<int, 2>{0, 0},  std::array<int, 2>{1, 0},   std::array<int, 2>{0, 1},
-            std::array<int, 2>{-1, 0}, std::array<int, 2>{0, -1},  std::array<int, 2>{1, 1},
-            std::array<int, 2>{-1, 1}, std::array<int, 2>{-1, -1}, std::array<int, 2>{1, -1}
+        const auto expectedVelocities = std::array<std::array<float, 2>, 9>{
+            std::array<float, 2>{0, 0},  std::array<float, 2>{1, 0},   std::array<float, 2>{0, 1},
+            std::array<float, 2>{-1, 0}, std::array<float, 2>{0, -1},  std::array<float, 2>{1, 1},
+            std::array<float, 2>{-1, 1}, std::array<float, 2>{-1, -1}, std::array<float, 2>{1, -1}
         };
         const auto expectedWeights =
             std::array<float, 9>{4.0F / 9,  1.0F / 9,  1.0F / 9,  1.0F / 9, 1.0F / 9,
@@ -38,7 +38,7 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The dimension is 2")
             {
-                CHECK((dimension == expectedDimension));
+                REQUIRE((dimension == expectedDimension));
             }
         }
 
@@ -48,7 +48,7 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The size is 9")
             {
-                CHECK((size == expectedSize));
+                REQUIRE((size == expectedSize));
             }
         }
 
@@ -58,20 +58,20 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The 9 velocities are correct")
             {
-                CHECK((velocities.size() == expectedVelocities.size()));
-                CHECK((velocities == expectedVelocities));
+                REQUIRE((velocities.size() == expectedVelocities.size()));
+                REQUIRE((velocities == expectedVelocities));
             }
 
             THEN("Sum of velocities is zero")
             {
-                std::array<int, 2> sum{0, 0};
+                std::array<float, 2> sum{0, 0};
                 for (const auto& velocity : velocities)
                 {
                     sum[0] += velocity[0];
                     sum[1] += velocity[1];
                 }
 
-                CHECK((sum == std::array<int, 2>{0, 0}));
+                REQUIRE((sum == std::array<float, 2>{0, 0}));
             }
         }
 
@@ -81,9 +81,10 @@ SCENARIO("D2Q9 lattice model properties")
 
             THEN("The 9 weights are correct")
             {
-                CHECK((weights.size() == expectedWeights.size()));
-                CHECK((weights == expectedWeights));
-                CHECK((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0)));
+                REQUIRE((weights.size() == expectedWeights.size()));
+                REQUIRE((weights == expectedWeights));
+                REQUIRE((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0))
+                );
             }
         }
     }

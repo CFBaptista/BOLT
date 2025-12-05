@@ -11,7 +11,7 @@ add_custom_target(CompileCommands ALL
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(COMPILE_FLAGS -g -O0)
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(COMPILE_FLAGS -O3)
+    set(COMPILE_FLAGS -O3 -march=native -mtune=native -flto)
 elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
     set(COMPILE_FLAGS -g -O2)
 endif()
