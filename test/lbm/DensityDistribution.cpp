@@ -8,6 +8,7 @@
 #include "lbm/D2Q9.hpp"
 #include "lbm/DensityDistribution.hpp"
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("DensityDistribution container operations")
 {
     GIVEN("A non-const DensityDistribution")
@@ -23,7 +24,7 @@ SCENARIO("DensityDistribution container operations")
         {
             THEN("The dimension matches the expected value")
             {
-                REQUIRE(distribution.dimension() == expectedDimension);
+                REQUIRE((distribution.dimension() == expectedDimension));
             }
         }
 
@@ -31,7 +32,7 @@ SCENARIO("DensityDistribution container operations")
         {
             THEN("The size matches the expected value")
             {
-                REQUIRE(distribution.size() == expectedSize);
+                REQUIRE((distribution.size() == expectedSize));
             }
         }
 
@@ -41,7 +42,7 @@ SCENARIO("DensityDistribution container operations")
             {
                 for (std::size_t i = 0; i < expectedSize; ++i)
                 {
-                    REQUIRE(distribution[i] == expectedDistributionData.at(i));
+                    REQUIRE((distribution[i] == expectedDistributionData.at(i)));
                 }
             }
         }
@@ -54,12 +55,13 @@ SCENARIO("DensityDistribution container operations")
 
             THEN("The updated value is reflected in the distribution")
             {
-                REQUIRE(distribution[index] == value);
+                REQUIRE((distribution[index] == value));
             }
         }
     }
 }
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("Calculating macroscopic quantities from a density distribution")
 {
     GIVEN("A density distribution")
@@ -81,7 +83,7 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
 
             THEN("The calculated density matches the expected value")
             {
-                REQUIRE(density == Catch::Approx(expectedDensity));
+                REQUIRE((density == Catch::Approx(expectedDensity)));
             }
         }
 
@@ -93,7 +95,7 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
             {
                 for (std::size_t i = 0; i < expectedDimension; ++i)
                 {
-                    REQUIRE(momentum.at(i) == Catch::Approx(expectedMomentum.at(i)));
+                    REQUIRE((momentum.at(i) == Catch::Approx(expectedMomentum.at(i))));
                 }
             }
         }
