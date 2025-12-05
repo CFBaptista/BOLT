@@ -11,51 +11,70 @@
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("DensityDistribution container operations")
 {
-    GIVEN("A non-const DensityDistribution")
+    GIVEN("A dimension, size and distribution data")
     {
         const std::size_t expectedDimension{D2Q9<double>::dimension()};
         const std::size_t expectedSize{D2Q9<double>::size()};
         const std::array<double, expectedSize> expectedDistributionData{1,  2,  3,  5, 8,
                                                                         13, 21, 34, 55};
 
-        DensityDistribution<D2Q9<double>> distribution{expectedDistributionData};
-
-        WHEN("The distribution is queried for its dimension")
+        GIVEN("A non-const DensityDistribution")
         {
-            THEN("The dimension matches the expected value")
-            {
-                REQUIRE((distribution.dimension() == expectedDimension));
-            }
-        }
+            DensityDistribution<D2Q9<double>> distribution{expectedDistributionData};
 
-        WHEN("The distribution is queried for its size")
-        {
-            THEN("The size matches the expected value")
+            WHEN("The distribution is queried for its dimension")
             {
-                REQUIRE((distribution.size() == expectedSize));
-            }
-        }
-
-        WHEN("The distribution is queried for its data")
-        {
-            THEN("The data matches the expected value")
-            {
-                for (std::size_t i = 0; i < expectedSize; ++i)
+                THEN("The dimension matches the expected value")
                 {
-                    REQUIRE((distribution[i] == expectedDistributionData.at(i)));
+                    REQUIRE((distribution.dimension() == expectedDimension));
+                }
+            }
+
+            WHEN("The distribution is queried for its size")
+            {
+                THEN("The size matches the expected value")
+                {
+                    REQUIRE((distribution.size() == expectedSize));
+                }
+            }
+
+            WHEN("The distribution is queried for its data")
+            {
+                THEN("The data matches the expected value")
+                {
+                    for (std::size_t i = 0; i < expectedSize; ++i)
+                    {
+                        REQUIRE((distribution[i] == expectedDistributionData.at(i)));
+                    }
+                }
+            }
+
+            WHEN("The distribution data is updated")
+            {
+                const std::size_t index{3};
+                const double value{1.23};
+                distribution[index] = value;
+
+                THEN("The updated value is reflected in the distribution")
+                {
+                    REQUIRE((distribution[index] == value));
                 }
             }
         }
 
-        WHEN("The distribution data is updated")
+        GIVEN("A const DensityDistribution")
         {
-            const std::size_t index{3};
-            const double value{1.23};
-            distribution[index] = value;
+            const DensityDistribution<D2Q9<double>> distribution{expectedDistributionData};
 
-            THEN("The updated value is reflected in the distribution")
+            WHEN("The distribution is queried for its data")
             {
-                REQUIRE((distribution[index] == value));
+                THEN("The data matches the expected value")
+                {
+                    for (std::size_t i = 0; i < expectedSize; ++i)
+                    {
+                        REQUIRE((distribution[i] == expectedDistributionData.at(i)));
+                    }
+                }
             }
         }
     }
