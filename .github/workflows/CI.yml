@@ -38,59 +38,35 @@ jobs:
 
       - name: Run formatter
         run: |
-          output=$(clang-format \
+          clang-format \
             --style=file \
             $(git ls-files '*.cpp' '*.hpp' '*.tpp') \
             --dry-run \
-            --Werror
-          )
-          status=$?
-
-          if [ $status -ne 0 ]; then
-            printf '%s\n' "$output"
-            echo "clang-format found formatting issues."
-            exit 1
-          fi
+            --Werror \
+            2>&1
 
       - name: Run linter
         run: |
-          output=$(clang-tidy \
+          clang-tidy \
             $(git ls-files '*.cpp' '*.hpp') \
             -p build/linux-x86-64-llvm-debug \
             -format-style=file \
             -warnings-as-errors=* \
-            -quiet \
             2>&1
-          )
-          status=$?
-
-          if [ $status -ne 0 ]; then
-            printf '%s\n' "$output"
-            echo "clang-tidy found errors."
-            exit 1
-          fi
 
       - name: Run static analysis
         run: |
-          output=$(cppcheck \
+          cppcheck \
             --enable=all \
             --inconclusive \
             --force \
             --suppress=missingIncludeSystem \
             --std=c++23 \
             --error-exitcode=1 \
-            --quiet \
             -I src \
             src \
-            test
-          )
-          status=$?
-
-          if [ $status -ne 0 ]; then
-            printf '%s\n' "$output"
-            echo "cppcheck found errors."
-            exit 1
-          fi
+            test \
+            2>&1
 
       - name: Run coverage
         run: cmake --build build/linux-x86-64-llvm-debug --target Coverage
