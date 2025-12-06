@@ -25,5 +25,6 @@ target_sources(lbm_test PRIVATE
     D2Q9.cpp
     D3Q27.cpp
     DensityDistribution.cpp
+    kineticEquilibrium.cpp
     VelocitySetBase.cpp
 )
