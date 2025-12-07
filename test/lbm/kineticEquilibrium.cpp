@@ -34,7 +34,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
             {
                 for (std::size_t i = 0; i < Set::size(); ++i)
                 {
-                    REQUIRE(equilibrium[i] == Catch::Approx(expectedEquilibrium[i]));
+                    REQUIRE((equilibrium[i] == Catch::Approx(expectedEquilibrium[i])));
                 }
             }
         }
