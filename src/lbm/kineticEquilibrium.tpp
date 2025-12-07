@@ -16,7 +16,7 @@ auto maxwellEquilibriumSecondOrder(
 
     Real halfMachSquared = std::accumulate(
         velocity.begin(), velocity.end(), static_cast<Real>(0),
-        [](Real sumOfSquares, Real u_i) { return sumOfSquares + u_i * u_i; }
+        [](const Real& speedSquared, const Real& u_i) { return speedSquared + u_i * u_i; }
     );
     halfMachSquared /= static_cast<Real>(2) * speedOfSoundSquared;
 
