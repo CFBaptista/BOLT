@@ -45,7 +45,7 @@ jobs:
             --Werror \
             2>&1
 
-      - name: Run linter
+      - name: Run static analysis (clang-tidy)
         run: |
           clang-tidy \
             $(git ls-files '*.cpp' '*.hpp') \
@@ -54,7 +54,7 @@ jobs:
             -warnings-as-errors=* \
             2>&1
 
-      - name: Run static analysis
+      - name: Run static analysis (cppcheck)
         run: |
           cppcheck \
             --enable=all \
@@ -68,7 +68,7 @@ jobs:
             test \
             2>&1
 
-      - name: Run coverage
+      - name: Compute code coverage
         run: cmake --build build/linux-x86-64-llvm-debug --target Coverage
 
   Configure-Build-Test:
