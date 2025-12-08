@@ -32,8 +32,9 @@ auto maxwellEquilibriumSecondOrder(
         }
         tmp /= speedOfSoundSquared;
 
-        equilibrium[dir] = Set::weights()[dir] * density *
-                           (static_cast<Real>(1) + tmp + tmp * tmp - halfMachSquared);
+        equilibrium[dir] =
+            Set::weights()[dir] * density *
+            (static_cast<Real>(1) + tmp + tmp * tmp / static_cast<Real>(2) - halfMachSquared);
     }
 
     return equilibrium;
