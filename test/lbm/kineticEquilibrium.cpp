@@ -8,6 +8,7 @@
 #include "lbm/DensityDistribution.hpp"
 #include "lbm/kineticEquilibrium.hpp"
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("Compute kinetic equilibrium distribution")
 {
     GIVEN("A macroscopic quantities")
