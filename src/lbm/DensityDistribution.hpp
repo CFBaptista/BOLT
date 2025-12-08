@@ -28,7 +28,7 @@ public:
      *
      * @return The spatial dimension.
      */
-    static constexpr auto dimension() -> std::size_t;
+    static constexpr auto dimension() noexcept -> std::size_t;
 
     /**
      * @fn size
@@ -37,7 +37,7 @@ public:
      *
      * @return The number of discrete velocity vectors.
      */
-    static constexpr auto size() -> std::size_t;
+    static constexpr auto size() noexcept -> std::size_t;
 
     auto operator[](std::size_t index) -> Real&;
     auto operator[](std::size_t index) const -> const Real&;

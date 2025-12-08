@@ -14,13 +14,13 @@ DensityDistribution<Set>::DensityDistribution(const std::array<Real, Set::size()
 }
 
 template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::dimension() -> std::size_t
+constexpr auto DensityDistribution<Set>::dimension() noexcept -> std::size_t
 {
     return Set::dimension();
 }
 
 template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::size() -> std::size_t
+constexpr auto DensityDistribution<Set>::size() noexcept -> std::size_t
 {
     return Set::size();
 }
