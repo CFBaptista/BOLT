@@ -60,6 +60,16 @@ public:
      */
     auto momentum() const noexcept -> std::array<Real, Set::dimension()>;
 
+    /**
+     * @fn velocity
+     *
+     * @brief Returns the macroscopic velocity computed from the distribution function.
+     *
+     * @return The velocity.
+     */
+    auto velocity(const Real& density, const std::array<Real, Set::dimension()>& momentum) const
+        -> std::array<Real, Set::dimension()>;
+
 private:
     /// The distribution function values at the lattice node.
     std::array<Real, Set::size()> distribution_;

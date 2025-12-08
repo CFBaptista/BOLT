@@ -61,3 +61,19 @@ auto DensityDistribution<Set>::momentum() const noexcept -> std::array<Real, Set
 
     return macroscopicMomentum;
 }
+
+template <VelocitySet Set>
+auto DensityDistribution<Set>::velocity(
+    const Real& density,
+    const std::array<Real, Set::dimension()>& momentum
+) const -> std::array<Real, Set::dimension()>
+{
+    std::array<Real, Set::dimension()> macroscopicVelocity{};
+
+    for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
+    {
+        macroscopicVelocity[dim] = momentum[dim] / density;
+    }
+
+    return macroscopicVelocity;
+}

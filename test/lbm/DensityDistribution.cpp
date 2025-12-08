@@ -93,6 +93,9 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
         const double expectedDensity =
             std::accumulate(expectedDistributionData.begin(), expectedDistributionData.end(), 0.0);
         const std::array<double, 2> expectedMomentum{10, -60};
+        const std::array<double, 2> expectedVelocity{
+            expectedMomentum[0] / expectedDensity, expectedMomentum[1] / expectedDensity
+        };
 
         const DensityDistribution<D2Q9<double>> distribution{expectedDistributionData};
 
@@ -115,6 +118,19 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
                 for (std::size_t i = 0; i < expectedDimension; ++i)
                 {
                     REQUIRE((momentum.at(i) == Catch::Approx(expectedMomentum.at(i))));
+                }
+            }
+        }
+
+        WHEN("The macroscopic velocity is calculated")
+        {
+            auto velocity = distribution.velocity(expectedDensity, expectedMomentum);
+
+            THEN("The calculated velocity matches the expected value")
+            {
+                for (std::size_t i = 0; i < expectedDimension; ++i)
+                {
+                    REQUIRE((velocity.at(i) == Catch::Approx(expectedVelocity.at(i))));
                 }
             }
         }
