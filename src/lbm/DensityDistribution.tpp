@@ -14,13 +14,13 @@ DensityDistribution<Set>::DensityDistribution(const std::array<Real, Set::size()
 }
 
 template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::dimension() -> std::size_t
+constexpr auto DensityDistribution<Set>::dimension() noexcept -> std::size_t
 {
     return Set::dimension();
 }
 
 template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::size() -> std::size_t
+constexpr auto DensityDistribution<Set>::size() noexcept -> std::size_t
 {
     return Set::size();
 }
@@ -60,4 +60,20 @@ auto DensityDistribution<Set>::momentum() const noexcept -> std::array<Real, Set
     }
 
     return macroscopicMomentum;
+}
+
+template <VelocitySet Set>
+auto DensityDistribution<Set>::velocity(
+    const Real& density,
+    const std::array<Real, Set::dimension()>& momentum
+) const -> std::array<Real, Set::dimension()>
+{
+    std::array<Real, Set::dimension()> macroscopicVelocity{};
+
+    for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
+    {
+        macroscopicVelocity[dim] = momentum[dim] / density;
+    }
+
+    return macroscopicVelocity;
 }
