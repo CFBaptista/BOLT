@@ -23,7 +23,7 @@ target_sources(lbm INTERFACE
     D2Q9.hpp
     D3Q27.hpp
     DensityDistribution.hpp
-    kineticEquilibrium.hpp
+    DiscreteMaxwellBoltzmann.hpp
     NodeDistributionBase.hpp
     VelocitySetBase.hpp
 )
