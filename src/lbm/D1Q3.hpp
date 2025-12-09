@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cmath>
 #include <concepts>
 #include <cstddef>
 
@@ -51,4 +52,7 @@ private:
         static_cast<T>(4) / static_cast<T>(6), static_cast<T>(1) / static_cast<T>(6),
         static_cast<T>(1) / static_cast<T>(6)
     };
+
+    /// The multiplicative inverse of the speed of sound raised to the power of 2.
+    static constexpr T soundSpeedInverseSquared_{static_cast<T>(3)};
 };

@@ -18,7 +18,6 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
         const double expectedDensity{1.225};
         const std::array<double, 2> expectedVelocity{3.0, 5.0};
-        const double speedOfSoundSquared{1.0 / 3.0};
 
         const Distribution expectedEquilibrium{
             {-27.2222222222, -0.0680555556, 10.5486111111, -2.5180555556, 6.4652777778,
@@ -27,9 +26,9 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
         WHEN("Computing the kinetic equilibrium distribution")
         {
-            const Distribution equilibrium{maxwellEquilibriumSecondOrder<Set>(
-                expectedDensity, expectedVelocity, speedOfSoundSquared
-            )};
+            const Distribution equilibrium{
+                maxwellEquilibriumSecondOrder<Set>(expectedDensity, expectedVelocity)
+            };
 
             THEN("The computed values are correct")
             {

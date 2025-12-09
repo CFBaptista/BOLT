@@ -88,4 +88,7 @@ private:
         static_cast<T>(1) / static_cast<T>(216), static_cast<T>(1) / static_cast<T>(216),
         static_cast<T>(1) / static_cast<T>(216)
     };
+
+    /// The multiplicative inverse of the speed of sound raised to the power of 2.
+    static constexpr T soundSpeedInverseSquared_{static_cast<T>(3)};
 };

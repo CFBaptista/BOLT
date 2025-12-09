@@ -8,33 +8,30 @@
 template <VelocitySet Set>
 auto maxwellEquilibriumSecondOrder(
     const typename Set::Real& density,
-    const std::array<typename Set::Real, Set::dimension()>& velocity,
-    const typename Set::Real& speedOfSoundSquared
+    const std::array<typename Set::Real, Set::dimension()>& velocity
 ) -> DensityDistribution<Set>
 {
     using Real = typename Set::Real;
 
-    Real halfMachSquared = std::accumulate(
-        velocity.begin(), velocity.end(), static_cast<Real>(0),
-        [](const Real& speedSquared, const Real& u_i) { return speedSquared + u_i * u_i; }
-    );
-    halfMachSquared /= static_cast<Real>(2) * speedOfSoundSquared;
+    const Real half{static_cast<Real>(0.5)};
+    const Real halfMachSquared =
+        half * Set::soundSpeedInverseSquared() *
+        std::inner_product(
+            velocity.begin(), velocity.end(), velocity.begin(), static_cast<Real>(0)
+        );
 
     DensityDistribution<Set> equilibrium;
 
-    for (std::size_t dir = 0; dir < Set::size(); ++dir)
+    for (std::size_t dof = 0; dof < Set::dimension(); ++dof)
     {
-        Real tmp{0};
+        const Real tmp = Set::soundSpeedInverseSquared() * std::inner_product(
+                                                               velocity.begin(), velocity.end(),
+                                                               Set::velocities()[dof].begin(),
+                                                               static_cast<Real>(0)
+                                                           );
 
-        for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
-        {
-            tmp += Set::velocities()[dir][dim] * velocity[dim];
-        }
-        tmp /= speedOfSoundSquared;
-
-        equilibrium[dir] =
-            Set::weights()[dir] * density *
-            (static_cast<Real>(1) + tmp + tmp * tmp / static_cast<Real>(2) - halfMachSquared);
+        equilibrium[dof] = Set::weights()[dof] * density *
+                           (static_cast<Real>(1) + tmp + half * tmp * tmp - halfMachSquared);
     }
 
     return equilibrium;
