@@ -22,7 +22,7 @@ auto maxwellEquilibriumSecondOrder(
 
     DensityDistribution<Set> equilibrium;
 
-    for (std::size_t dof = 0; dof < Set::dimension(); ++dof)
+    for (std::size_t dof = 0; dof < Set::size(); ++dof)
     {
         const Real tmp = Set::soundSpeedInverseSquared() * std::inner_product(
                                                                velocity.begin(), velocity.end(),
