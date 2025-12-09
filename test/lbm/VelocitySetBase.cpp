@@ -19,6 +19,8 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
 };
 
 class NoBase
@@ -35,6 +37,8 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
 };
 
 class InvalidValueType : public VelocitySetBase<InvalidValueType>
@@ -51,6 +55,8 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
 };
 
 class ZeroDimensional : public VelocitySetBase<ZeroDimensional>
@@ -67,6 +73,8 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
 };
 
 class FourDimensional : public VelocitySetBase<FourDimensional>
@@ -83,6 +91,8 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
 };
 
 class IntSize : public VelocitySetBase<IntSize>
@@ -99,6 +109,8 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
 };
 
 class InvalidSize : public VelocitySetBase<InvalidSize>
@@ -115,6 +127,8 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
 };
 
 class InvalidFloatingPointWeight : public VelocitySetBase<InvalidFloatingPointWeight>
@@ -131,6 +145,44 @@ public:
     static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{4};
+};
+
+class IntSoundSpeed : public VelocitySetBase<IntSoundSpeed>
+{
+public:
+    using Real = double;
+
+    friend class VelocitySetBase<IntSoundSpeed>;
+
+    static constexpr std::size_t dimension_ = 2;
+
+    static constexpr std::size_t size_ = 7;
+
+    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+
+    static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr int soundSpeedInverseSquared_{3};
+};
+
+class NegativeSoundSpeed : public VelocitySetBase<NegativeSoundSpeed>
+{
+public:
+    using Real = double;
+
+    friend class VelocitySetBase<NegativeSoundSpeed>;
+
+    static constexpr std::size_t dimension_ = 2;
+
+    static constexpr std::size_t size_ = 7;
+
+    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+
+    static constexpr std::array<Real, size_> weights_{};
+
+    static constexpr Real soundSpeedInverseSquared_{-3};
 };
 
 static_assert(VelocitySet<ValidVelocitySet>, "ValidVelocitySet should satisfy VelocitySet concept");
@@ -160,6 +212,13 @@ static_assert(
     !VelocitySet<InvalidFloatingPointWeight>,
     "InvalidFloatingPointWeight should not satisfy VelocitySet concept"
 );
+
+static_assert(
+    !VelocitySet<NegativeSoundSpeed>,
+    "NegativeSoundSpeed should not satisfy VelocitySet concept"
+);
+
+static_assert(!VelocitySet<IntSoundSpeed>, "IntSoundSpeed should not satisfy VelocitySet concept");
 
 TEST_CASE("Dummy test for VelocitySet concept")
 {

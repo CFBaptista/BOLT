@@ -63,6 +63,24 @@ public:
      * @return The weight for each discrete velocity vector.
      */
     static constexpr auto weights() noexcept -> decltype(auto);
+
+    /**
+     * @fn soundSpeedInverseSquared
+     *
+     * @brief Returns the multiplicative inverse of the speed of sound squared.
+     *
+     * @return The inverse sound speed squared.
+     */
+    static constexpr auto soundSpeedInverseSquared() noexcept -> decltype(auto);
+
+    /**
+     * @fn soundSpeedInverseTessarected
+     *
+     * @brief Returns the multiplicative inverse of the speed of sound raised to the fourth power.
+     *
+     * @return The inverse sound speed raised to the fourth power.
+     */
+    static constexpr auto soundSpeedInverseTessarected() noexcept -> decltype(auto);
 };
 
 /**
@@ -77,6 +95,9 @@ public:
  * - Provides static member functions for velocity vectors and weights, both returning appropriate
  * `std::array` types.
  * - Defines a value type named Real that is a floating-point type.
+ * - Provides a static member function for the inverse of the speed of sound squared, returning a
+ * std::floating-point type.
+ * - The inverse speed of sound squared is greater than zero.
  * - Inherits from `VelocitySetBase<Derived>`.
  *
  * @tparam Derived Velocity set type to be checked.
@@ -95,7 +116,9 @@ concept VelocitySet = requires {
     {
         Derived::weights()
     } -> std::same_as<const std::array<typename Derived::Real, Derived::size()>>;
-    std::is_base_of_v<VelocitySetBase<Derived>, Derived>;
+    { Derived::soundSpeedInverseSquared() } -> std::same_as<typename Derived::Real>;
+    requires(Derived::soundSpeedInverseSquared() > typename Derived::Real{0});
+    requires std::is_base_of_v<VelocitySetBase<Derived>, Derived>;
 };
 
 #include "VelocitySetBase.tpp"

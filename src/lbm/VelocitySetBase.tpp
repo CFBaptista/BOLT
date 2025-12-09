@@ -27,3 +27,9 @@ constexpr auto VelocitySetBase<Derived>::weights() noexcept -> decltype(auto)
 {
     return Derived::weights_;
 }
+
+template <typename Derived>
+constexpr auto VelocitySetBase<Derived>::soundSpeedInverseSquared() noexcept -> decltype(auto)
+{
+    return Derived::soundSpeedInverseSquared_;
+}

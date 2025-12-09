@@ -20,6 +20,8 @@ SCENARIO("D1Q3 velocity set properties")
         std::move_only_function<std::array<std::array<float, Set::dimension()>, Set::size()>()>
             model_velocities = &Set::velocities;
         std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
+        std::move_only_function<float()> model_soundSpeedInverseSquared =
+            &Set::soundSpeedInverseSquared;
 
         const auto expectedDimension{1};
         const auto expectedSize{3};
@@ -27,6 +29,7 @@ SCENARIO("D1Q3 velocity set properties")
             std::array<float, 1>{0}, std::array<float, 1>{1}, std::array<float, 1>{-1}
         };
         const auto expectedWeights = std::array<float, 3>{4.0F / 6, 1.0F / 6, 1.0F / 6};
+        const auto expectedSoundSpeedInverseSquared{3.0F};
 
         WHEN("Getting the dimension")
         {
@@ -80,6 +83,16 @@ SCENARIO("D1Q3 velocity set properties")
                 REQUIRE((weights == expectedWeights));
                 REQUIRE((std::accumulate(weights.begin(), weights.end(), 0.0) == Catch::Approx(1.0))
                 );
+            }
+        }
+
+        WHEN("Getting the inverse of the speed of sound squared")
+        {
+            const auto soundSpeedInverseSquared = model_soundSpeedInverseSquared();
+
+            THEN("The inverse of the speed of sound squared is correct")
+            {
+                REQUIRE((soundSpeedInverseSquared == expectedSoundSpeedInverseSquared));
             }
         }
     }

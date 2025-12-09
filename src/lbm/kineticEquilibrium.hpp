@@ -19,8 +19,7 @@
 template <VelocitySet Set>
 auto maxwellEquilibriumSecondOrder(
     const typename Set::Real& density,
-    const std::array<typename Set::Real, Set::dimension()>& velocity,
-    const typename Set::Real& speedOfSoundSquared
+    const std::array<typename Set::Real, Set::dimension()>& velocity
 ) -> DensityDistribution<Set>;
 
 #include "lbm/kineticEquilibrium.tpp"
