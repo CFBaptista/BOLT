@@ -17,7 +17,7 @@ SCENARIO("D1Q3 velocity set properties")
 
         std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
         std::move_only_function<std::size_t()> model_size = &Set::size;
-        std::move_only_function<std::array<std::array<float, Set::dimension()>, Set::size()>()>
+        std::move_only_function<std::array<std::array<int, Set::dimension()>, Set::size()>()>
             model_velocities = &Set::velocities;
         std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
         std::move_only_function<float()> model_soundSpeedInverseSquared =
@@ -25,8 +25,8 @@ SCENARIO("D1Q3 velocity set properties")
 
         const auto expectedDimension{1};
         const auto expectedSize{3};
-        const auto expectedVelocities = std::array<std::array<float, 1>, 3>{
-            std::array<float, 1>{0}, std::array<float, 1>{1}, std::array<float, 1>{-1}
+        const auto expectedVelocities = std::array<std::array<int, 1>, 3>{
+            std::array<int, 1>{0}, std::array<int, 1>{1}, std::array<int, 1>{-1}
         };
         const auto expectedWeights = std::array<float, 3>{4.0F / 6, 1.0F / 6, 1.0F / 6};
         const auto expectedSoundSpeedInverseSquared{3.0F};

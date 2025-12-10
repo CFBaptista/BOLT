@@ -40,35 +40,13 @@ private:
     /// The number of discrete velocity vectors.
     static constexpr std::size_t size_{27};
 
-    /// The discrete velocity vectors in lattice units.
-    static constexpr std::array<std::array<T, dimension_>, size_> velocities_{
-        {{{static_cast<T>(0), static_cast<T>(0), static_cast<T>(0)}},
-         {{static_cast<T>(1), static_cast<T>(0), static_cast<T>(0)}},
-         {{static_cast<T>(-1), static_cast<T>(0), static_cast<T>(0)}},
-         {{static_cast<T>(0), static_cast<T>(1), static_cast<T>(0)}},
-         {{static_cast<T>(0), static_cast<T>(-1), static_cast<T>(0)}},
-         {{static_cast<T>(0), static_cast<T>(0), static_cast<T>(1)}},
-         {{static_cast<T>(0), static_cast<T>(0), static_cast<T>(-1)}},
-         {{static_cast<T>(1), static_cast<T>(1), static_cast<T>(0)}},
-         {{static_cast<T>(-1), static_cast<T>(1), static_cast<T>(0)}},
-         {{static_cast<T>(1), static_cast<T>(-1), static_cast<T>(0)}},
-         {{static_cast<T>(-1), static_cast<T>(-1), static_cast<T>(0)}},
-         {{static_cast<T>(1), static_cast<T>(0), static_cast<T>(1)}},
-         {{static_cast<T>(-1), static_cast<T>(0), static_cast<T>(1)}},
-         {{static_cast<T>(1), static_cast<T>(0), static_cast<T>(-1)}},
-         {{static_cast<T>(-1), static_cast<T>(0), static_cast<T>(-1)}},
-         {{static_cast<T>(0), static_cast<T>(1), static_cast<T>(1)}},
-         {{static_cast<T>(0), static_cast<T>(-1), static_cast<T>(1)}},
-         {{static_cast<T>(0), static_cast<T>(1), static_cast<T>(-1)}},
-         {{static_cast<T>(0), static_cast<T>(-1), static_cast<T>(-1)}},
-         {{static_cast<T>(1), static_cast<T>(1), static_cast<T>(1)}},
-         {{static_cast<T>(-1), static_cast<T>(1), static_cast<T>(1)}},
-         {{static_cast<T>(1), static_cast<T>(-1), static_cast<T>(1)}},
-         {{static_cast<T>(-1), static_cast<T>(-1), static_cast<T>(1)}},
-         {{static_cast<T>(1), static_cast<T>(1), static_cast<T>(-1)}},
-         {{static_cast<T>(-1), static_cast<T>(1), static_cast<T>(-1)}},
-         {{static_cast<T>(1), static_cast<T>(-1), static_cast<T>(-1)}},
-         {{static_cast<T>(-1), static_cast<T>(-1), static_cast<T>(-1)}}}
+    /// The discrete velocity vectors in lattice units as ints.
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
+        {{{0, 0, 0}},   {{1, 0, 0}},   {{-1, 0, 0}},  {{0, 1, 0}},  {{0, -1, 0}},  {{0, 0, 1}},
+         {{0, 0, -1}},  {{1, 1, 0}},   {{-1, 1, 0}},  {{1, -1, 0}}, {{-1, -1, 0}}, {{1, 0, 1}},
+         {{-1, 0, 1}},  {{1, 0, -1}},  {{-1, 0, -1}}, {{0, 1, 1}},  {{0, -1, 1}},  {{0, 1, -1}},
+         {{0, -1, -1}}, {{1, 1, 1}},   {{-1, 1, 1}},  {{1, -1, 1}}, {{-1, -1, 1}}, {{1, 1, -1}},
+         {{-1, 1, -1}}, {{1, -1, -1}}, {{-1, -1, -1}}}
     };
 
     /// The quadrature weights for each discrete velocity vector.

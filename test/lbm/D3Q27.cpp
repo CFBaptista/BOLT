@@ -17,7 +17,7 @@ SCENARIO("D3Q27 velocity set properties")
 
         std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
         std::move_only_function<std::size_t()> model_size = &Set::size;
-        std::move_only_function<std::array<std::array<float, Set::dimension()>, Set::size()>()>
+        std::move_only_function<std::array<std::array<int, Set::dimension()>, Set::size()>()>
             model_velocities = &Set::velocities;
         std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
         std::move_only_function<float()> model_soundSpeedInverseSquared =
@@ -25,21 +25,21 @@ SCENARIO("D3Q27 velocity set properties")
 
         const auto expectedDimension{3};
         const auto expectedSize{27};
-        const auto expectedVelocities = std::array<std::array<float, 3>, 27>{
-            std::array<float, 3>{0, 0, 0},   std::array<float, 3>{1, 0, 0},
-            std::array<float, 3>{-1, 0, 0},  std::array<float, 3>{0, 1, 0},
-            std::array<float, 3>{0, -1, 0},  std::array<float, 3>{0, 0, 1},
-            std::array<float, 3>{0, 0, -1},  std::array<float, 3>{1, 1, 0},
-            std::array<float, 3>{-1, 1, 0},  std::array<float, 3>{1, -1, 0},
-            std::array<float, 3>{-1, -1, 0}, std::array<float, 3>{1, 0, 1},
-            std::array<float, 3>{-1, 0, 1},  std::array<float, 3>{1, 0, -1},
-            std::array<float, 3>{-1, 0, -1}, std::array<float, 3>{0, 1, 1},
-            std::array<float, 3>{0, -1, 1},  std::array<float, 3>{0, 1, -1},
-            std::array<float, 3>{0, -1, -1}, std::array<float, 3>{1, 1, 1},
-            std::array<float, 3>{-1, 1, 1},  std::array<float, 3>{1, -1, 1},
-            std::array<float, 3>{-1, -1, 1}, std::array<float, 3>{1, 1, -1},
-            std::array<float, 3>{-1, 1, -1}, std::array<float, 3>{1, -1, -1},
-            std::array<float, 3>{-1, -1, -1}
+        const auto expectedVelocities = std::array<std::array<int, 3>, 27>{
+            std::array<int, 3>{0, 0, 0},   std::array<int, 3>{1, 0, 0},
+            std::array<int, 3>{-1, 0, 0},  std::array<int, 3>{0, 1, 0},
+            std::array<int, 3>{0, -1, 0},  std::array<int, 3>{0, 0, 1},
+            std::array<int, 3>{0, 0, -1},  std::array<int, 3>{1, 1, 0},
+            std::array<int, 3>{-1, 1, 0},  std::array<int, 3>{1, -1, 0},
+            std::array<int, 3>{-1, -1, 0}, std::array<int, 3>{1, 0, 1},
+            std::array<int, 3>{-1, 0, 1},  std::array<int, 3>{1, 0, -1},
+            std::array<int, 3>{-1, 0, -1}, std::array<int, 3>{0, 1, 1},
+            std::array<int, 3>{0, -1, 1},  std::array<int, 3>{0, 1, -1},
+            std::array<int, 3>{0, -1, -1}, std::array<int, 3>{1, 1, 1},
+            std::array<int, 3>{-1, 1, 1},  std::array<int, 3>{1, -1, 1},
+            std::array<int, 3>{-1, -1, 1}, std::array<int, 3>{1, 1, -1},
+            std::array<int, 3>{-1, 1, -1}, std::array<int, 3>{1, -1, -1},
+            std::array<int, 3>{-1, -1, -1}
         };
         const auto expectedWeights = std::array<float, 27>{
             8.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,
