@@ -70,7 +70,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
             {
                 const double density{equilibrium.density()};
                 const auto momentum{equilibrium.momentum()};
-                const auto velocity{equilibrium.velocity(density, momentum)};
+                const auto velocity{Distribution::velocity(density, momentum)};
 
                 THEN("The computed velocity matches the expected value")
                 {

@@ -30,7 +30,9 @@ auto BhatnagarGrossKrook<Set, Equilibrium>::collide(const DensityDistribution<Se
 {
     const Real density{distribution.density()};
     const std::array<Real, Set::dimension()> momentum{distribution.momentum()};
-    const std::array<Real, Set::dimension()> velocity{distribution.velocity(density, momentum)};
+    const std::array<Real, Set::dimension()> velocity{
+        DensityDistribution<Set>::velocity(density, momentum)
+    };
 
     const DensityDistribution<Set> equilibriumDistribution{Equilibrium::compute(density, velocity)};
     DensityDistribution<Set> postCollisionDistribution;
