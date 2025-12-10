@@ -21,6 +21,7 @@ catch_discover_tests(lbm_test)
 
 # Add source files to test executable
 target_sources(lbm_test PRIVATE
+    BhatnagarGrossKrook.cpp
     D1Q3.cpp
     D2Q9.cpp
     D3Q27.cpp
