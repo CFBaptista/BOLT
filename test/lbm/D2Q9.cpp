@@ -67,14 +67,14 @@ SCENARIO("D2Q9 velocity set properties")
 
             THEN("Sum of velocities is zero")
             {
-                std::array<float, 2> sum{0, 0};
+                std::array<int, 2> sum{0, 0};
                 for (const auto& velocity : velocities)
                 {
                     sum[0] += velocity[0];
                     sum[1] += velocity[1];
                 }
 
-                REQUIRE((sum == std::array<float, 2>{0, 0}));
+                REQUIRE((sum == std::array<int, 2>{0, 0}));
             }
         }
 

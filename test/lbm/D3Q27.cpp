@@ -81,7 +81,7 @@ SCENARIO("D3Q27 velocity set properties")
 
             THEN("Sum of velocities is zero")
             {
-                std::array<float, 3> sum{0, 0, 0};
+                std::array<int, 3> sum{0, 0, 0};
                 for (const auto& velocity : velocities)
                 {
                     sum[0] += velocity[0];
@@ -89,7 +89,7 @@ SCENARIO("D3Q27 velocity set properties")
                     sum[2] += velocity[2];
                 }
 
-                REQUIRE((sum == std::array<float, 3>{0, 0, 0}));
+                REQUIRE((sum == std::array<int, 3>{0, 0, 0}));
             }
         }
 

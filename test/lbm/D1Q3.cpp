@@ -63,7 +63,7 @@ SCENARIO("D1Q3 velocity set properties")
 
             THEN("Sum of velocities is zero")
             {
-                float sum{0.0F};
+                int sum{0};
                 for (const auto& velocity : velocities)
                 {
                     sum = std::accumulate(velocity.begin(), velocity.end(), sum);
