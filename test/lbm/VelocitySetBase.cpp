@@ -16,7 +16,7 @@ public:
 
     static constexpr std::size_t size_{7};
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -34,7 +34,7 @@ public:
 
     static constexpr std::size_t size_ = 7;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -52,7 +52,7 @@ public:
 
     static constexpr std::size_t size_ = 7;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -70,7 +70,7 @@ public:
 
     static constexpr std::size_t size_ = 7;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -88,7 +88,7 @@ public:
 
     static constexpr std::size_t size_ = 7;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -106,7 +106,7 @@ public:
 
     static constexpr int size_ = 0;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -124,7 +124,7 @@ public:
 
     static constexpr std::size_t size_ = 0;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -142,7 +142,7 @@ public:
 
     static constexpr std::size_t size_ = 7;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -160,7 +160,7 @@ public:
 
     static constexpr std::size_t size_ = 7;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 
@@ -178,7 +178,7 @@ public:
 
     static constexpr std::size_t size_ = 7;
 
-    static constexpr std::array<std::array<Real, dimension_>, size_> velocities_{};
+    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
 
     static constexpr std::array<Real, size_> weights_{};
 

@@ -67,7 +67,7 @@ public:
      *
      * @return The velocity.
      */
-    auto velocity(const Real& density, const std::array<Real, Set::dimension()>& momentum) const
+    static auto velocity(const Real& density, const std::array<Real, Set::dimension()>& momentum)
         -> std::array<Real, Set::dimension()>;
 
 private:

@@ -124,7 +124,8 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
 
         WHEN("The macroscopic velocity is calculated")
         {
-            auto velocity = distribution.velocity(expectedDensity, expectedMomentum);
+            auto velocity =
+                DensityDistribution<D2Q9<double>>::velocity(expectedDensity, expectedMomentum);
 
             THEN("The calculated velocity matches the expected value")
             {

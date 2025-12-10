@@ -18,5 +18,5 @@ class EquilibriumDistributionBase
  * @tparam Derived The type to be checked.
  */
 template <typename Derived>
-concept EquilibriumDistributionConcept =
+concept EquilibriumDistribution =
     requires { std::is_base_of_v<EquilibriumDistributionBase, Derived>; };

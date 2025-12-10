@@ -66,7 +66,7 @@ template <VelocitySet Set>
 auto DensityDistribution<Set>::velocity(
     const Real& density,
     const std::array<Real, Set::dimension()>& momentum
-) const -> std::array<Real, Set::dimension()>
+) -> std::array<Real, Set::dimension()>
 {
     std::array<Real, Set::dimension()> macroscopicVelocity{};
 
