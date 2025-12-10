@@ -98,8 +98,8 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
                 for (std::size_t i = 0; i < Set::size(); ++i)
                 {
                     REQUIRE(
-                        postCollisionDistribution[i] ==
-                        Catch::Approx(expectedPostCollisionDistribution[i])
+                        (postCollisionDistribution[i] ==
+                         Catch::Approx(expectedPostCollisionDistribution[i]))
                     );
                 }
             }
@@ -108,7 +108,8 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
             {
                 for (std::size_t i = 0; i < Set::size(); ++i)
                 {
-                    REQUIRE(postCollisionDistribution[i] != Catch::Approx(initialDistribution[i]));
+                    REQUIRE((postCollisionDistribution[i] != Catch::Approx(initialDistribution[i]))
+                    );
                 }
             }
 
@@ -117,7 +118,7 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
                 const Real initialDensity{initialDistribution.density()};
                 const Real postCollisionDensity{postCollisionDistribution.density()};
 
-                REQUIRE(postCollisionDensity == Catch::Approx(initialDensity));
+                REQUIRE((postCollisionDensity == Catch::Approx(initialDensity)));
             }
 
             THEN("The macroscopic momentum is conserved")
