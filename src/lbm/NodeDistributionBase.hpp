@@ -14,7 +14,7 @@ class NodeDistributionBase
 /**
  * @concept NodeDistribution
  *
- * @brief Concept used for constrainting the template parameter of consumers of node distributions.
+ * @brief Concept used for constraining the template parameter of consumers of node distributions.
  *
  * @details This concept checks if the type `Derived` is derived from the `NodeDistributionBase`
  * class.

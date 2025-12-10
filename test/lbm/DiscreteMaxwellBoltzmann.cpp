@@ -1,12 +1,13 @@
 #include <array>
 #include <cstddef>
+#include <functional>
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include "lbm/D2Q9.hpp"
 #include "lbm/DensityDistribution.hpp"
-#include "lbm/kineticEquilibrium.hpp"
+#include "lbm/DiscreteMaxwellBoltzmann.hpp"
 
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("Compute kinetic equilibrium distribution")
@@ -15,6 +16,9 @@ SCENARIO("Compute kinetic equilibrium distribution")
     {
         using Set = D2Q9<double>;
         using Distribution = DensityDistribution<Set>;
+
+        std::move_only_function<Distribution(const double&, const std::array<double, 2>&)>
+            maxwell_compute = &DiscreteMaxwellBoltzmann<Set, 2>::compute;
 
         const double expectedDensity{1.225};
         const std::array<double, 2> expectedVelocity{3.0, 5.0};
@@ -26,9 +30,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
         WHEN("Computing the kinetic equilibrium distribution")
         {
-            const Distribution equilibrium{
-                maxwellEquilibriumSecondOrder<Set>(expectedDensity, expectedVelocity)
-            };
+            const Distribution equilibrium{maxwell_compute(expectedDensity, expectedVelocity)};
 
             THEN("The computed values are correct")
             {

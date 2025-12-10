@@ -1,12 +1,16 @@
+#pragma once
+
 #include <array>
+#include <cstddef>
 #include <cstdlib>
 #include <numeric>
 
 #include "lbm/DensityDistribution.hpp"
+#include "lbm/DiscreteMaxwellBoltzmann.hpp"
 #include "lbm/VelocitySetBase.hpp"
 
 template <VelocitySet Set>
-auto maxwellEquilibriumSecondOrder(
+auto DiscreteMaxwellBoltzmann<Set, 2>::compute(
     const typename Set::Real& density,
     const std::array<typename Set::Real, Set::dimension()>& velocity
 ) -> DensityDistribution<Set>
