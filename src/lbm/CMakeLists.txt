@@ -19,11 +19,14 @@ target_link_options(lbm INTERFACE
 
 # Add source files to interface library
 target_sources(lbm INTERFACE
+    BhatnagarGrossKrook.hpp
+    CollisionOperatorBase.hpp
     D1Q3.hpp
     D2Q9.hpp
     D3Q27.hpp
     DensityDistribution.hpp
     DiscreteMaxwellBoltzmann.hpp
+    EquilibriumDistributionBase.hpp
     NodeDistributionBase.hpp
     VelocitySetBase.hpp
 )

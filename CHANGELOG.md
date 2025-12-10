@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `EquilibriumDistribution`: Concept for constraining the template parameter of consumers of equilibrium distributions.
 - `DiscreteMaxwellBoltzmann`: Class template for the discrete Maxwell Boltzmann distribution approximated via a Hermite expansion. Currently only the second-order approximation is implemented.
 
+- `CollisionOperatorBase`: Base class for collision operators.
+- `CollisionOperator`: Concept for constraining the template parameter of consumers of collision operators.
+- `BhatnagarGrossKrook`: Class template representing the Bhatnager-Gross-Krook collision model.
+
 - GitHub workflow for continuous integration (CI)
 - Ubuntu 24.04 Dockerfile for installing dependencies needed CI workflow
 - CMake target `Coverage` for running code coverage analysis

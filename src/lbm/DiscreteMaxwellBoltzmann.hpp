@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 #include "lbm/DensityDistribution.hpp"
-#include "lbm/EquilibriumDistribution.hpp"
+#include "lbm/EquilibriumDistributionBase.hpp"
 #include "lbm/VelocitySetBase.hpp"
 
 template <VelocitySet Set, std::size_t Order>
