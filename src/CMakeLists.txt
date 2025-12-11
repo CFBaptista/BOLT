@@ -75,3 +75,4 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 add_subdirectory(lbm)
+add_subdirectory(utils)

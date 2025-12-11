@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 #include "lbm/BhatnagarGrossKrook.hpp"
+#include "utils/aliases.hpp"
 
 template <VelocitySet Set, EquilibriumDistribution Equilibrium>
 BhatnagarGrossKrook<Set, Equilibrium>::BhatnagarGrossKrook(
@@ -29,15 +30,15 @@ auto BhatnagarGrossKrook<Set, Equilibrium>::collide(const DensityDistribution<Se
 ) const -> DensityDistribution<Set>
 {
     const Real density{distribution.density()};
-    const std::array<Real, Set::dimension()> momentum{distribution.momentum()};
-    const std::array<Real, Set::dimension()> velocity{
+    const Vector<Real, Set::dimension()> momentum{distribution.momentum()};
+    const Vector<Real, Set::dimension()> velocity{
         DensityDistribution<Set>::velocity(density, momentum)
     };
 
     const DensityDistribution<Set> equilibriumDistribution{Equilibrium::compute(density, velocity)};
     DensityDistribution<Set> postCollisionDistribution;
 
-    for (std::size_t dof = 0; dof < Set::size(); ++dof)
+    for (Count dof = 0; dof < Set::size(); ++dof)
     {
         postCollisionDistribution[dof] = oneMinusRelaxationFactor_ * distribution[dof] +
                                          relaxationFactor_ * equilibriumDistribution[dof];

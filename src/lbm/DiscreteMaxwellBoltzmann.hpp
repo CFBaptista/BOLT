@@ -1,13 +1,11 @@
 #pragma once
 
-#include <array>
-#include <cstdlib>
-
 #include "lbm/DensityDistribution.hpp"
 #include "lbm/EquilibriumDistributionBase.hpp"
 #include "lbm/VelocitySetBase.hpp"
+#include "utils/aliases.hpp"
 
-template <VelocitySet Set, std::size_t Order>
+template <VelocitySet Set, Count Order>
 class DiscreteMaxwellBoltzmann : public EquilibriumDistributionBase
 {
 public:
@@ -24,7 +22,7 @@ public:
      */
     static auto compute(
         const typename Set::Real& density,
-        const std::array<typename Set::Real, Set::dimension()>& velocity
+        const Vector<typename Set::Real, Set::dimension()>& velocity
     ) -> DensityDistribution<Set>;
 };
 
@@ -35,7 +33,7 @@ class DiscreteMaxwellBoltzmann<Set, 2>
 public:
     static auto compute(
         const typename Set::Real& density,
-        const std::array<typename Set::Real, Set::dimension()>& velocity
+        const Vector<typename Set::Real, Set::dimension()>& velocity
     ) -> DensityDistribution<Set>;
 };
 

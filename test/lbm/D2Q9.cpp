@@ -1,5 +1,3 @@
-#include <array>
-#include <cstddef>
 #include <functional>
 #include <numeric>
 
@@ -15,24 +13,24 @@ SCENARIO("D2Q9 velocity set properties")
     {
         using Set = D2Q9<float>;
 
-        std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
-        std::move_only_function<std::size_t()> model_size = &Set::size;
-        std::move_only_function<std::array<std::array<int, Set::dimension()>, Set::size()>()>
-            model_velocities = &Set::velocities;
-        std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
+        std::move_only_function<Count()> model_dimension = &Set::dimension;
+        std::move_only_function<Count()> model_size = &Set::size;
+        std::move_only_function<Matrix<Index, Set::size(), Set::dimension()>()> model_velocities =
+            &Set::velocities;
+        std::move_only_function<Vector<float, Set::size()>()> model_weights = &Set::weights;
         std::move_only_function<float()> model_soundSpeedInverseSquared =
             &Set::soundSpeedInverseSquared;
 
         const auto expectedDimension{2};
         const auto expectedSize{9};
-        const auto expectedVelocities = std::array<std::array<int, 2>, 9>{
-            std::array<int, 2>{0, 0},  std::array<int, 2>{1, 0},   std::array<int, 2>{0, 1},
-            std::array<int, 2>{-1, 0}, std::array<int, 2>{0, -1},  std::array<int, 2>{1, 1},
-            std::array<int, 2>{-1, 1}, std::array<int, 2>{-1, -1}, std::array<int, 2>{1, -1}
+        const auto expectedVelocities = Matrix<Index, 9, 2>{
+            Vector<Index, 2>{0, 0},  Vector<Index, 2>{1, 0},   Vector<Index, 2>{0, 1},
+            Vector<Index, 2>{-1, 0}, Vector<Index, 2>{0, -1},  Vector<Index, 2>{1, 1},
+            Vector<Index, 2>{-1, 1}, Vector<Index, 2>{-1, -1}, Vector<Index, 2>{1, -1}
         };
         const auto expectedWeights =
-            std::array<float, 9>{4.0F / 9,  1.0F / 9,  1.0F / 9,  1.0F / 9, 1.0F / 9,
-                                 1.0F / 36, 1.0F / 36, 1.0F / 36, 1.0F / 36};
+            Vector<float, 9>{4.0F / 9,  1.0F / 9,  1.0F / 9,  1.0F / 9, 1.0F / 9,
+                             1.0F / 36, 1.0F / 36, 1.0F / 36, 1.0F / 36};
         const auto expectedSoundSpeedInverseSquared{3.0F};
 
         WHEN("Getting the dimension")
@@ -67,14 +65,14 @@ SCENARIO("D2Q9 velocity set properties")
 
             THEN("Sum of velocities is zero")
             {
-                std::array<int, 2> sum{0, 0};
+                Vector<Index, 2> sum{0, 0};
                 for (const auto& velocity : velocities)
                 {
                     sum[0] += velocity[0];
                     sum[1] += velocity[1];
                 }
 
-                REQUIRE((sum == std::array<int, 2>{0, 0}));
+                REQUIRE((sum == Vector<Index, 2>{0, 0}));
             }
         }
 

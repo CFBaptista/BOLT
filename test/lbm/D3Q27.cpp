@@ -1,5 +1,3 @@
-#include <array>
-#include <cstddef>
 #include <functional>
 #include <numeric>
 
@@ -15,33 +13,28 @@ SCENARIO("D3Q27 velocity set properties")
     {
         using Set = D3Q27<float>;
 
-        std::move_only_function<std::size_t()> model_dimension = &Set::dimension;
-        std::move_only_function<std::size_t()> model_size = &Set::size;
-        std::move_only_function<std::array<std::array<int, Set::dimension()>, Set::size()>()>
-            model_velocities = &Set::velocities;
-        std::move_only_function<std::array<float, Set::size()>()> model_weights = &Set::weights;
+        std::move_only_function<Count()> model_dimension = &Set::dimension;
+        std::move_only_function<Count()> model_size = &Set::size;
+        std::move_only_function<Matrix<Index, Set::size(), Set::dimension()>()> model_velocities =
+            &Set::velocities;
+        std::move_only_function<Vector<float, Set::size()>()> model_weights = &Set::weights;
         std::move_only_function<float()> model_soundSpeedInverseSquared =
             &Set::soundSpeedInverseSquared;
 
         const auto expectedDimension{3};
         const auto expectedSize{27};
-        const auto expectedVelocities = std::array<std::array<int, 3>, 27>{
-            std::array<int, 3>{0, 0, 0},   std::array<int, 3>{1, 0, 0},
-            std::array<int, 3>{-1, 0, 0},  std::array<int, 3>{0, 1, 0},
-            std::array<int, 3>{0, -1, 0},  std::array<int, 3>{0, 0, 1},
-            std::array<int, 3>{0, 0, -1},  std::array<int, 3>{1, 1, 0},
-            std::array<int, 3>{-1, 1, 0},  std::array<int, 3>{1, -1, 0},
-            std::array<int, 3>{-1, -1, 0}, std::array<int, 3>{1, 0, 1},
-            std::array<int, 3>{-1, 0, 1},  std::array<int, 3>{1, 0, -1},
-            std::array<int, 3>{-1, 0, -1}, std::array<int, 3>{0, 1, 1},
-            std::array<int, 3>{0, -1, 1},  std::array<int, 3>{0, 1, -1},
-            std::array<int, 3>{0, -1, -1}, std::array<int, 3>{1, 1, 1},
-            std::array<int, 3>{-1, 1, 1},  std::array<int, 3>{1, -1, 1},
-            std::array<int, 3>{-1, -1, 1}, std::array<int, 3>{1, 1, -1},
-            std::array<int, 3>{-1, 1, -1}, std::array<int, 3>{1, -1, -1},
-            std::array<int, 3>{-1, -1, -1}
+        const auto expectedVelocities = Matrix<Index, 27, 3>{
+            Vector<Index, 3>{0, 0, 0},   Vector<Index, 3>{1, 0, 0},   Vector<Index, 3>{-1, 0, 0},
+            Vector<Index, 3>{0, 1, 0},   Vector<Index, 3>{0, -1, 0},  Vector<Index, 3>{0, 0, 1},
+            Vector<Index, 3>{0, 0, -1},  Vector<Index, 3>{1, 1, 0},   Vector<Index, 3>{-1, 1, 0},
+            Vector<Index, 3>{1, -1, 0},  Vector<Index, 3>{-1, -1, 0}, Vector<Index, 3>{1, 0, 1},
+            Vector<Index, 3>{-1, 0, 1},  Vector<Index, 3>{1, 0, -1},  Vector<Index, 3>{-1, 0, -1},
+            Vector<Index, 3>{0, 1, 1},   Vector<Index, 3>{0, -1, 1},  Vector<Index, 3>{0, 1, -1},
+            Vector<Index, 3>{0, -1, -1}, Vector<Index, 3>{1, 1, 1},   Vector<Index, 3>{-1, 1, 1},
+            Vector<Index, 3>{1, -1, 1},  Vector<Index, 3>{-1, -1, 1}, Vector<Index, 3>{1, 1, -1},
+            Vector<Index, 3>{-1, 1, -1}, Vector<Index, 3>{1, -1, -1}, Vector<Index, 3>{-1, -1, -1}
         };
-        const auto expectedWeights = std::array<float, 27>{
+        const auto expectedWeights = Vector<float, 27>{
             8.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,  2.0F / 27,
             1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,
             1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 54,  1.0F / 216, 1.0F / 216,
@@ -81,7 +74,7 @@ SCENARIO("D3Q27 velocity set properties")
 
             THEN("Sum of velocities is zero")
             {
-                std::array<int, 3> sum{0, 0, 0};
+                Vector<Index, 3> sum{0, 0, 0};
                 for (const auto& velocity : velocities)
                 {
                     sum[0] += velocity[0];
@@ -89,7 +82,7 @@ SCENARIO("D3Q27 velocity set properties")
                     sum[2] += velocity[2];
                 }
 
-                REQUIRE((sum == std::array<int, 3>{0, 0, 0}));
+                REQUIRE((sum == Vector<Index, 3>{0, 0, 0}));
             }
         }
 

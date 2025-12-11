@@ -1,10 +1,8 @@
 #pragma once
 
-#include <array>
-#include <cstddef>
-
 #include "lbm/NodeDistributionBase.hpp"
 #include "lbm/VelocitySetBase.hpp"
+#include "utils/aliases.hpp"
 
 template <VelocitySet Set>
 class DensityDistribution : public NodeDistributionBase
@@ -14,7 +12,7 @@ public:
     using Real = typename Set::Real;
 
     DensityDistribution() noexcept = default;
-    explicit DensityDistribution(const std::array<Real, Set::size()>& distribution) noexcept;
+    explicit DensityDistribution(const Vector<Real, Set::size()>& distribution) noexcept;
     DensityDistribution(const DensityDistribution& other) noexcept = default;
     DensityDistribution(DensityDistribution&& other) noexcept = default;
     auto operator=(const DensityDistribution& other) noexcept -> DensityDistribution& = default;
@@ -28,7 +26,7 @@ public:
      *
      * @return The spatial dimension.
      */
-    static constexpr auto dimension() noexcept -> std::size_t;
+    static constexpr auto dimension() noexcept -> Count;
 
     /**
      * @fn size
@@ -37,10 +35,10 @@ public:
      *
      * @return The number of discrete velocity vectors.
      */
-    static constexpr auto size() noexcept -> std::size_t;
+    static constexpr auto size() noexcept -> Count;
 
-    auto operator[](std::size_t index) -> Real&;
-    auto operator[](std::size_t index) const -> const Real&;
+    auto operator[](Count index) -> Real&;
+    auto operator[](Count index) const -> const Real&;
 
     /**
      * @fn density
@@ -58,7 +56,7 @@ public:
      *
      * @return The momentum.
      */
-    auto momentum() const noexcept -> std::array<Real, Set::dimension()>;
+    auto momentum() const noexcept -> Vector<Real, Set::dimension()>;
 
     /**
      * @fn velocity
@@ -67,12 +65,12 @@ public:
      *
      * @return The velocity.
      */
-    static auto velocity(const Real& density, const std::array<Real, Set::dimension()>& momentum)
-        -> std::array<Real, Set::dimension()>;
+    static auto velocity(const Real& density, const Vector<Real, Set::dimension()>& momentum)
+        -> Vector<Real, Set::dimension()>;
 
 private:
     /// The distribution function values at the lattice node.
-    std::array<Real, Set::size()> distribution_;
+    Vector<Real, Set::size()> distribution_;
 };
 
 #include "lbm/DensityDistribution.tpp"

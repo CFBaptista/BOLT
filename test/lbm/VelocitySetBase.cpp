@@ -1,6 +1,3 @@
-#include <array>
-#include <cstddef>
-
 #include <catch2/catch_test_macros.hpp>
 
 #include "lbm/VelocitySetBase.hpp"
@@ -12,13 +9,13 @@ public:
 
     friend class VelocitySetBase<ValidVelocitySet>;
 
-    static constexpr std::size_t dimension_{2};
+    static constexpr Count dimension_{2};
 
-    static constexpr std::size_t size_{7};
+    static constexpr Count size_{7};
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -30,13 +27,13 @@ public:
 
     friend class VelocitySetBase<NoBase>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -44,17 +41,17 @@ public:
 class InvalidValueType : public VelocitySetBase<InvalidValueType>
 {
 public:
-    using Real = int;
+    using Real = Index;
 
     friend class VelocitySetBase<InvalidValueType>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -66,13 +63,13 @@ public:
 
     friend class VelocitySetBase<ZeroDimensional>;
 
-    static constexpr std::size_t dimension_ = 0;
+    static constexpr Count dimension_ = 0;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -84,13 +81,13 @@ public:
 
     friend class VelocitySetBase<FourDimensional>;
 
-    static constexpr std::size_t dimension_ = 4;
+    static constexpr Count dimension_ = 4;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -102,13 +99,13 @@ public:
 
     friend class VelocitySetBase<IntSize>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr int size_ = 0;
+    static constexpr Index size_ = 0;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -120,13 +117,13 @@ public:
 
     friend class VelocitySetBase<InvalidSize>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 0;
+    static constexpr Count size_ = 0;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -138,13 +135,13 @@ public:
 
     friend class VelocitySetBase<InvalidFloatingPointWeight>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{4};
 };
@@ -156,15 +153,15 @@ public:
 
     friend class VelocitySetBase<IntSoundSpeed>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
-    static constexpr int soundSpeedInverseSquared_{3};
+    static constexpr Index soundSpeedInverseSquared_{3};
 };
 
 class NegativeSoundSpeed : public VelocitySetBase<NegativeSoundSpeed>
@@ -174,13 +171,13 @@ public:
 
     friend class VelocitySetBase<NegativeSoundSpeed>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Real, size_> weights_{};
 
     static constexpr Real soundSpeedInverseSquared_{-3};
 };

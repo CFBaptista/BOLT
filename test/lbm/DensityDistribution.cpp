@@ -1,5 +1,3 @@
-#include <array>
-#include <cstddef>
 #include <numeric>
 
 #include <catch2/catch_approx.hpp>
@@ -13,10 +11,9 @@ SCENARIO("DensityDistribution container operations")
 {
     GIVEN("A dimension, size and distribution data")
     {
-        const std::size_t expectedDimension{D2Q9<double>::dimension()};
-        const std::size_t expectedSize{D2Q9<double>::size()};
-        const std::array<double, expectedSize> expectedDistributionData{1,  2,  3,  5, 8,
-                                                                        13, 21, 34, 55};
+        const Count expectedDimension{D2Q9<double>::dimension()};
+        const Count expectedSize{D2Q9<double>::size()};
+        const Vector<double, expectedSize> expectedDistributionData{1, 2, 3, 5, 8, 13, 21, 34, 55};
 
         GIVEN("A non-const DensityDistribution")
         {
@@ -42,7 +39,7 @@ SCENARIO("DensityDistribution container operations")
             {
                 THEN("The data matches the expected value")
                 {
-                    for (std::size_t i = 0; i < expectedSize; ++i)
+                    for (Count i = 0; i < expectedSize; ++i)
                     {
                         REQUIRE((distribution[i] == expectedDistributionData.at(i)));
                     }
@@ -51,7 +48,7 @@ SCENARIO("DensityDistribution container operations")
 
             WHEN("The distribution data is updated")
             {
-                const std::size_t index{3};
+                const Count index{3};
                 const double value{1.23};
                 distribution[index] = value;
 
@@ -70,7 +67,7 @@ SCENARIO("DensityDistribution container operations")
             {
                 THEN("The data matches the expected value")
                 {
-                    for (std::size_t i = 0; i < expectedSize; ++i)
+                    for (Count i = 0; i < expectedSize; ++i)
                     {
                         REQUIRE((distribution[i] == expectedDistributionData.at(i)));
                     }
@@ -85,15 +82,14 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
 {
     GIVEN("A density distribution")
     {
-        const std::size_t expectedDimension{D2Q9<double>::dimension()};
-        const std::size_t expectedSize{D2Q9<double>::size()};
-        const std::array<double, expectedSize> expectedDistributionData{1,  2,  3,  5, 8,
-                                                                        13, 21, 34, 55};
+        const Count expectedDimension{D2Q9<double>::dimension()};
+        const Count expectedSize{D2Q9<double>::size()};
+        const Vector<double, expectedSize> expectedDistributionData{1, 2, 3, 5, 8, 13, 21, 34, 55};
 
         const double expectedDensity =
             std::accumulate(expectedDistributionData.begin(), expectedDistributionData.end(), 0.0);
-        const std::array<double, 2> expectedMomentum{10, -60};
-        const std::array<double, 2> expectedVelocity{
+        const Vector<double, 2> expectedMomentum{10, -60};
+        const Vector<double, 2> expectedVelocity{
             expectedMomentum[0] / expectedDensity, expectedMomentum[1] / expectedDensity
         };
 
@@ -115,7 +111,7 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
 
             THEN("The calculated momentum matches the expected value")
             {
-                for (std::size_t i = 0; i < expectedDimension; ++i)
+                for (Count i = 0; i < expectedDimension; ++i)
                 {
                     REQUIRE((momentum.at(i) == Catch::Approx(expectedMomentum.at(i))));
                 }
@@ -129,7 +125,7 @@ SCENARIO("Calculating macroscopic quantities from a density distribution")
 
             THEN("The calculated velocity matches the expected value")
             {
-                for (std::size_t i = 0; i < expectedDimension; ++i)
+                for (Count i = 0; i < expectedDimension; ++i)
                 {
                     REQUIRE((velocity.at(i) == Catch::Approx(expectedVelocity.at(i))));
                 }

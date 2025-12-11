@@ -1,17 +1,16 @@
 #pragma once
 
-#include <cstddef>
-
-#include "VelocitySetBase.hpp"
+#include "lbm/VelocitySetBase.hpp"
+#include "utils/aliases.hpp"
 
 template <typename Derived>
-constexpr auto VelocitySetBase<Derived>::dimension() noexcept -> std::size_t
+constexpr auto VelocitySetBase<Derived>::dimension() noexcept -> Count
 {
     return Derived::dimension_;
 }
 
 template <typename Derived>
-constexpr auto VelocitySetBase<Derived>::size() noexcept -> std::size_t
+constexpr auto VelocitySetBase<Derived>::size() noexcept -> Count
 {
     return Derived::size_;
 }

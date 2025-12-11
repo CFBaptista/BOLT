@@ -1,18 +1,17 @@
 #pragma once
 
-#include <array>
-#include <cstddef>
 #include <cstdlib>
 #include <numeric>
 
 #include "lbm/DensityDistribution.hpp"
 #include "lbm/DiscreteMaxwellBoltzmann.hpp"
 #include "lbm/VelocitySetBase.hpp"
+#include "utils/aliases.hpp"
 
 template <VelocitySet Set>
 auto DiscreteMaxwellBoltzmann<Set, 2>::compute(
     const typename Set::Real& density,
-    const std::array<typename Set::Real, Set::dimension()>& velocity
+    const Vector<typename Set::Real, Set::dimension()>& velocity
 ) -> DensityDistribution<Set>
 {
     using Real = typename Set::Real;
@@ -26,7 +25,7 @@ auto DiscreteMaxwellBoltzmann<Set, 2>::compute(
 
     DensityDistribution<Set> equilibrium;
 
-    for (std::size_t dof = 0; dof < Set::size(); ++dof)
+    for (Count dof = 0; dof < Set::size(); ++dof)
     {
         const Real tmp = Set::soundSpeedInverseSquared() * std::inner_product(
                                                                velocity.begin(), velocity.end(),

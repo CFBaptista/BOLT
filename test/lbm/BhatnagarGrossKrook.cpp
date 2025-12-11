@@ -95,7 +95,7 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
             THEN("The post-collision distribution is computed correctly")
             {
 
-                for (std::size_t i = 0; i < Set::size(); ++i)
+                for (Count i = 0; i < Set::size(); ++i)
                 {
                     REQUIRE(
                         (postCollisionDistribution[i] ==
@@ -106,7 +106,7 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
             THEN("The post-collision distribution is not equal to the initial distribution")
             {
-                for (std::size_t i = 0; i < Set::size(); ++i)
+                for (Count i = 0; i < Set::size(); ++i)
                 {
                     REQUIRE((postCollisionDistribution[i] != Catch::Approx(initialDistribution[i]))
                     );
@@ -123,14 +123,13 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
             THEN("The macroscopic momentum is conserved")
             {
-                const std::array<Real, Set::dimension()> initialMomentum{
-                    initialDistribution.momentum()
+                const Vector<Real, Set::dimension()> initialMomentum{initialDistribution.momentum()
                 };
-                const std::array<Real, Set::dimension()> postCollisionMomentum{
+                const Vector<Real, Set::dimension()> postCollisionMomentum{
                     postCollisionDistribution.momentum()
                 };
 
-                for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
+                for (Count dim = 0; dim < Set::dimension(); ++dim)
                 {
                     REQUIRE(
                         (postCollisionMomentum.at(dim) == Catch::Approx(initialMomentum.at(dim)))

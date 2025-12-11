@@ -1,38 +1,38 @@
 #pragma once
 
-#include <cstddef>
 #include <numeric>
 
 #include "lbm/DensityDistribution.hpp"
 #include "lbm/VelocitySetBase.hpp"
+#include "utils/aliases.hpp"
 
 template <VelocitySet Set>
-DensityDistribution<Set>::DensityDistribution(const std::array<Real, Set::size()>& distribution
+DensityDistribution<Set>::DensityDistribution(const Vector<Real, Set::size()>& distribution
 ) noexcept
     : distribution_(distribution)
 {
 }
 
 template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::dimension() noexcept -> std::size_t
+constexpr auto DensityDistribution<Set>::dimension() noexcept -> Count
 {
     return Set::dimension();
 }
 
 template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::size() noexcept -> std::size_t
+constexpr auto DensityDistribution<Set>::size() noexcept -> Count
 {
     return Set::size();
 }
 
 template <VelocitySet Set>
-auto DensityDistribution<Set>::operator[](std::size_t index) -> Real&
+auto DensityDistribution<Set>::operator[](Count index) -> Real&
 {
     return distribution_[index];
 }
 
 template <VelocitySet Set>
-auto DensityDistribution<Set>::operator[](std::size_t index) const -> const Real&
+auto DensityDistribution<Set>::operator[](Count index) const -> const Real&
 {
     return distribution_[index];
 }
@@ -45,15 +45,15 @@ auto DensityDistribution<Set>::density() const noexcept -> Real
 }
 
 template <VelocitySet Set>
-auto DensityDistribution<Set>::momentum() const noexcept -> std::array<Real, Set::dimension()>
+auto DensityDistribution<Set>::momentum() const noexcept -> Vector<Real, Set::dimension()>
 {
-    std::array<Real, Set::dimension()> macroscopicMomentum{};
+    Vector<Real, Set::dimension()> macroscopicMomentum{};
 
-    for (std::size_t dir = 0; dir < Set::size(); ++dir)
+    for (Count dir = 0; dir < Set::size(); ++dir)
     {
         const Real distributionValue{distribution_[dir]};
 
-        for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
+        for (Count dim = 0; dim < Set::dimension(); ++dim)
         {
             macroscopicMomentum[dim] += distributionValue * Set::velocities()[dir][dim];
         }
@@ -65,12 +65,12 @@ auto DensityDistribution<Set>::momentum() const noexcept -> std::array<Real, Set
 template <VelocitySet Set>
 auto DensityDistribution<Set>::velocity(
     const Real& density,
-    const std::array<Real, Set::dimension()>& momentum
-) -> std::array<Real, Set::dimension()>
+    const Vector<Real, Set::dimension()>& momentum
+) -> Vector<Real, Set::dimension()>
 {
-    std::array<Real, Set::dimension()> macroscopicVelocity{};
+    Vector<Real, Set::dimension()> macroscopicVelocity{};
 
-    for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
+    for (Count dim = 0; dim < Set::dimension(); ++dim)
     {
         macroscopicVelocity[dim] = momentum[dim] / density;
     }
