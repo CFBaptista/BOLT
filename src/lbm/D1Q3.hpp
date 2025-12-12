@@ -16,7 +16,7 @@
  *
  * @tparam T The floating-point type.
  */
-template <std::floating_point T = double>
+template <std::floating_point T = Real>
 class D1Q3 : public VelocitySetBase<D1Q3<T>>
 {
 public:

@@ -5,7 +5,7 @@
 class ValidVelocitySet : public VelocitySetBase<ValidVelocitySet>
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<ValidVelocitySet>;
 
@@ -23,7 +23,7 @@ public:
 class NoBase
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<NoBase>;
 
@@ -59,7 +59,7 @@ public:
 class ZeroDimensional : public VelocitySetBase<ZeroDimensional>
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<ZeroDimensional>;
 
@@ -77,7 +77,7 @@ public:
 class FourDimensional : public VelocitySetBase<FourDimensional>
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<FourDimensional>;
 
@@ -95,7 +95,7 @@ public:
 class IntSize : public VelocitySetBase<IntSize>
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<IntSize>;
 
@@ -113,7 +113,7 @@ public:
 class InvalidSize : public VelocitySetBase<InvalidSize>
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<InvalidSize>;
 
@@ -149,7 +149,7 @@ public:
 class IntSoundSpeed : public VelocitySetBase<IntSoundSpeed>
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<IntSoundSpeed>;
 
@@ -167,7 +167,7 @@ public:
 class NegativeSoundSpeed : public VelocitySetBase<NegativeSoundSpeed>
 {
 public:
-    using Float = double;
+    using Float = Real;
 
     friend class VelocitySetBase<NegativeSoundSpeed>;
 
