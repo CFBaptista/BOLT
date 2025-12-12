@@ -7,7 +7,7 @@
 #include "utils/aliases.hpp"
 
 template <VelocitySet Set>
-DensityDistribution<Set>::DensityDistribution(const Vector<Real, Set::size()>& distribution
+DensityDistribution<Set>::DensityDistribution(const Vector<Float, Set::size()>& distribution
 ) noexcept
     : distribution_(distribution)
 {
@@ -26,32 +26,32 @@ constexpr auto DensityDistribution<Set>::size() noexcept -> Count
 }
 
 template <VelocitySet Set>
-auto DensityDistribution<Set>::operator[](Count index) -> Real&
+auto DensityDistribution<Set>::operator[](Count index) -> Float&
 {
     return distribution_[index];
 }
 
 template <VelocitySet Set>
-auto DensityDistribution<Set>::operator[](Count index) const -> const Real&
+auto DensityDistribution<Set>::operator[](Count index) const -> const Float&
 {
     return distribution_[index];
 }
 
 template <VelocitySet Set>
-auto DensityDistribution<Set>::density() const noexcept -> Real
+auto DensityDistribution<Set>::density() const noexcept -> Float
 {
-    Real macroscopicDensity{std::accumulate(distribution_.begin(), distribution_.end(), Real{0})};
+    Float macroscopicDensity{std::accumulate(distribution_.begin(), distribution_.end(), Float{0})};
     return macroscopicDensity;
 }
 
 template <VelocitySet Set>
-auto DensityDistribution<Set>::momentum() const noexcept -> Vector<Real, Set::dimension()>
+auto DensityDistribution<Set>::momentum() const noexcept -> Vector<Float, Set::dimension()>
 {
-    Vector<Real, Set::dimension()> macroscopicMomentum{};
+    Vector<Float, Set::dimension()> macroscopicMomentum{};
 
     for (Count dir = 0; dir < Set::size(); ++dir)
     {
-        const Real distributionValue{distribution_[dir]};
+        const Float distributionValue{distribution_[dir]};
 
         for (Count dim = 0; dim < Set::dimension(); ++dim)
         {
@@ -64,11 +64,11 @@ auto DensityDistribution<Set>::momentum() const noexcept -> Vector<Real, Set::di
 
 template <VelocitySet Set>
 auto DensityDistribution<Set>::velocity(
-    const Real& density,
-    const Vector<Real, Set::dimension()>& momentum
-) -> Vector<Real, Set::dimension()>
+    const Float& density,
+    const Vector<Float, Set::dimension()>& momentum
+) -> Vector<Float, Set::dimension()>
 {
-    Vector<Real, Set::dimension()> macroscopicVelocity{};
+    Vector<Float, Set::dimension()> macroscopicVelocity{};
 
     for (Count dim = 0; dim < Set::dimension(); ++dim)
     {

@@ -21,8 +21,8 @@ public:
      * @return The computed equilibrium distribution.
      */
     static auto compute(
-        const typename Set::Real& density,
-        const Vector<typename Set::Real, Set::dimension()>& velocity
+        const typename Set::Float& density,
+        const Vector<typename Set::Float, Set::dimension()>& velocity
     ) -> DensityDistribution<Set>;
 };
 
@@ -32,8 +32,8 @@ class DiscreteMaxwellBoltzmann<Set, 2>
 {
 public:
     static auto compute(
-        const typename Set::Real& density,
-        const Vector<typename Set::Real, Set::dimension()>& velocity
+        const typename Set::Float& density,
+        const Vector<typename Set::Float, Set::dimension()>& velocity
     ) -> DensityDistribution<Set>;
 };
 

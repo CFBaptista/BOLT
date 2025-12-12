@@ -9,10 +9,10 @@ class DensityDistribution : public NodeDistributionBase
 {
 public:
     /// The floating-point type.
-    using Real = typename Set::Real;
+    using Float = typename Set::Float;
 
     DensityDistribution() noexcept = default;
-    explicit DensityDistribution(const Vector<Real, Set::size()>& distribution) noexcept;
+    explicit DensityDistribution(const Vector<Float, Set::size()>& distribution) noexcept;
     DensityDistribution(const DensityDistribution& other) noexcept = default;
     DensityDistribution(DensityDistribution&& other) noexcept = default;
     auto operator=(const DensityDistribution& other) noexcept -> DensityDistribution& = default;
@@ -37,8 +37,8 @@ public:
      */
     static constexpr auto size() noexcept -> Count;
 
-    auto operator[](Count index) -> Real&;
-    auto operator[](Count index) const -> const Real&;
+    auto operator[](Count index) -> Float&;
+    auto operator[](Count index) const -> const Float&;
 
     /**
      * @fn density
@@ -47,7 +47,7 @@ public:
      *
      * @return The density.
      */
-    auto density() const noexcept -> Real;
+    auto density() const noexcept -> Float;
 
     /**
      * @fn momentum
@@ -56,7 +56,7 @@ public:
      *
      * @return The momentum.
      */
-    auto momentum() const noexcept -> Vector<Real, Set::dimension()>;
+    auto momentum() const noexcept -> Vector<Float, Set::dimension()>;
 
     /**
      * @fn velocity
@@ -65,12 +65,12 @@ public:
      *
      * @return The velocity.
      */
-    static auto velocity(const Real& density, const Vector<Real, Set::dimension()>& momentum)
-        -> Vector<Real, Set::dimension()>;
+    static auto velocity(const Float& density, const Vector<Float, Set::dimension()>& momentum)
+        -> Vector<Float, Set::dimension()>;
 
 private:
     /// The distribution function values at the lattice node.
-    Vector<Real, Set::size()> distribution_;
+    Vector<Float, Set::size()> distribution_;
 };
 
 #include "lbm/DensityDistribution.tpp"

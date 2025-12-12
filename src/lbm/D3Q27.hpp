@@ -20,7 +20,7 @@ class D3Q27 : public VelocitySetBase<D3Q27<T>>
 {
 public:
     /// The floating-point type.
-    using Real = T;
+    using Float = T;
 
     /// Friend the CRTP base class to allow accessors in base to access private static data.
     friend class VelocitySetBase<D3Q27<T>>;

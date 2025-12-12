@@ -7,12 +7,12 @@
 
 template <VelocitySet Set, EquilibriumDistribution Equilibrium>
 BhatnagarGrossKrook<Set, Equilibrium>::BhatnagarGrossKrook(
-    const Real& timeStep,
-    const Real& relaxationTime
+    const Float& timeStep,
+    const Float& relaxationTime
 )
     : timeStep_(timeStep), relaxationTime_(relaxationTime),
       relaxationFactor_(timeStep / relaxationTime),
-      oneMinusRelaxationFactor_(static_cast<Real>(1) - relaxationFactor_)
+      oneMinusRelaxationFactor_(static_cast<Float>(1) - relaxationFactor_)
 {
     if (timeStep_ <= 0)
     {
@@ -29,9 +29,9 @@ template <VelocitySet Set, EquilibriumDistribution Equilibrium>
 auto BhatnagarGrossKrook<Set, Equilibrium>::collide(const DensityDistribution<Set>& distribution
 ) const -> DensityDistribution<Set>
 {
-    const Real density{distribution.density()};
-    const Vector<Real, Set::dimension()> momentum{distribution.momentum()};
-    const Vector<Real, Set::dimension()> velocity{
+    const Float density{distribution.density()};
+    const Vector<Float, Set::dimension()> momentum{distribution.momentum()};
+    const Vector<Float, Set::dimension()> velocity{
         DensityDistribution<Set>::velocity(density, momentum)
     };
 

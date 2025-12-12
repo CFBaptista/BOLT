@@ -94,7 +94,7 @@ public:
  * - Has a dimension between 1 and 3 (inclusive) and a size of at least 1.
  * - Provides static member functions for velocity vectors and weights, both returning appropriate
  * `std::array` types.
- * - Defines a value type named Real that is a floating-point type.
+ * - Defines a value type named Float that is a floating-point type.
  * - Provides a static member function for the inverse of the speed of sound squared, returning a
  * std::floating-point type.
  * - The inverse speed of sound squared is greater than zero.
@@ -104,7 +104,7 @@ public:
  */
 template <typename Derived>
 concept VelocitySet = requires {
-    requires std::floating_point<typename Derived::Real>;
+    requires std::floating_point<typename Derived::Float>;
     { Derived::dimension() } -> std::same_as<Count>;
     requires(Derived::dimension() >= 1 && Derived::dimension() <= 3);
     { Derived::size() } -> std::same_as<Count>;
@@ -112,9 +112,9 @@ concept VelocitySet = requires {
     {
         Derived::velocities()
     } -> std::same_as<const Matrix<Index, Derived::size(), Derived::dimension()>>;
-    { Derived::weights() } -> std::same_as<const Vector<typename Derived::Real, Derived::size()>>;
-    { Derived::soundSpeedInverseSquared() } -> std::same_as<typename Derived::Real>;
-    requires(Derived::soundSpeedInverseSquared() > typename Derived::Real{0});
+    { Derived::weights() } -> std::same_as<const Vector<typename Derived::Float, Derived::size()>>;
+    { Derived::soundSpeedInverseSquared() } -> std::same_as<typename Derived::Float>;
+    requires(Derived::soundSpeedInverseSquared() > typename Derived::Float{0});
     requires std::is_base_of_v<VelocitySetBase<Derived>, Derived>;
 };
 

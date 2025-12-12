@@ -11,13 +11,13 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
     GIVEN("A BGK collision operator with invalid parameters")
     {
         using Set = D2Q9<double>;
-        using Real = Set::Real;
+        using Float = Set::Float;
         using collisionOperator = BhatnagarGrossKrook<Set, DiscreteMaxwellBoltzmann<Set, 2>>;
 
         WHEN("The time step is zero")
         {
-            const Real timeStep{0.0};
-            const Real relaxationTime{1.0};
+            const Float timeStep{0.0};
+            const Float relaxationTime{1.0};
 
             THEN("An exception is thrown")
             {
@@ -29,8 +29,8 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
         WHEN("The time step is negative")
         {
-            const Real timeStep{-1.0};
-            const Real relaxationTime{1.0};
+            const Float timeStep{-1.0};
+            const Float relaxationTime{1.0};
 
             THEN("An exception is thrown")
             {
@@ -42,8 +42,8 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
         WHEN("The relaxation time is zero")
         {
-            const Real timeStep{1.0};
-            const Real relaxationTime{0.0};
+            const Float timeStep{1.0};
+            const Float relaxationTime{0.0};
 
             THEN("An exception is thrown")
             {
@@ -55,8 +55,8 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
         WHEN("The relaxation time is negative")
         {
-            const Real timeStep{1.0};
-            const Real relaxationTime{-1.0};
+            const Float timeStep{1.0};
+            const Float relaxationTime{-1.0};
 
             THEN("An exception is thrown")
             {
@@ -70,12 +70,12 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
     GIVEN("A valid BGK collision operator and a density distribution")
     {
         using Set = D2Q9<double>;
-        using Real = Set::Real;
+        using Float = Set::Float;
         using CollisionOperator = BhatnagarGrossKrook<Set, DiscreteMaxwellBoltzmann<Set, 2>>;
         using Distribution = DensityDistribution<Set>;
 
-        const Real timeStep{0.1};
-        const Real relaxationTime{1.0};
+        const Float timeStep{0.1};
+        const Float relaxationTime{1.0};
         CollisionOperator collisionOperator(timeStep, relaxationTime);
 
         const Distribution initialDistribution{{0.5, 0.1, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.003}
@@ -115,17 +115,17 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
             THEN("The macroscopic density is conserved")
             {
-                const Real initialDensity{initialDistribution.density()};
-                const Real postCollisionDensity{postCollisionDistribution.density()};
+                const Float initialDensity{initialDistribution.density()};
+                const Float postCollisionDensity{postCollisionDistribution.density()};
 
                 REQUIRE((postCollisionDensity == Catch::Approx(initialDensity)));
             }
 
             THEN("The macroscopic momentum is conserved")
             {
-                const Vector<Real, Set::dimension()> initialMomentum{initialDistribution.momentum()
+                const Vector<Float, Set::dimension()> initialMomentum{initialDistribution.momentum()
                 };
-                const Vector<Real, Set::dimension()> postCollisionMomentum{
+                const Vector<Float, Set::dimension()> postCollisionMomentum{
                     postCollisionDistribution.momentum()
                 };
 

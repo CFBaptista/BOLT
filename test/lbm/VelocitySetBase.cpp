@@ -5,7 +5,7 @@
 class ValidVelocitySet : public VelocitySetBase<ValidVelocitySet>
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<ValidVelocitySet>;
 
@@ -15,15 +15,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class NoBase
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<NoBase>;
 
@@ -33,15 +33,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class InvalidValueType : public VelocitySetBase<InvalidValueType>
 {
 public:
-    using Real = Index;
+    using Float = Index;
 
     friend class VelocitySetBase<InvalidValueType>;
 
@@ -51,15 +51,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class ZeroDimensional : public VelocitySetBase<ZeroDimensional>
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<ZeroDimensional>;
 
@@ -69,15 +69,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class FourDimensional : public VelocitySetBase<FourDimensional>
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<FourDimensional>;
 
@@ -87,15 +87,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class IntSize : public VelocitySetBase<IntSize>
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<IntSize>;
 
@@ -105,15 +105,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class InvalidSize : public VelocitySetBase<InvalidSize>
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<InvalidSize>;
 
@@ -123,15 +123,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class InvalidFloatingPointWeight : public VelocitySetBase<InvalidFloatingPointWeight>
 {
 public:
-    using Real = char;
+    using Float = char;
 
     friend class VelocitySetBase<InvalidFloatingPointWeight>;
 
@@ -141,15 +141,15 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class IntSoundSpeed : public VelocitySetBase<IntSoundSpeed>
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<IntSoundSpeed>;
 
@@ -159,7 +159,7 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
     static constexpr Index soundSpeedInverseSquared_{3};
 };
@@ -167,7 +167,7 @@ public:
 class NegativeSoundSpeed : public VelocitySetBase<NegativeSoundSpeed>
 {
 public:
-    using Real = double;
+    using Float = double;
 
     friend class VelocitySetBase<NegativeSoundSpeed>;
 
@@ -177,9 +177,9 @@ public:
 
     static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr Vector<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{-3};
+    static constexpr Float soundSpeedInverseSquared_{-3};
 };
 
 static_assert(VelocitySet<ValidVelocitySet>, "ValidVelocitySet should satisfy VelocitySet concept");
