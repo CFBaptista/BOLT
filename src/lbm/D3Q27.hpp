@@ -1,10 +1,9 @@
 #pragma once
 
-#include <array>
 #include <concepts>
-#include <cstddef>
 
-#include "VelocitySetBase.hpp"
+#include "lbm/VelocitySetBase.hpp"
+#include "utils/aliases.hpp"
 
 /**
  * @class D3Q27
@@ -16,12 +15,12 @@
  *
  * @tparam T The floating-point type.
  */
-template <std::floating_point T = double>
+template <std::floating_point T = Real>
 class D3Q27 : public VelocitySetBase<D3Q27<T>>
 {
 public:
     /// The floating-point type.
-    using Real = T;
+    using Float = T;
 
     /// Friend the CRTP base class to allow accessors in base to access private static data.
     friend class VelocitySetBase<D3Q27<T>>;
@@ -35,13 +34,13 @@ public:
 
 private:
     /// The spatial dimension.
-    static constexpr std::size_t dimension_{3};
+    static constexpr Count dimension_{3};
 
     /// The number of discrete velocity vectors.
-    static constexpr std::size_t size_{27};
+    static constexpr Count size_{27};
 
     /// The discrete velocity vectors in lattice units as ints.
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{
+    static constexpr Matrix<Index, size_, dimension_> velocities_{
         {{{0, 0, 0}},   {{1, 0, 0}},   {{-1, 0, 0}},  {{0, 1, 0}},  {{0, -1, 0}},  {{0, 0, 1}},
          {{0, 0, -1}},  {{1, 1, 0}},   {{-1, 1, 0}},  {{1, -1, 0}}, {{-1, -1, 0}}, {{1, 0, 1}},
          {{-1, 0, 1}},  {{1, 0, -1}},  {{-1, 0, -1}}, {{0, 1, 1}},  {{0, -1, 1}},  {{0, 1, -1}},
@@ -50,7 +49,7 @@ private:
     };
 
     /// The quadrature weights for each discrete velocity vector.
-    static constexpr std::array<T, size_> weights_{
+    static constexpr Vector<T, size_> weights_{
         static_cast<T>(8) / static_cast<T>(27),  static_cast<T>(2) / static_cast<T>(27),
         static_cast<T>(2) / static_cast<T>(27),  static_cast<T>(2) / static_cast<T>(27),
         static_cast<T>(2) / static_cast<T>(27),  static_cast<T>(2) / static_cast<T>(27),

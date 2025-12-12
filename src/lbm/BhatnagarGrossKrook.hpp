@@ -9,17 +9,17 @@ template <VelocitySet Set, EquilibriumDistribution Equilibrium>
 class BhatnagarGrossKrook : public CollisionOperatorBase
 {
 public:
-    using Real = typename Set::Real;
+    using Float = typename Set::Float;
 
-    BhatnagarGrossKrook(const Real& timeStep, const Real& relaxationTime);
+    BhatnagarGrossKrook(const Float& timeStep, const Float& relaxationTime);
 
     auto collide(const DensityDistribution<Set>& distribution) const -> DensityDistribution<Set>;
 
 private:
-    Real timeStep_;
-    Real relaxationTime_;
-    Real relaxationFactor_;
-    Real oneMinusRelaxationFactor_;
+    Float timeStep_;
+    Float relaxationTime_;
+    Float relaxationFactor_;
+    Float oneMinusRelaxationFactor_;
 };
 
 #include "lbm/BhatnagarGrossKrook.tpp"

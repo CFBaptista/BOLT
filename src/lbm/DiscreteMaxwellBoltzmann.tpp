@@ -1,41 +1,40 @@
 #pragma once
 
-#include <array>
-#include <cstddef>
 #include <cstdlib>
 #include <numeric>
 
 #include "lbm/DensityDistribution.hpp"
 #include "lbm/DiscreteMaxwellBoltzmann.hpp"
 #include "lbm/VelocitySetBase.hpp"
+#include "utils/aliases.hpp"
 
 template <VelocitySet Set>
 auto DiscreteMaxwellBoltzmann<Set, 2>::compute(
-    const typename Set::Real& density,
-    const std::array<typename Set::Real, Set::dimension()>& velocity
+    const typename Set::Float& density,
+    const Vector<typename Set::Float, Set::dimension()>& velocity
 ) -> DensityDistribution<Set>
 {
-    using Real = typename Set::Real;
+    using Float = typename Set::Float;
 
-    const Real half{static_cast<Real>(0.5)};
-    const Real halfMachSquared =
+    const Float half{static_cast<Float>(0.5)};
+    const Float halfMachSquared =
         half * Set::soundSpeedInverseSquared() *
         std::inner_product(
-            velocity.begin(), velocity.end(), velocity.begin(), static_cast<Real>(0)
+            velocity.begin(), velocity.end(), velocity.begin(), static_cast<Float>(0)
         );
 
     DensityDistribution<Set> equilibrium;
 
-    for (std::size_t dof = 0; dof < Set::size(); ++dof)
+    for (Count dof = 0; dof < Set::size(); ++dof)
     {
-        const Real tmp = Set::soundSpeedInverseSquared() * std::inner_product(
-                                                               velocity.begin(), velocity.end(),
-                                                               Set::velocities()[dof].begin(),
-                                                               static_cast<Real>(0)
-                                                           );
+        const Float tmp = Set::soundSpeedInverseSquared() * std::inner_product(
+                                                                velocity.begin(), velocity.end(),
+                                                                Set::velocities()[dof].begin(),
+                                                                static_cast<Float>(0)
+                                                            );
 
         equilibrium[dof] = Set::weights()[dof] * density *
-                           (static_cast<Real>(1) + tmp + half * tmp * tmp - halfMachSquared);
+                           (static_cast<Float>(1) + tmp + half * tmp * tmp - halfMachSquared);
     }
 
     return equilibrium;

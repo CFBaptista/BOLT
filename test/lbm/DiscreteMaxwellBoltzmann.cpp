@@ -1,5 +1,3 @@
-#include <array>
-#include <cstddef>
 #include <functional>
 
 #include <catch2/catch_approx.hpp>
@@ -17,11 +15,11 @@ SCENARIO("Compute kinetic equilibrium distribution")
         using Set = D2Q9<double>;
         using Distribution = DensityDistribution<Set>;
 
-        std::move_only_function<Distribution(const double&, const std::array<double, 2>&)>
+        std::move_only_function<Distribution(const double&, const Vector<double, 2>&)>
             maxwell_compute = &DiscreteMaxwellBoltzmann<Set, 2>::compute;
 
         const double expectedDensity{1.225};
-        const std::array<double, 2> expectedVelocity{3.0, 5.0};
+        const Vector<double, 2> expectedVelocity{3.0, 5.0};
 
         const Distribution expectedEquilibrium{
             {-27.2222222222, -0.0680555556, 10.5486111111, -2.5180555556, 6.4652777778,
@@ -34,7 +32,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
             THEN("The computed values are correct")
             {
-                for (std::size_t i = 0; i < Set::size(); ++i)
+                for (Count i = 0; i < Set::size(); ++i)
                 {
                     REQUIRE((equilibrium[i] == Catch::Approx(expectedEquilibrium[i])));
                 }
@@ -56,7 +54,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
                 THEN("The computed momentum matches the expected value")
                 {
-                    for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
+                    for (Count dim = 0; dim < Set::dimension(); ++dim)
                     {
                         REQUIRE(
                             (momentum.at(dim) ==
@@ -74,7 +72,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
                 THEN("The computed velocity matches the expected value")
                 {
-                    for (std::size_t dim = 0; dim < Set::dimension(); ++dim)
+                    for (Count dim = 0; dim < Set::dimension(); ++dim)
                     {
                         REQUIRE((velocity.at(dim) == Catch::Approx(expectedVelocity.at(dim))));
                     }

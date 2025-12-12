@@ -1,9 +1,9 @@
 #pragma once
 
-#include <array>
 #include <concepts>
-#include <cstddef>
 #include <type_traits>
+
+#include "utils/aliases.hpp"
 
 /**
  * @class VelocitySetBase
@@ -34,7 +34,7 @@ public:
      *
      * @return The spatial dimension.
      */
-    static constexpr auto dimension() noexcept -> std::size_t;
+    static constexpr auto dimension() noexcept -> Count;
 
     /**
      * @fn size
@@ -43,7 +43,7 @@ public:
      *
      * @return The number of discrete velocity vectors.
      */
-    static constexpr auto size() noexcept -> std::size_t;
+    static constexpr auto size() noexcept -> Count;
 
     /**
      * @fn velocities
@@ -90,11 +90,11 @@ public:
  *
  * @details The `VelocitySet` concept specifies the required interface and type constraints for
  * velocity set types. A type that satisfies this concept:
- * - Provides static member functions for dimension and size, both returning a `std::size_t`.
+ * - Provides static member functions for dimension and size, both returning a `Count`.
  * - Has a dimension between 1 and 3 (inclusive) and a size of at least 1.
  * - Provides static member functions for velocity vectors and weights, both returning appropriate
  * `std::array` types.
- * - Defines a value type named Real that is a floating-point type.
+ * - Defines a value type named Float that is a floating-point type.
  * - Provides a static member function for the inverse of the speed of sound squared, returning a
  * std::floating-point type.
  * - The inverse speed of sound squared is greater than zero.
@@ -104,19 +104,17 @@ public:
  */
 template <typename Derived>
 concept VelocitySet = requires {
-    requires std::floating_point<typename Derived::Real>;
-    { Derived::dimension() } -> std::same_as<std::size_t>;
+    requires std::floating_point<typename Derived::Float>;
+    { Derived::dimension() } -> std::same_as<Count>;
     requires(Derived::dimension() >= 1 && Derived::dimension() <= 3);
-    { Derived::size() } -> std::same_as<std::size_t>;
+    { Derived::size() } -> std::same_as<Count>;
     requires(Derived::size() >= 1);
     {
         Derived::velocities()
-    } -> std::same_as<const std::array<std::array<int, Derived::dimension()>, Derived::size()>>;
-    {
-        Derived::weights()
-    } -> std::same_as<const std::array<typename Derived::Real, Derived::size()>>;
-    { Derived::soundSpeedInverseSquared() } -> std::same_as<typename Derived::Real>;
-    requires(Derived::soundSpeedInverseSquared() > typename Derived::Real{0});
+    } -> std::same_as<const Matrix<Index, Derived::size(), Derived::dimension()>>;
+    { Derived::weights() } -> std::same_as<const Vector<typename Derived::Float, Derived::size()>>;
+    { Derived::soundSpeedInverseSquared() } -> std::same_as<typename Derived::Float>;
+    requires(Derived::soundSpeedInverseSquared() > typename Derived::Float{0});
     requires std::is_base_of_v<VelocitySetBase<Derived>, Derived>;
 };
 

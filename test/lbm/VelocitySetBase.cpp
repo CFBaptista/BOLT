@@ -1,6 +1,3 @@
-#include <array>
-#include <cstddef>
-
 #include <catch2/catch_test_macros.hpp>
 
 #include "lbm/VelocitySetBase.hpp"
@@ -8,181 +5,181 @@
 class ValidVelocitySet : public VelocitySetBase<ValidVelocitySet>
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<ValidVelocitySet>;
 
-    static constexpr std::size_t dimension_{2};
+    static constexpr Count dimension_{2};
 
-    static constexpr std::size_t size_{7};
+    static constexpr Count size_{7};
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class NoBase
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<NoBase>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class InvalidValueType : public VelocitySetBase<InvalidValueType>
 {
 public:
-    using Real = int;
+    using Float = Index;
 
     friend class VelocitySetBase<InvalidValueType>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class ZeroDimensional : public VelocitySetBase<ZeroDimensional>
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<ZeroDimensional>;
 
-    static constexpr std::size_t dimension_ = 0;
+    static constexpr Count dimension_ = 0;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class FourDimensional : public VelocitySetBase<FourDimensional>
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<FourDimensional>;
 
-    static constexpr std::size_t dimension_ = 4;
+    static constexpr Count dimension_ = 4;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class IntSize : public VelocitySetBase<IntSize>
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<IntSize>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr int size_ = 0;
+    static constexpr Index size_ = 0;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class InvalidSize : public VelocitySetBase<InvalidSize>
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<InvalidSize>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 0;
+    static constexpr Count size_ = 0;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class InvalidFloatingPointWeight : public VelocitySetBase<InvalidFloatingPointWeight>
 {
 public:
-    using Real = char;
+    using Float = char;
 
     friend class VelocitySetBase<InvalidFloatingPointWeight>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{4};
+    static constexpr Float soundSpeedInverseSquared_{4};
 };
 
 class IntSoundSpeed : public VelocitySetBase<IntSoundSpeed>
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<IntSoundSpeed>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr int soundSpeedInverseSquared_{3};
+    static constexpr Index soundSpeedInverseSquared_{3};
 };
 
 class NegativeSoundSpeed : public VelocitySetBase<NegativeSoundSpeed>
 {
 public:
-    using Real = double;
+    using Float = Real;
 
     friend class VelocitySetBase<NegativeSoundSpeed>;
 
-    static constexpr std::size_t dimension_ = 2;
+    static constexpr Count dimension_ = 2;
 
-    static constexpr std::size_t size_ = 7;
+    static constexpr Count size_ = 7;
 
-    static constexpr std::array<std::array<int, dimension_>, size_> velocities_{};
+    static constexpr Matrix<Index, size_, dimension_> velocities_{};
 
-    static constexpr std::array<Real, size_> weights_{};
+    static constexpr Vector<Float, size_> weights_{};
 
-    static constexpr Real soundSpeedInverseSquared_{-3};
+    static constexpr Float soundSpeedInverseSquared_{-3};
 };
 
 static_assert(VelocitySet<ValidVelocitySet>, "ValidVelocitySet should satisfy VelocitySet concept");
