@@ -11,15 +11,16 @@ SCENARIO("D2Q9 velocity set properties")
 {
     GIVEN("A D2Q9 velocity set")
     {
-        using Set = D2Q9<float>;
+        using Velocity = D2Q9<float>;
 
-        std::move_only_function<Count()> model_dimension = &Set::dimension;
-        std::move_only_function<Count()> model_size = &Set::size;
-        std::move_only_function<Matrix<Index, Set::size(), Set::dimension()>()> model_velocities =
-            &Set::velocities;
-        std::move_only_function<Vector<float, Set::size()>()> model_weights = &Set::weights;
+        std::move_only_function<Count()> model_dimension = &Velocity::dimension;
+        std::move_only_function<Count()> model_size = &Velocity::size;
+        std::move_only_function<Matrix<Index, Velocity::size(), Velocity::dimension()>()>
+            model_velocities = &Velocity::velocities;
+        std::move_only_function<Vector<float, Velocity::size()>()> model_weights =
+            &Velocity::weights;
         std::move_only_function<float()> model_soundSpeedInverseSquared =
-            &Set::soundSpeedInverseSquared;
+            &Velocity::soundSpeedInverseSquared;
 
         const auto expectedDimension{2};
         const auto expectedSize{9};

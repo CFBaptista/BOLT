@@ -20,8 +20,7 @@ endif()
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(COVERAGE_FLAGS -fprofile-instr-generate -fcoverage-mapping -fno-inline -fno-elide-constructors -Wno-unused-template)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    # set(COVERAGE_FLAGS --coverage fno-inline -fno-inline-functions -fno-inline-small-functions)
-    set(COVERAGE_FLAGS --coverage)
+    set(COVERAGE_FLAGS --coverage -fno-inline -fno-inline-functions -fno-inline-small-functions)
 endif()
 
 # Custom target for coverage report using LLVM toolchain

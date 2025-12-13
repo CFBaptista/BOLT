@@ -5,7 +5,7 @@
 #include "lbm/EquilibriumDistributionBase.hpp"
 #include "lbm/VelocitySetBase.hpp"
 
-template <VelocitySet Set, EquilibriumDistribution Equilibrium>
+template <VelocitySet Velocity, EquilibriumDistribution Equilibrium>
 class BhatnagarGrossKrook : public CollisionOperatorBase
 {
 public:
@@ -13,7 +13,8 @@ public:
 
     BhatnagarGrossKrook(const Float& timeStep, const Float& relaxationTime);
 
-    auto collide(const DensityDistribution<Set>& distribution) const -> DensityDistribution<Set>;
+    auto collide(const DensityDistribution<Velocity>& distribution
+    ) const -> DensityDistribution<Velocity>;
 
 private:
     Float timeStep_;
