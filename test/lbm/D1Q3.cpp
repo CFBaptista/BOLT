@@ -34,7 +34,7 @@ SCENARIO("D1Q3 velocity set properties")
 
             THEN("The dimension is 1")
             {
-                REQUIRE((dimension == 2));
+                REQUIRE((dimension == expectedDimension));
             }
         }
 
