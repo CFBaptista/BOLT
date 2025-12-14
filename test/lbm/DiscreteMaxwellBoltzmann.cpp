@@ -12,11 +12,11 @@ SCENARIO("Compute kinetic equilibrium distribution")
 {
     GIVEN("A macroscopic quantities")
     {
-        using Set = D2Q9<double>;
-        using Distribution = DensityDistribution<Set>;
+        using Velocity = D2Q9<double>;
+        using Distribution = DensityDistribution<Velocity>;
 
         std::move_only_function<Distribution(const double&, const Vector<double, 2>&)>
-            maxwell_compute = &DiscreteMaxwellBoltzmann<Set, 2>::compute;
+            maxwell_compute = &DiscreteMaxwellBoltzmann<Velocity, 2>::compute;
 
         const double expectedDensity{1.225};
         const Vector<double, 2> expectedVelocity{3.0, 5.0};
@@ -32,7 +32,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
             THEN("The computed values are correct")
             {
-                for (Count i = 0; i < Set::size(); ++i)
+                for (Count i = 0; i < Velocity::size(); ++i)
                 {
                     REQUIRE((equilibrium[i] == Catch::Approx(expectedEquilibrium[i])));
                 }
@@ -54,7 +54,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
                 THEN("The computed momentum matches the expected value")
                 {
-                    for (Count dim = 0; dim < Set::dimension(); ++dim)
+                    for (Count dim = 0; dim < Velocity::dimension(); ++dim)
                     {
                         REQUIRE(
                             (momentum.at(dim) ==
@@ -72,7 +72,7 @@ SCENARIO("Compute kinetic equilibrium distribution")
 
                 THEN("The computed velocity matches the expected value")
                 {
-                    for (Count dim = 0; dim < Set::dimension(); ++dim)
+                    for (Count dim = 0; dim < Velocity::dimension(); ++dim)
                     {
                         REQUIRE((velocity.at(dim) == Catch::Approx(expectedVelocity.at(dim))));
                     }

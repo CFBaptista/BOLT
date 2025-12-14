@@ -10,9 +10,10 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 {
     GIVEN("A BGK collision operator with invalid parameters")
     {
-        using Set = D2Q9<double>;
-        using Float = Set::Float;
-        using collisionOperator = BhatnagarGrossKrook<Set, DiscreteMaxwellBoltzmann<Set, 2>>;
+        using Velocity = D2Q9<double>;
+        using Float = Velocity::Float;
+        using collisionOperator =
+            BhatnagarGrossKrook<Velocity, DiscreteMaxwellBoltzmann<Velocity, 2>>;
 
         WHEN("The time step is zero")
         {
@@ -69,10 +70,11 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
     GIVEN("A valid BGK collision operator and a density distribution")
     {
-        using Set = D2Q9<double>;
-        using Float = Set::Float;
-        using CollisionOperator = BhatnagarGrossKrook<Set, DiscreteMaxwellBoltzmann<Set, 2>>;
-        using Distribution = DensityDistribution<Set>;
+        using Velocity = D2Q9<double>;
+        using Float = Velocity::Float;
+        using CollisionOperator =
+            BhatnagarGrossKrook<Velocity, DiscreteMaxwellBoltzmann<Velocity, 2>>;
+        using Distribution = DensityDistribution<Velocity>;
 
         const Float timeStep{0.1};
         const Float relaxationTime{1.0};
@@ -95,7 +97,7 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
             THEN("The post-collision distribution is computed correctly")
             {
 
-                for (Count i = 0; i < Set::size(); ++i)
+                for (Count i = 0; i < Velocity::size(); ++i)
                 {
                     REQUIRE(
                         (postCollisionDistribution[i] ==
@@ -106,7 +108,7 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
             THEN("The post-collision distribution is not equal to the initial distribution")
             {
-                for (Count i = 0; i < Set::size(); ++i)
+                for (Count i = 0; i < Velocity::size(); ++i)
                 {
                     REQUIRE((postCollisionDistribution[i] != Catch::Approx(initialDistribution[i]))
                     );
@@ -123,13 +125,14 @@ SCENARIO("Perform collision step using the Bhatnagar-Gross-Krook operator")
 
             THEN("The macroscopic momentum is conserved")
             {
-                const Vector<Float, Set::dimension()> initialMomentum{initialDistribution.momentum()
+                const Vector<Float, Velocity::dimension()> initialMomentum{
+                    initialDistribution.momentum()
                 };
-                const Vector<Float, Set::dimension()> postCollisionMomentum{
+                const Vector<Float, Velocity::dimension()> postCollisionMomentum{
                     postCollisionDistribution.momentum()
                 };
 
-                for (Count dim = 0; dim < Set::dimension(); ++dim)
+                for (Count dim = 0; dim < Velocity::dimension(); ++dim)
                 {
                     REQUIRE(
                         (postCollisionMomentum.at(dim) == Catch::Approx(initialMomentum.at(dim)))

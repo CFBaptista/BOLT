@@ -5,8 +5,8 @@
 #include "lbm/BhatnagarGrossKrook.hpp"
 #include "utils/aliases.hpp"
 
-template <VelocitySet Set, EquilibriumDistribution Equilibrium>
-BhatnagarGrossKrook<Set, Equilibrium>::BhatnagarGrossKrook(
+template <VelocitySet Velocity, EquilibriumDistribution Equilibrium>
+BhatnagarGrossKrook<Velocity, Equilibrium>::BhatnagarGrossKrook(
     const Float& timeStep,
     const Float& relaxationTime
 )
@@ -25,20 +25,23 @@ BhatnagarGrossKrook<Set, Equilibrium>::BhatnagarGrossKrook(
     }
 }
 
-template <VelocitySet Set, EquilibriumDistribution Equilibrium>
-auto BhatnagarGrossKrook<Set, Equilibrium>::collide(const DensityDistribution<Set>& distribution
-) const -> DensityDistribution<Set>
+template <VelocitySet Velocity, EquilibriumDistribution Equilibrium>
+auto BhatnagarGrossKrook<Velocity, Equilibrium>::collide(
+    const DensityDistribution<Velocity>& distribution
+) const -> DensityDistribution<Velocity>
 {
     const Float density{distribution.density()};
-    const Vector<Float, Set::dimension()> momentum{distribution.momentum()};
-    const Vector<Float, Set::dimension()> velocity{
-        DensityDistribution<Set>::velocity(density, momentum)
+    const Vector<Float, Velocity::dimension()> momentum{distribution.momentum()};
+    const Vector<Float, Velocity::dimension()> velocity{
+        DensityDistribution<Velocity>::velocity(density, momentum)
     };
 
-    const DensityDistribution<Set> equilibriumDistribution{Equilibrium::compute(density, velocity)};
-    DensityDistribution<Set> postCollisionDistribution;
+    const DensityDistribution<Velocity> equilibriumDistribution{
+        Equilibrium::compute(density, velocity)
+    };
+    DensityDistribution<Velocity> postCollisionDistribution;
 
-    for (Count dof = 0; dof < Set::size(); ++dof)
+    for (Count dof = 0; dof < Velocity::size(); ++dof)
     {
         postCollisionDistribution[dof] = oneMinusRelaxationFactor_ * distribution[dof] +
                                          relaxationFactor_ * equilibriumDistribution[dof];

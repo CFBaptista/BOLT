@@ -4,15 +4,17 @@
 #include "lbm/VelocitySetBase.hpp"
 #include "utils/aliases.hpp"
 
-template <VelocitySet Set>
+template <VelocitySet Velocity>
 class DensityDistribution : public NodeDistributionBase
 {
 public:
+    /// The velocity set type.
+    using VelocityType = Velocity;
     /// The floating-point type.
-    using Float = typename Set::Float;
+    using Float = typename Velocity::Float;
 
     DensityDistribution() noexcept = default;
-    explicit DensityDistribution(const Vector<Float, Set::size()>& distribution) noexcept;
+    explicit DensityDistribution(const Vector<Float, Velocity::size()>& distribution) noexcept;
     DensityDistribution(const DensityDistribution& other) noexcept = default;
     DensityDistribution(DensityDistribution&& other) noexcept = default;
     auto operator=(const DensityDistribution& other) noexcept -> DensityDistribution& = default;
@@ -56,7 +58,7 @@ public:
      *
      * @return The momentum.
      */
-    auto momentum() const noexcept -> Vector<Float, Set::dimension()>;
+    auto momentum() const noexcept -> Vector<Float, Velocity::dimension()>;
 
     /**
      * @fn velocity
@@ -65,12 +67,12 @@ public:
      *
      * @return The velocity.
      */
-    static auto velocity(const Float& density, const Vector<Float, Set::dimension()>& momentum)
-        -> Vector<Float, Set::dimension()>;
+    static auto velocity(const Float& density, const Vector<Float, Velocity::dimension()>& momentum)
+        -> Vector<Float, Velocity::dimension()>;
 
 private:
     /// The distribution function values at the lattice node.
-    Vector<Float, Set::size()> distribution_;
+    Vector<Float, Velocity::size()> distribution_;
 };
 
 #include "lbm/DensityDistribution.tpp"

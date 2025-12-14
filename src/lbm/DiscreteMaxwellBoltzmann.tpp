@@ -8,32 +8,32 @@
 #include "lbm/VelocitySetBase.hpp"
 #include "utils/aliases.hpp"
 
-template <VelocitySet Set>
-auto DiscreteMaxwellBoltzmann<Set, 2>::compute(
-    const typename Set::Float& density,
-    const Vector<typename Set::Float, Set::dimension()>& velocity
-) -> DensityDistribution<Set>
+template <VelocitySet Velocity>
+auto DiscreteMaxwellBoltzmann<Velocity, 2>::compute(
+    const typename Velocity::Float& density,
+    const Vector<typename Velocity::Float, Velocity::dimension()>& velocity
+) -> DensityDistribution<Velocity>
 {
-    using Float = typename Set::Float;
+    using Float = typename Velocity::Float;
 
     const Float half{static_cast<Float>(0.5)};
     const Float halfMachSquared =
-        half * Set::soundSpeedInverseSquared() *
+        half * Velocity::soundSpeedInverseSquared() *
         std::inner_product(
             velocity.begin(), velocity.end(), velocity.begin(), static_cast<Float>(0)
         );
 
-    DensityDistribution<Set> equilibrium;
+    DensityDistribution<Velocity> equilibrium;
 
-    for (Count dof = 0; dof < Set::size(); ++dof)
+    for (Count dof = 0; dof < Velocity::size(); ++dof)
     {
-        const Float tmp = Set::soundSpeedInverseSquared() * std::inner_product(
-                                                                velocity.begin(), velocity.end(),
-                                                                Set::velocities()[dof].begin(),
-                                                                static_cast<Float>(0)
-                                                            );
+        const Float tmp = Velocity::soundSpeedInverseSquared() *
+                          std::inner_product(
+                              velocity.begin(), velocity.end(), Velocity::velocities()[dof].begin(),
+                              static_cast<Float>(0)
+                          );
 
-        equilibrium[dof] = Set::weights()[dof] * density *
+        equilibrium[dof] = Velocity::weights()[dof] * density *
                            (static_cast<Float>(1) + tmp + half * tmp * tmp - halfMachSquared);
     }
 

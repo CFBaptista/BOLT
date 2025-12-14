@@ -6,71 +6,73 @@
 #include "lbm/VelocitySetBase.hpp"
 #include "utils/aliases.hpp"
 
-template <VelocitySet Set>
-DensityDistribution<Set>::DensityDistribution(const Vector<Float, Set::size()>& distribution
+template <VelocitySet Velocity>
+DensityDistribution<Velocity>::DensityDistribution(
+    const Vector<Float, Velocity::size()>& distribution
 ) noexcept
     : distribution_(distribution)
 {
 }
 
-template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::dimension() noexcept -> Count
+template <VelocitySet Velocity>
+constexpr auto DensityDistribution<Velocity>::dimension() noexcept -> Count
 {
-    return Set::dimension();
+    return Velocity::dimension();
 }
 
-template <VelocitySet Set>
-constexpr auto DensityDistribution<Set>::size() noexcept -> Count
+template <VelocitySet Velocity>
+constexpr auto DensityDistribution<Velocity>::size() noexcept -> Count
 {
-    return Set::size();
+    return Velocity::size();
 }
 
-template <VelocitySet Set>
-auto DensityDistribution<Set>::operator[](Count index) -> Float&
-{
-    return distribution_[index];
-}
-
-template <VelocitySet Set>
-auto DensityDistribution<Set>::operator[](Count index) const -> const Float&
+template <VelocitySet Velocity>
+auto DensityDistribution<Velocity>::operator[](Count index) -> Float&
 {
     return distribution_[index];
 }
 
-template <VelocitySet Set>
-auto DensityDistribution<Set>::density() const noexcept -> Float
+template <VelocitySet Velocity>
+auto DensityDistribution<Velocity>::operator[](Count index) const -> const Float&
+{
+    return distribution_[index];
+}
+
+template <VelocitySet Velocity>
+auto DensityDistribution<Velocity>::density() const noexcept -> Float
 {
     Float macroscopicDensity{std::accumulate(distribution_.begin(), distribution_.end(), Float{0})};
     return macroscopicDensity;
 }
 
-template <VelocitySet Set>
-auto DensityDistribution<Set>::momentum() const noexcept -> Vector<Float, Set::dimension()>
+template <VelocitySet Velocity>
+auto DensityDistribution<Velocity>::momentum() const noexcept
+    -> Vector<Float, Velocity::dimension()>
 {
-    Vector<Float, Set::dimension()> macroscopicMomentum{};
+    Vector<Float, Velocity::dimension()> macroscopicMomentum{};
 
-    for (Count dir = 0; dir < Set::size(); ++dir)
+    for (Count dir = 0; dir < Velocity::size(); ++dir)
     {
         const Float distributionValue{distribution_[dir]};
 
-        for (Count dim = 0; dim < Set::dimension(); ++dim)
+        for (Count dim = 0; dim < Velocity::dimension(); ++dim)
         {
-            macroscopicMomentum[dim] += distributionValue * Set::velocities()[dir][dim];
+            macroscopicMomentum[dim] += distributionValue * Velocity::velocities()[dir][dim];
         }
     }
 
     return macroscopicMomentum;
 }
 
-template <VelocitySet Set>
-auto DensityDistribution<Set>::velocity(
+template <VelocitySet Velocity>
+auto DensityDistribution<Velocity>::velocity(
     const Float& density,
-    const Vector<Float, Set::dimension()>& momentum
-) -> Vector<Float, Set::dimension()>
+    const Vector<Float, Velocity::dimension()>& momentum
+) -> Vector<Float, Velocity::dimension()>
 {
-    Vector<Float, Set::dimension()> macroscopicVelocity{};
+    Vector<Float, Velocity::dimension()> macroscopicVelocity{};
 
-    for (Count dim = 0; dim < Set::dimension(); ++dim)
+    for (Count dim = 0; dim < Velocity::dimension(); ++dim)
     {
         macroscopicVelocity[dim] = momentum[dim] / density;
     }
