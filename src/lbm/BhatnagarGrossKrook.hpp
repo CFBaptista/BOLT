@@ -9,8 +9,11 @@ template <VelocitySet Velocity, EquilibriumDistribution Equilibrium>
 class BhatnagarGrossKrook : public CollisionOperatorBase
 {
 public:
+    /// The velocity set type.
     using VelocityType = Velocity;
+    /// The equilibrium distribution type.
     using EquilibriumType = Equilibrium;
+    /// The floating-point type.
     using Float = typename Velocity::Float;
 
     BhatnagarGrossKrook(const Float& timeStep, const Float& relaxationTime);

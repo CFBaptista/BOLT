@@ -8,6 +8,8 @@ template <VelocitySet Velocity>
 class DensityDistribution : public NodeDistributionBase
 {
 public:
+    /// The velocity set type.
+    using VelocityType = Velocity;
     /// The floating-point type.
     using Float = typename Velocity::Float;
 

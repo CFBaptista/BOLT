@@ -9,6 +9,13 @@ template <VelocitySet Velocity, Count Order>
 class DiscreteMaxwellBoltzmann : public EquilibriumDistributionBase
 {
 public:
+    /// The velocity set type.
+    using VelocityType = Velocity;
+    /// The order of the equilibrium approximation.
+    using OrderType = std::integral_constant<Count, Order>;
+    /// The floating-point type.
+    using Float = typename Velocity::Float;
+
     /**
      * @fn compute
      *
