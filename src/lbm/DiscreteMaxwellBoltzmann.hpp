@@ -12,7 +12,7 @@ public:
     /// The velocity set type.
     using VelocityType = Velocity;
     /// The order of the equilibrium approximation.
-    using OrderType = std::integral_constant<Count, Order>;
+    static constexpr Count OrderType = Order;
     /// The floating-point type.
     using Float = typename Velocity::Float;
 
