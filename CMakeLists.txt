@@ -5,10 +5,12 @@
 # Contact   : cfd.baptista@gmail.com
 # ==================================================================================================
 
-# Set required minimum CMake version
 cmake_minimum_required(VERSION 3.30.5)
 
-# Set project information
+# Enable the export of compile commands by logging it to a JSON file. This improves integration
+# with code analysis tools and IDEs.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 project(
     BOLT
     VERSION 0.1.0
@@ -16,3 +18,8 @@ project(
     HOMEPAGE_URL "https://github.com/CFBaptista/BOLT"
     LANGUAGES CXX
 )
+
+add_subdirectory(src)
+
+include(CTest)
+add_subdirectory(test)
