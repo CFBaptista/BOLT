@@ -1,0 +1,13 @@
+---
+Checks: >
+    -*,
+    bugprone-*,
+    cert-*,
+    clang-*,
+    clang-analyzer-*,
+    cppcoreguidelines-*,
+    modernize-*,
+    performance-*,
+    readability-*
+FormatStyle: file
+WarningsAsErrors: true
