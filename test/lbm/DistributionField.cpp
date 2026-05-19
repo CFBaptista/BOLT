@@ -121,11 +121,12 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
     {
         const std::size_t size_x = 3;
         const std::size_t size_y = 4;
+        const std::size_t size_q = 9;
         DistributionField<FakeD2Q9, size_y, size_x> distributionField;
 
         WHEN("Assigning a value to each node using linear indexing")
         {
-            for (std::size_t index = 0; index < size_x * size_y; ++index)
+            for (std::size_t index = 0; index < size_x * size_y * size_q; ++index)
             {
                 distributionField[index] = static_cast<double>(index);
             }
@@ -135,13 +136,20 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
                 "value"
             )
             {
-                for (std::size_t index_y = 0; index_y < size_y; ++index_y)
+                for (std::size_t index_q = 0; index_q < size_q; ++index_q)
                 {
-                    for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                    for (std::size_t index_y = 0; index_y < size_y; ++index_y)
                     {
-                        const std::size_t index = (index_y * size_x) + index_x;
+                        for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                        {
+                            const std::size_t index =
+                                (index_q * size_y * size_x) + (index_y * size_x) + index_x;
 
-                        REQUIRE(distributionField[index] == distributionField[index_y, index_x]);
+                            REQUIRE(
+                                distributionField[index] ==
+                                distributionField[index_q, index_y, index_x]
+                            );
+                        }
                     }
                 }
             }
@@ -149,11 +157,15 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
 
         WHEN("Assigning a value to each node using Cartesian indexing")
         {
-            for (std::size_t index_y = 0; index_y < size_y; ++index_y)
+            for (std::size_t index_q = 0; index_q < size_q; ++index_q)
             {
-                for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                for (std::size_t index_y = 0; index_y < size_y; ++index_y)
                 {
-                    distributionField[index_y, index_x] = static_cast<double>(index_x + index_y);
+                    for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                    {
+                        distributionField[index_q, index_y, index_x] =
+                            static_cast<double>(index_x + index_y + index_q);
+                    }
                 }
             }
 
@@ -162,12 +174,15 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
                 "value"
             )
             {
-                for (std::size_t index = 0; index < size_x * size_y; ++index)
+                for (std::size_t index = 0; index < size_x * size_y * size_q; ++index)
                 {
                     const std::size_t index_x = index % size_x;
-                    const std::size_t index_y = index / size_x;
+                    const std::size_t index_y = (index / size_x) % size_y;
+                    const std::size_t index_q = index / (size_y * size_x);
 
-                    REQUIRE(distributionField[index] == distributionField[index_y, index_x]);
+                    REQUIRE(
+                        distributionField[index] == distributionField[index_q, index_y, index_x]
+                    );
                 }
             }
         }
@@ -178,11 +193,12 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
         const std::size_t size_x = 3;
         const std::size_t size_y = 4;
         const std::size_t size_z = 5;
+        const std::size_t size_q = 27;
         DistributionField<FakeD3Q27, size_z, size_y, size_x> distributionField;
 
         WHEN("Assigning a value to each node using linear indexing")
         {
-            for (std::size_t index = 0; index < size_x * size_y * size_z; ++index)
+            for (std::size_t index = 0; index < size_x * size_y * size_z * size_q; ++index)
             {
                 distributionField[index] = static_cast<double>(index);
             }
@@ -192,19 +208,23 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
                 "value"
             )
             {
-                for (std::size_t index_z = 0; index_z < size_z; ++index_z)
+                for (std::size_t index_q = 0; index_q < size_q; ++index_q)
                 {
-                    for (std::size_t index_y = 0; index_y < size_y; ++index_y)
+                    for (std::size_t index_z = 0; index_z < size_z; ++index_z)
                     {
-                        for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                        for (std::size_t index_y = 0; index_y < size_y; ++index_y)
                         {
-                            const std::size_t index =
-                                (index_z * size_y * size_x) + (index_y * size_x) + index_x;
+                            for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                            {
+                                const std::size_t index = (index_q * size_z * size_y * size_x) +
+                                                          (index_z * size_y * size_x) +
+                                                          (index_y * size_x) + index_x;
 
-                            REQUIRE(
-                                distributionField[index] ==
-                                distributionField[index_z, index_y, index_x]
-                            );
+                                REQUIRE(
+                                    distributionField[index] ==
+                                    distributionField[index_q, index_z, index_y, index_x]
+                                );
+                            }
                         }
                     }
                 }
@@ -213,14 +233,17 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
 
         WHEN("Assigning a value to each node using Cartesian indexing")
         {
-            for (std::size_t index_z = 0; index_z < size_z; ++index_z)
+            for (std::size_t index_q = 0; index_q < size_q; ++index_q)
             {
-                for (std::size_t index_y = 0; index_y < size_y; ++index_y)
+                for (std::size_t index_z = 0; index_z < size_z; ++index_z)
                 {
-                    for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                    for (std::size_t index_y = 0; index_y < size_y; ++index_y)
                     {
-                        distributionField[index_z, index_y, index_x] =
-                            static_cast<double>(index_x + index_y + index_z);
+                        for (std::size_t index_x = 0; index_x < size_x; ++index_x)
+                        {
+                            distributionField[index_q, index_z, index_y, index_x] =
+                                static_cast<double>(index_x + index_y + index_z + index_q);
+                        }
                     }
                 }
             }
@@ -230,14 +253,16 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
                 "value"
             )
             {
-                for (std::size_t index = 0; index < size_x * size_y * size_z; ++index)
+                for (std::size_t index = 0; index < size_x * size_y * size_z * size_q; ++index)
                 {
                     const std::size_t index_x = index % size_x;
                     const std::size_t index_y = (index / size_x) % size_y;
-                    const std::size_t index_z = index / (size_y * size_x);
+                    const std::size_t index_z = (index / (size_y * size_x)) % size_z;
+                    const std::size_t index_q = index / (size_z * size_y * size_x);
 
                     REQUIRE(
-                        distributionField[index] == distributionField[index_z, index_y, index_x]
+                        distributionField[index] ==
+                        distributionField[index_q, index_z, index_y, index_x]
                     );
                 }
             }

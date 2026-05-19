@@ -181,14 +181,15 @@ public:
     auto operator[](std::size_t index) const -> const Lattice::value_type&;
 
     template <typename... Indices>
-    auto operator[](Indices... indices) -> Lattice::value_type&;
+    auto operator[](std::size_t direction, Indices... indices) -> Lattice::value_type&;
 
     template <typename... Indices>
-    auto operator[](Indices... indices) const -> const Lattice::value_type&;
+    auto operator[](std::size_t direction, Indices... indices) const -> const Lattice::value_type&;
 
 private:
     std::vector<typename Lattice::value_type> data_;
-    std::mdspan<typename Lattice::value_type, std::extents<std::size_t, Shape...>> view_;
+    std::mdspan<typename Lattice::value_type, std::extents<std::size_t, Lattice::size, Shape...>>
+        view_;
 };
 
 #include "lbm/DistributionField.tpp"

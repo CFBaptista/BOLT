@@ -4,7 +4,8 @@
 #include <cstddef>
 
 template <LatticeModel Lattice, std::size_t... Shape>
-DistributionField<Lattice, Shape...>::DistributionField() : data_(size, 0.0), view_(data_.data())
+DistributionField<Lattice, Shape...>::DistributionField()
+    : data_(Lattice::size * size, 0.0), view_(data_.data())
 {
 }
 
@@ -34,16 +35,18 @@ auto DistributionField<Lattice, Shape...>::operator[](std::size_t index) const -
 
 template <LatticeModel Lattice, std::size_t... Shape>
 template <typename... Indices>
-auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) ->
+auto DistributionField<Lattice, Shape...>::operator[](std::size_t direction, Indices... indices) ->
     typename Lattice::value_type&
 {
-    return view_[indices...];
+    return view_[direction, indices...];
 }
 
 template <LatticeModel Lattice, std::size_t... Shape>
 template <typename... Indices>
-auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) const -> const
-    typename Lattice::value_type&
+auto DistributionField<Lattice, Shape...>::operator[](
+    std::size_t direction,
+    Indices... indices
+) const -> const typename Lattice::value_type&
 {
-    return view_[indices...];
+    return view_[direction, indices...];
 }
