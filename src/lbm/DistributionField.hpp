@@ -14,7 +14,7 @@ concept LatticeModel = requires {
     requires std::same_as<std::remove_cvref_t<decltype((Lattice::size))>, std::size_t>;
     requires Lattice::dimension > 0;
     requires std::same_as<
-        std::remove_cvref_t<decltype((Lattice::directions))>,
+        std::remove_cvref_t<decltype((Lattice::velocities))>,
         std::array<std::array<int, Lattice::dimension>, Lattice::size>>;
     requires std::same_as<
         std::remove_cvref_t<decltype((Lattice::weights))>,
@@ -40,7 +40,7 @@ public:
     static constexpr std::size_t dimension = 1;
     static constexpr std::size_t size = 3;
 
-    static constexpr std::array<std::array<int, dimension>, size> directions{
+    static constexpr std::array<std::array<int, dimension>, size> velocities{
         {{{0}}, {{1}}, {{-1}}}
     };
 
@@ -68,7 +68,7 @@ public:
     static constexpr std::size_t dimension{2};
     static constexpr std::size_t size = 9;
 
-    static constexpr std::array<std::array<int, dimension>, size> directions{
+    static constexpr std::array<std::array<int, dimension>, size> velocities{
         {{{0, 0}},
          {{1, 0}},
          {{0, 1}},
@@ -109,7 +109,7 @@ public:
     static constexpr std::size_t dimension = 3;
     static constexpr std::size_t size = 27;
 
-    static constexpr std::array<std::array<int, dimension>, size> directions{
+    static constexpr std::array<std::array<int, dimension>, size> velocities{
         {{{0, 0, 0}},   {{1, 0, 0}},   {{-1, 0, 0}},  {{0, 1, 0}},  {{0, -1, 0}},  {{0, 0, 1}},
          {{0, 0, -1}},  {{1, 1, 0}},   {{-1, 1, 0}},  {{1, -1, 0}}, {{-1, -1, 0}}, {{1, 0, 1}},
          {{-1, 0, 1}},  {{1, 0, -1}},  {{-1, 0, -1}}, {{0, 1, 1}},  {{0, -1, 1}},  {{0, 1, -1}},

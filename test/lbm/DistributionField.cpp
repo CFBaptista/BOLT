@@ -10,7 +10,7 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 1;
     static constexpr std::size_t size = 3;
-    static constexpr std::array<std::array<int, dimension>, size> directions{};
+    static constexpr std::array<std::array<int, dimension>, size> velocities{};
     static constexpr std::array<double, size> weights{};
     static constexpr double sound_speed_inverse_squared{};
 };
@@ -21,7 +21,7 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 9;
-    static constexpr std::array<std::array<int, dimension>, size> directions{};
+    static constexpr std::array<std::array<int, dimension>, size> velocities{};
     static constexpr std::array<double, size> weights{};
     static constexpr double sound_speed_inverse_squared{};
 };
@@ -32,7 +32,7 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 3;
     static constexpr std::size_t size = 27;
-    static constexpr std::array<std::array<int, dimension>, size> directions{};
+    static constexpr std::array<std::array<int, dimension>, size> velocities{};
     static constexpr std::array<double, size> weights{};
     static constexpr double sound_speed_inverse_squared{};
 };
