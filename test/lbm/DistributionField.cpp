@@ -50,7 +50,7 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
 
         THEN("The size of the distribution field equals the node count")
         {
-            REQUIRE(DistributionField<FakeD1Q3, size_x>::size == size_x);
+            REQUIRE(DistributionField<FakeD1Q3, size_x>::grid_size == size_x);
         }
 
         THEN("The shape of the distribution field equals the node count")
@@ -74,7 +74,7 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
             "direction"
         )
         {
-            REQUIRE(DistributionField<FakeD2Q9, size_y, size_x>::size == size_x * size_y);
+            REQUIRE(DistributionField<FakeD2Q9, size_y, size_x>::grid_size == size_x * size_y);
         }
 
         THEN("The shape of the distribution field equals the node counts in each direction")
@@ -101,7 +101,7 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
         )
         {
             REQUIRE(
-                DistributionField<FakeD3Q27, size_z, size_y, size_x>::size ==
+                DistributionField<FakeD3Q27, size_z, size_y, size_x>::grid_size ==
                 size_x * size_y * size_z
             );
         }

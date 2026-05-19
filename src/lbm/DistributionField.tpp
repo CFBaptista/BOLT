@@ -5,7 +5,7 @@
 
 template <LatticeModel Lattice, std::size_t... Shape>
 DistributionField<Lattice, Shape...>::DistributionField()
-    : data_(Lattice::size * size, 0.0), view_(data_.data())
+    : data_(lattice_size * grid_size, 0.0), view_(data_.data())
 {
 }
 

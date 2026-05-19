@@ -157,7 +157,8 @@ class DistributionField
 {
 public:
     static constexpr std::array<std::size_t, sizeof...(Shape)> shape = {Shape...};
-    static constexpr std::size_t size = (Shape * ...);
+    static constexpr std::size_t grid_size = (Shape * ...);
+    static constexpr std::size_t lattice_size = Lattice::size;
     static constexpr std::size_t dimension = sizeof...(Shape);
 
     static_assert(sizeof...(Shape) > 0, "A DistributionField must have a positive size.");
