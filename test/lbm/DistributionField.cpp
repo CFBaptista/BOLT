@@ -12,17 +12,17 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
 
         THEN("The dimension of the distribution field equals 1")
         {
-            REQUIRE(DistributionField<nx>::dimension == 1);
+            REQUIRE(DistributionField<D1Q3<double>, nx>::dimension == 1);
         }
 
         THEN("The size of the distribution field equals the node count")
         {
-            REQUIRE(DistributionField<nx>::size == nx);
+            REQUIRE(DistributionField<D1Q3<double>, nx>::size == nx);
         }
 
         THEN("The shape of the distribution field equals the node count")
         {
-            REQUIRE(DistributionField<nx>::shape[0] == nx);
+            REQUIRE(DistributionField<D1Q3<double>, nx>::shape[0] == nx);
         }
     }
 
@@ -33,7 +33,7 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
 
         THEN("The dimension of the distribution field equals 2")
         {
-            REQUIRE(DistributionField<ny, nx>::dimension == 2);
+            REQUIRE(DistributionField<D2Q9<double>, ny, nx>::dimension == 2);
         }
 
         THEN(
@@ -41,13 +41,13 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
             "direction"
         )
         {
-            REQUIRE(DistributionField<ny, nx>::size == nx * ny);
+            REQUIRE(DistributionField<D2Q9<double>, ny, nx>::size == nx * ny);
         }
 
         THEN("The shape of the distribution field equals the node counts in each direction")
         {
-            REQUIRE(DistributionField<ny, nx>::shape[0] == ny);
-            REQUIRE(DistributionField<ny, nx>::shape[1] == nx);
+            REQUIRE(DistributionField<D2Q9<double>, ny, nx>::shape[0] == ny);
+            REQUIRE(DistributionField<D2Q9<double>, ny, nx>::shape[1] == nx);
         }
     }
 
@@ -59,7 +59,7 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
 
         THEN("The dimension of the distribution field equals 3")
         {
-            REQUIRE(DistributionField<nz, ny, nx>::dimension == 3);
+            REQUIRE(DistributionField<D3Q27<double>, nz, ny, nx>::dimension == 3);
         }
 
         THEN(
@@ -67,14 +67,14 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
             "direction"
         )
         {
-            REQUIRE(DistributionField<nz, ny, nx>::size == nx * ny * nz);
+            REQUIRE(DistributionField<D3Q27<double>, nz, ny, nx>::size == nx * ny * nz);
         }
 
         THEN("The shape of the distribution field equals the node counts in each direction")
         {
-            REQUIRE(DistributionField<nz, ny, nx>::shape[0] == nz);
-            REQUIRE(DistributionField<nz, ny, nx>::shape[1] == ny);
-            REQUIRE(DistributionField<nz, ny, nx>::shape[2] == nx);
+            REQUIRE(DistributionField<D3Q27<double>, nz, ny, nx>::shape[0] == nz);
+            REQUIRE(DistributionField<D3Q27<double>, nz, ny, nx>::shape[1] == ny);
+            REQUIRE(DistributionField<D3Q27<double>, nz, ny, nx>::shape[2] == nx);
         }
     }
 }
@@ -85,7 +85,7 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
     {
         const std::size_t nx = 3;
         const std::size_t ny = 4;
-        DistributionField<ny, nx> distributionField;
+        DistributionField<D2Q9<double>, ny, nx> distributionField;
 
         WHEN("Assigning a value to each node using linear indexing")
         {
@@ -142,7 +142,7 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
         const std::size_t nx = 3;
         const std::size_t ny = 4;
         const std::size_t nz = 5;
-        DistributionField<nz, ny, nx> distributionField;
+        DistributionField<D3Q27<double>, nz, ny, nx> distributionField;
 
         WHEN("Assigning a value to each node using linear indexing")
         {

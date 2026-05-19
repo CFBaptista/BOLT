@@ -3,43 +3,47 @@
 #include "lbm/DistributionField.hpp"
 #include <cstddef>
 
-template <std::size_t... Shape>
-DistributionField<Shape...>::DistributionField() : data_(size, 0.0), view_(data_.data())
+template <LatticeModel Lattice, std::size_t... Shape>
+DistributionField<Lattice, Shape...>::DistributionField() : data_(size, 0.0), view_(data_.data())
 {
 }
 
-template <std::size_t... Shape>
-DistributionField<Shape...>::~DistributionField() = default;
+template <LatticeModel Lattice, std::size_t... Shape>
+DistributionField<Lattice, Shape...>::~DistributionField() = default;
 
-template <std::size_t... Shape>
-DistributionField<Shape...>::DistributionField(DistributionField&&) noexcept = default;
+template <LatticeModel Lattice, std::size_t... Shape>
+DistributionField<Lattice, Shape...>::DistributionField(DistributionField&&) noexcept = default;
 
-template <std::size_t... Shape>
-auto DistributionField<Shape...>::operator=(DistributionField&&) noexcept
+template <LatticeModel Lattice, std::size_t... Shape>
+auto DistributionField<Lattice, Shape...>::operator=(DistributionField&&) noexcept
     -> DistributionField& = default;
 
-template <std::size_t... Shape>
-auto DistributionField<Shape...>::operator[](std::size_t index) -> double&
+template <LatticeModel Lattice, std::size_t... Shape>
+auto DistributionField<Lattice, Shape...>::operator[](std::size_t index) ->
+    typename Lattice::value_type&
 {
     return data_[index];
 }
 
-template <std::size_t... Shape>
-auto DistributionField<Shape...>::operator[](std::size_t index) const -> const double&
+template <LatticeModel Lattice, std::size_t... Shape>
+auto DistributionField<Lattice, Shape...>::operator[](std::size_t index) const -> const
+    typename Lattice::value_type&
 {
     return data_[index];
 }
 
-template <std::size_t... Shape>
+template <LatticeModel Lattice, std::size_t... Shape>
 template <typename... Indices>
-auto DistributionField<Shape...>::operator[](Indices... indices) -> double&
+auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) ->
+    typename Lattice::value_type&
 {
     return view_[indices...];
 }
 
-template <std::size_t... Shape>
+template <LatticeModel Lattice, std::size_t... Shape>
 template <typename... Indices>
-auto DistributionField<Shape...>::operator[](Indices... indices) const -> const double&
+auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) const -> const
+    typename Lattice::value_type&
 {
     return view_[indices...];
 }
