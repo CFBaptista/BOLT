@@ -1,7 +1,8 @@
 #pragma once
 
-#include "lbm/DistributionField.hpp"
 #include <cstddef>
+
+#include "lbm/DistributionField.hpp"
 
 template <LatticeModel Lattice, std::size_t... Shape>
 DistributionField<Lattice, Shape...>::DistributionField()

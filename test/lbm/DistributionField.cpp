@@ -1,8 +1,17 @@
 #include <array>
+
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 #include "lbm/DistributionField.hpp"
+
+template <std::floating_point Real, std::size_t Size>
+consteval auto uniform_weights(Real value) -> std::array<Real, Size>
+{
+    std::array<Real, Size> weights{};
+    weights.fill(value);
+    return weights;
+}
 
 class FakeD1Q3
 {
@@ -11,8 +20,8 @@ public:
     static constexpr std::size_t dimension = 1;
     static constexpr std::size_t size = 3;
     static constexpr std::array<std::array<int, dimension>, size> velocities{};
-    static constexpr std::array<double, size> weights{};
-    static constexpr double sound_speed_inverse_squared{};
+    static constexpr std::array<double, size> weights = uniform_weights<double, size>(1.0 / size);
+    static constexpr double sound_speed_inverse_squared{1};
 };
 
 class FakeD2Q9
@@ -22,8 +31,8 @@ public:
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 9;
     static constexpr std::array<std::array<int, dimension>, size> velocities{};
-    static constexpr std::array<double, size> weights{};
-    static constexpr double sound_speed_inverse_squared{};
+    static constexpr std::array<double, size> weights = uniform_weights<double, size>(1.0 / size);
+    static constexpr double sound_speed_inverse_squared{1};
 };
 
 class FakeD3Q27
@@ -33,8 +42,8 @@ public:
     static constexpr std::size_t dimension = 3;
     static constexpr std::size_t size = 27;
     static constexpr std::array<std::array<int, dimension>, size> velocities{};
-    static constexpr std::array<double, size> weights{};
-    static constexpr double sound_speed_inverse_squared{};
+    static constexpr std::array<double, size> weights = uniform_weights<double, size>(1.0 / size);
+    static constexpr double sound_speed_inverse_squared{1};
 };
 
 SCENARIO("Verify intrinsic properties of a distribution field with specified shape")
