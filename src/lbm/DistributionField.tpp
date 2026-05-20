@@ -20,18 +20,16 @@ auto DistributionField<Lattice, Shape...>::operator[](std::size_t index) const -
 
 template <LatticeModel Lattice, std::size_t... Shape>
 template <typename... Indices>
-auto DistributionField<Lattice, Shape...>::operator[](std::size_t direction, Indices... indices) ->
+auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) ->
     typename Lattice::value_type&
 {
-    return data_[direction, indices...];
+    return data_[indices...];
 }
 
 template <LatticeModel Lattice, std::size_t... Shape>
 template <typename... Indices>
-auto DistributionField<Lattice, Shape...>::operator[](
-    std::size_t direction,
-    Indices... indices
-) const -> const typename Lattice::value_type&
+auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) const -> const
+    typename Lattice::value_type&
 {
-    return data_[direction, indices...];
+    return data_[indices...];
 }

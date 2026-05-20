@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "lbm/AlignedArray.hpp"
+#include "base/AlignedArray.hpp"
 #include "lbm/LatticeModel.hpp"
 
 template <LatticeModel Lattice, std::size_t... Shape>
@@ -35,10 +35,10 @@ public:
     auto operator[](std::size_t index) const -> const Lattice::value_type&;
 
     template <typename... Indices>
-    auto operator[](std::size_t direction, Indices... indices) -> Lattice::value_type&;
+    auto operator[](Indices... indices) -> Lattice::value_type&;
 
     template <typename... Indices>
-    auto operator[](std::size_t direction, Indices... indices) const -> const Lattice::value_type&;
+    auto operator[](Indices... indices) const -> const Lattice::value_type&;
 
 private:
     AlignedArray<typename Lattice::value_type, Lattice::size, Shape...> data_;
