@@ -11,4 +11,5 @@ catch_discover_tests(lbm_test)
 
 target_sources(lbm_test PRIVATE
     DistributionField.cpp
+    LatticeModel.cpp
 )
