@@ -1,9 +1,8 @@
 #pragma once
 
 #include <array>
-#include <mdspan>
-#include <vector>
 
+#include "lbm/AlignedArray.hpp"
 #include "lbm/LatticeModel.hpp"
 
 template <LatticeModel Lattice, std::size_t... Shape>
@@ -25,12 +24,12 @@ public:
         "The dimension of the DistributionField must match the dimension of the LatticeModel."
     );
 
-    DistributionField();
-    ~DistributionField();
+    DistributionField() = default;
+    ~DistributionField() = default;
     DistributionField(const DistributionField&) = delete;
     auto operator=(const DistributionField&) -> DistributionField& = delete;
-    DistributionField(DistributionField&&) noexcept;
-    auto operator=(DistributionField&&) noexcept -> DistributionField&;
+    DistributionField(DistributionField&&) noexcept = default;
+    auto operator=(DistributionField&&) noexcept -> DistributionField& = default;
 
     auto operator[](std::size_t index) -> Lattice::value_type&;
     auto operator[](std::size_t index) const -> const Lattice::value_type&;
@@ -42,9 +41,7 @@ public:
     auto operator[](std::size_t direction, Indices... indices) const -> const Lattice::value_type&;
 
 private:
-    std::vector<typename Lattice::value_type> data_;
-    std::mdspan<typename Lattice::value_type, std::extents<std::size_t, Lattice::size, Shape...>>
-        view_;
+    AlignedArray<typename Lattice::value_type, Lattice::size, Shape...> data_;
 };
 
 #include "lbm/DistributionField.tpp"

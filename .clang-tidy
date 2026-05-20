@@ -6,8 +6,11 @@ Checks: >
     clang-*,
     clang-analyzer-*,
     cppcoreguidelines-*,
+    -cppcoreguidelines-pro-bounds-constant-array-index,
     modernize-*,
     performance-*,
-    readability-*
+    readability-*,
+    misc-include-cleaner
 FormatStyle: file
 WarningsAsErrors: true
+HeaderFilterRegex: ".*"
