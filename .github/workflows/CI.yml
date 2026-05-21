@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    tags: ["*"]
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+
+jobs:
+  Code-Quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/cfbaptista/bolt-dev:0.1.0
+
+    steps:
+      - name: Fix dubious ownership warning
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset linux-x86-64-llvm-debug
+
+      - name: Build project
+        run: cmake --build --preset linux-x86-64-llvm-debug
+
+      - name: Test project
+        run: ctest --preset linux-x86-64-llvm-debug
+
+      - name: Run formatter
+        run: |
+          clang-format \
+            --style=file \
+            $(git ls-files '*.cpp' '*.hpp' '*.tpp') \
+            --dry-run \
+            --Werror \
+            2>&1
+
+      - name: Run static analysis (clang-tidy)
+        run: |
+          clang-tidy \
+            $(git ls-files '*.cpp' '*.hpp') \
+            -p build/linux-x86-64-llvm-debug \
+            -format-style=file \
+            -warnings-as-errors=* \
+            2>&1
+
+      - name: Run static analysis (cppcheck)
+        run: |
+          cppcheck \
+            --enable=all \
+            --inconclusive \
+            --force \
+            --suppress=missingIncludeSystem \
+            --std=c++23 \
+            --error-exitcode=1 \
+            -I src \
+            src \
+            test \
+            2>&1
+
+  Configure-Build-Test:
+    name: Configure-Build-Test (${{ matrix.preset }})
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/cfbaptista/bolt-dev:0.1.0
+    needs: Code-Quality
+    strategy:
+      matrix:
+        preset:
+          - linux-x86-64-gnu-debug
+          - linux-x86-64-gnu-release
+          - linux-x86-64-llvm-release
+      fail-fast: true
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset ${{ matrix.preset }}
+
+      - name: Build project
+        run: cmake --build --preset ${{ matrix.preset }}
+
+      - name: Test project
+        run: ctest --preset ${{ matrix.preset }}
