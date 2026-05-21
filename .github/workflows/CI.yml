@@ -36,7 +36,7 @@ jobs:
       - name: Test project
         run: ctest --preset linux-x86-64-llvm-debug
 
-      - name: Run formatter
+      - name: Run formatter (clang-format)
         run: |
           clang-format \
             --style=file \
@@ -48,8 +48,9 @@ jobs:
       - name: Run static analysis (clang-tidy)
         run: |
           clang-tidy \
-            $(git ls-files '*.cpp' '*.hpp') \
+            $(git ls-files '*.cpp') \
             -p build/linux-x86-64-llvm-debug \
+            -header-filter='^(src|test)/' \
             -format-style=file \
             -warnings-as-errors=* \
             2>&1

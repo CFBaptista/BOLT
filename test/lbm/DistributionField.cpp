@@ -47,6 +47,7 @@ public:
     static constexpr double sound_speed_inverse_squared{1};
 };
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("Verify intrinsic properties of a distribution field with specified shape")
 {
     GIVEN("A node count in a single direction")
@@ -125,6 +126,7 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
     }
 }
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
 {
     GIVEN("A 2D distribution field")

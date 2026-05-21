@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstddef>
 
 #include "base/AlignedArray.hpp"
 #include "lbm/LatticeModel.hpp"

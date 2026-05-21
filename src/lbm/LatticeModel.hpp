@@ -3,6 +3,8 @@
 #include <array>
 #include <cmath>
 #include <concepts>
+#include <cstddef>
+#include <type_traits>
 
 template <typename Lattice>
 consteval auto zero_sum_velocities() -> bool
