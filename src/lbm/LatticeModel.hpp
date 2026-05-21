@@ -45,25 +45,51 @@ consteval auto unit_sum_weights() -> bool
 }
 
 template <typename Lattice>
-concept LatticeModel = requires {
+concept HasFloatingPointValueType = requires {
+    typename Lattice::value_type;
     requires std::floating_point<typename Lattice::value_type>;
+};
+
+template <typename Lattice>
+concept HasValidDimension = requires {
     requires std::same_as<std::remove_cvref_t<decltype((Lattice::dimension))>, std::size_t>;
     requires(1 <= Lattice::dimension && Lattice::dimension <= 3);
+};
+
+template <typename Lattice>
+concept HasValidLatticeSize = requires {
     requires std::same_as<std::remove_cvref_t<decltype((Lattice::size))>, std::size_t>;
     requires Lattice::size > 0;
-    requires std::same_as<
-        std::remove_cvref_t<decltype((Lattice::velocities))>,
-        std::array<std::array<int, Lattice::dimension>, Lattice::size>>;
-    requires zero_sum_velocities<Lattice>();
-    requires std::same_as<
-        std::remove_cvref_t<decltype((Lattice::weights))>,
-        std::array<typename Lattice::value_type, Lattice::size>>;
-    requires unit_sum_weights<Lattice>();
+};
+
+template <typename Lattice>
+concept HasValidLatticeVelocities =
+    HasValidDimension<Lattice> && HasValidLatticeSize<Lattice> && requires {
+        requires std::same_as<
+            std::remove_cvref_t<decltype((Lattice::velocities))>,
+            std::array<std::array<int, Lattice::dimension>, Lattice::size>>;
+    } && zero_sum_velocities<Lattice>();
+
+template <typename Lattice>
+concept HasValidLatticeWeights =
+    HasFloatingPointValueType<Lattice> && HasValidLatticeSize<Lattice> && requires {
+        requires std::same_as<
+            std::remove_cvref_t<decltype((Lattice::weights))>,
+            std::array<typename Lattice::value_type, Lattice::size>>;
+    } && unit_sum_weights<Lattice>();
+
+template <typename Lattice>
+concept HasValidLatticeSoundSpeed = HasFloatingPointValueType<Lattice> && requires {
     requires std::same_as<
         std::remove_cvref_t<decltype((Lattice::sound_speed_inverse_squared))>,
         typename Lattice::value_type>;
     requires(Lattice::sound_speed_inverse_squared > typename Lattice::value_type{0});
 };
+
+template <typename Lattice>
+concept LatticeModel = HasFloatingPointValueType<Lattice> && HasValidDimension<Lattice> &&
+                       HasValidLatticeSize<Lattice> && HasValidLatticeVelocities<Lattice> &&
+                       HasValidLatticeWeights<Lattice> && HasValidLatticeSoundSpeed<Lattice>;
 
 template <std::floating_point Real>
 class D1Q3
