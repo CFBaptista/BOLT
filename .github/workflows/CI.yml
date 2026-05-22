@@ -61,6 +61,7 @@ jobs:
             --enable=all \
             --inconclusive \
             --force \
+            --inline-suppr \
             --suppress=missingIncludeSystem \
             --std=c++23 \
             --error-exitcode=1 \

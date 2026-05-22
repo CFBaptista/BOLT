@@ -51,8 +51,11 @@ public:
     using value_type = int;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 9;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{0});
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3};
 };
 
@@ -62,8 +65,11 @@ public:
     using value_type = double;
     static constexpr unsigned dimension = 2;
     static constexpr std::size_t size = 9;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{0});
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -73,8 +79,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 0;
     static constexpr std::size_t size = 1;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{1});
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -84,8 +93,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 4;
     static constexpr std::size_t size = 1;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{1});
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -95,8 +107,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr unsigned size = 9;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{0});
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -106,8 +121,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 0;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{0});
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -117,8 +135,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 9;
+    // cppcheck-suppress unusedStructMember
     static constexpr std::array<std::array<short, dimension>, size> velocities{};
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{0});
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -128,8 +149,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 2;
+    // cppcheck-suppress unusedStructMember
     static constexpr std::array<std::array<int, dimension>, size> velocities{{{{1, 0}}, {{0, 0}}}};
+    // cppcheck-suppress unusedStructMember
     static constexpr std::array<value_type, size> weights{value_type{0.5}, value_type{0.5}};
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -139,8 +163,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 9;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr std::array<float, size> weights{};
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -150,8 +177,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 2;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr std::array<value_type, size> weights{value_type{0.25}, value_type{0.25}};
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{3.0};
 };
 
@@ -161,8 +191,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 9;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr auto weights = filled_weights<value_type, size>(value_type{0});
+    // cppcheck-suppress unusedStructMember
     static constexpr float sound_speed_inverse_squared{3.0F};
 };
 
@@ -172,8 +205,11 @@ public:
     using value_type = double;
     static constexpr std::size_t dimension = 2;
     static constexpr std::size_t size = 1;
+    // cppcheck-suppress unusedStructMember
     static constexpr auto velocities = zero_velocities<dimension, size>();
+    // cppcheck-suppress unusedStructMember
     static constexpr std::array<value_type, size> weights{value_type{1}};
+    // cppcheck-suppress unusedStructMember
     static constexpr value_type sound_speed_inverse_squared{0.0};
 };
 
