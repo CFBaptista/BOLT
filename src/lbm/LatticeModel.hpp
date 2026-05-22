@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <concepts>
@@ -7,6 +8,7 @@
 #include <type_traits>
 
 template <typename Lattice>
+// cppcheck-suppress unusedFunction
 consteval auto zero_sum_velocities() -> bool
 {
     std::array<int, Lattice::dimension> velocity{0};
@@ -19,18 +21,11 @@ consteval auto zero_sum_velocities() -> bool
         }
     }
 
-    for (std::size_t axis = 0; axis < Lattice::dimension; ++axis)
-    {
-        if (velocity[axis] != 0)
-        {
-            return false;
-        }
-    }
-
-    return true;
+    return std::ranges::none_of(velocity, [](int component) -> bool { return component != 0; });
 }
 
 template <typename Lattice>
+// cppcheck-suppress unusedFunction
 consteval auto unit_sum_weights() -> bool
 {
     typename Lattice::value_type weight{0};

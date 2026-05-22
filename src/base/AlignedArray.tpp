@@ -16,6 +16,7 @@ constexpr AlignedAllocator<Real, Alignment>::AlignedAllocator(
 }
 
 template <typename Real, std::size_t Alignment>
+// cppcheck-suppress unusedFunction
 auto AlignedAllocator<Real, Alignment>::allocate(std::size_t count) -> Real*
 {
     if (count > std::size_t(-1) / sizeof(Real))
@@ -28,6 +29,7 @@ auto AlignedAllocator<Real, Alignment>::allocate(std::size_t count) -> Real*
 }
 
 template <typename Real, std::size_t Alignment>
+// cppcheck-suppress unusedFunction
 auto AlignedAllocator<Real, Alignment>::deallocate(
     Real* pointer,
     std::size_t element_count

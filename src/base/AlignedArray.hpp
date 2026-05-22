@@ -21,11 +21,11 @@ public:
     AlignedAllocator() noexcept = default;
 
     template <typename U>
-    constexpr AlignedAllocator(const AlignedAllocator<U, Alignment>& other) noexcept;
+    constexpr explicit AlignedAllocator(const AlignedAllocator<U, Alignment>& other) noexcept;
 
-    [[nodiscard]] auto allocate(std::size_t count) -> Real*;
+    [[nodiscard]] static auto allocate(std::size_t count) -> Real*;
 
-    auto deallocate(Real* pointer, std::size_t element_count) noexcept -> void;
+    static auto deallocate(Real* pointer, std::size_t element_count) noexcept -> void;
 };
 
 template <typename T1, std::size_t A1, typename T2, std::size_t A2>
