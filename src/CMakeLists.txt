@@ -5,7 +5,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     )
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(BOLT_COMPILE_FLAGS
-        -Ofast
+        -O3
+        -ffast-math
         -march=native
         -mtune=native
         -flto
