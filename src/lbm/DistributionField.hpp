@@ -55,6 +55,9 @@ public:
     ~DistributionField() = default;
     DistributionField(const DistributionField&) = delete;
     auto operator=(const DistributionField&) -> DistributionField& = delete;
+    /**
+     * @brief Move constructor.
+     */
     DistributionField(DistributionField&&) noexcept = default;
     /**
      * @brief Move assignment operator.
