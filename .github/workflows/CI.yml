@@ -71,11 +71,11 @@ jobs:
             test \
             2>&1
 
-      - name: Run documentation generator (Doxygen)
+      - name: Run documentation generation (Doxygen)
         run: cmake --build --preset linux-x86-64-llvm-debug --target Doxygen
 
   Configure-Build-Test:
-    name: Configure-Build-Test (${{ matrix.preset }})
+    name: Build-Test-Matrix (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/cfbaptista/bolt-dev:0.1.0
