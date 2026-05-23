@@ -3,7 +3,7 @@
 #include <array>
 #include <cstddef>
 
-#include "base/AlignedArray.hpp"
+#include "core/AlignedArray.hpp"
 #include "lbm/LatticeModel.hpp"
 
 /**

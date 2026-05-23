@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <new>
 
-#include "base/AlignedArray.hpp"
+#include "core/AlignedArray.hpp"
 
 template <typename Real, std::size_t Alignment>
 template <typename U>

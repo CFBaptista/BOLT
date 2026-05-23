@@ -50,5 +50,5 @@ set(BOLT_COMPILE_FEATURES
     cxx_std_23
 )
 
-add_subdirectory(base)
+add_subdirectory(core)
 add_subdirectory(lbm)

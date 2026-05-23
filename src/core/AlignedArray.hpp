@@ -153,4 +153,4 @@ private:
     std::mdspan<Real, std::extents<std::size_t, Shape...>> view_;
 };
 
-#include "base/AlignedArray.tpp"
+#include "core/AlignedArray.tpp"
