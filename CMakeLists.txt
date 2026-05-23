@@ -23,3 +23,5 @@ add_subdirectory(src)
 
 include(CTest)
 add_subdirectory(test)
+
+add_subdirectory(doc)

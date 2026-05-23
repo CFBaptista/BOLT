@@ -71,6 +71,9 @@ jobs:
             test \
             2>&1
 
+      - name: Run documentation generator (Doxygen)
+        run: cmake --build --preset linux-x86-64-llvm-debug --target Doxygen
+
   Configure-Build-Test:
     name: Configure-Build-Test (${{ matrix.preset }})
     runs-on: ubuntu-latest
