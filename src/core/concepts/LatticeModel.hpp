@@ -93,7 +93,7 @@ concept HasValidLatticeSoundSpeed = HasFloatingPointValueType<Lattice> && requir
 } // namespace detail
 
 /**
- * @brief Concept that defines the requirements for a lattice model..
+ * @brief Concept that defines the requirements for a lattice model.
  *
  * A LatticeModel must have a floating-point value type, a valid dimension (1D, 2D or 3D), a
  * positive lattice size, zero-sum velocities, unit-sum weights and a positive inverse squared sound

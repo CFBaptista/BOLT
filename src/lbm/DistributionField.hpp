@@ -3,8 +3,8 @@
 #include <array>
 #include <cstddef>
 
+#include "core/concepts/LatticeModel.hpp"
 #include "core/containers/AlignedArray.hpp"
-#include "lbm/LatticeModel.hpp"
 
 namespace bolt
 {

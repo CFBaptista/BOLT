@@ -2,8 +2,8 @@
 
 #include <cstddef>
 
+#include "core/concepts/LatticeModel.hpp"
 #include "lbm/DistributionField.hpp"
-#include "lbm/LatticeModel.hpp"
 
 namespace bolt
 {
