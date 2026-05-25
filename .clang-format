@@ -1,0 +1,16 @@
+---
+AccessModifierOffset: -4
+AlignAfterOpenBracket: BlockIndent
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AlwaysBreakTemplateDeclarations: true
+BasedOnStyle: LLVM
+BinPackParameters: false
+BreakBeforeBraces: Allman
+ColumnLimit: 100
+IndentAccessModifiers: false
+IndentWidth: 4
+PointerAlignment: Left
+SortIncludes: true
+TabWidth: 4
+UseTab: Never

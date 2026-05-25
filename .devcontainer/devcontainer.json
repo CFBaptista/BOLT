@@ -1,0 +1,22 @@
+{
+    "name": "BOLT Development Container",
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "christian-kohler.path-intellisense",
+                "eamodio.gitlens",
+                "ms-vscode.cmake-tools",
+                "ms-vscode.cpptools",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "redhat.vscode-yaml",
+                "samubarb.vscode-doxyfile",
+                "stevebushresearch.buildoutputcolorizer"
+            ]
+        }
+    },
+    "remoteUser": "ubuntu",
+    "updateRemoteUserUID": true
+}
