@@ -56,17 +56,17 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
 
         THEN("The dimension of the distribution field equals 1")
         {
-            REQUIRE(DistributionField<FakeD1Q3, size_x>::dimension == 1);
+            REQUIRE(bolt::lbm::DistributionField<FakeD1Q3, size_x>::dimension == 1);
         }
 
         THEN("The size of the distribution field equals the node count")
         {
-            REQUIRE(DistributionField<FakeD1Q3, size_x>::grid_size == size_x);
+            REQUIRE(bolt::lbm::DistributionField<FakeD1Q3, size_x>::grid_size == size_x);
         }
 
         THEN("The shape of the distribution field equals the node count")
         {
-            REQUIRE(DistributionField<FakeD1Q3, size_x>::shape[0] == size_x);
+            REQUIRE(bolt::lbm::DistributionField<FakeD1Q3, size_x>::shape[0] == size_x);
         }
     }
 
@@ -77,7 +77,7 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
 
         THEN("The dimension of the distribution field equals 2")
         {
-            REQUIRE(DistributionField<FakeD2Q9, size_y, size_x>::dimension == 2);
+            REQUIRE(bolt::lbm::DistributionField<FakeD2Q9, size_y, size_x>::dimension == 2);
         }
 
         THEN(
@@ -85,13 +85,15 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
             "direction"
         )
         {
-            REQUIRE(DistributionField<FakeD2Q9, size_y, size_x>::grid_size == size_x * size_y);
+            REQUIRE(
+                bolt::lbm::DistributionField<FakeD2Q9, size_y, size_x>::grid_size == size_x * size_y
+            );
         }
 
         THEN("The shape of the distribution field equals the node counts in each direction")
         {
-            REQUIRE(DistributionField<FakeD2Q9, size_y, size_x>::shape[0] == size_y);
-            REQUIRE(DistributionField<FakeD2Q9, size_y, size_x>::shape[1] == size_x);
+            REQUIRE(bolt::lbm::DistributionField<FakeD2Q9, size_y, size_x>::shape[0] == size_y);
+            REQUIRE(bolt::lbm::DistributionField<FakeD2Q9, size_y, size_x>::shape[1] == size_x);
         }
     }
 
@@ -103,7 +105,9 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
 
         THEN("The dimension of the distribution field equals 3")
         {
-            REQUIRE(DistributionField<FakeD3Q27, size_z, size_y, size_x>::dimension == 3);
+            REQUIRE(
+                bolt::lbm::DistributionField<FakeD3Q27, size_z, size_y, size_x>::dimension == 3
+            );
         }
 
         THEN(
@@ -112,16 +116,22 @@ SCENARIO("Verify intrinsic properties of a distribution field with specified sha
         )
         {
             REQUIRE(
-                DistributionField<FakeD3Q27, size_z, size_y, size_x>::grid_size ==
+                bolt::lbm::DistributionField<FakeD3Q27, size_z, size_y, size_x>::grid_size ==
                 size_x * size_y * size_z
             );
         }
 
         THEN("The shape of the distribution field equals the node counts in each direction")
         {
-            REQUIRE(DistributionField<FakeD3Q27, size_z, size_y, size_x>::shape[0] == size_z);
-            REQUIRE(DistributionField<FakeD3Q27, size_z, size_y, size_x>::shape[1] == size_y);
-            REQUIRE(DistributionField<FakeD3Q27, size_z, size_y, size_x>::shape[2] == size_x);
+            REQUIRE(
+                bolt::lbm::DistributionField<FakeD3Q27, size_z, size_y, size_x>::shape[0] == size_z
+            );
+            REQUIRE(
+                bolt::lbm::DistributionField<FakeD3Q27, size_z, size_y, size_x>::shape[1] == size_y
+            );
+            REQUIRE(
+                bolt::lbm::DistributionField<FakeD3Q27, size_z, size_y, size_x>::shape[2] == size_x
+            );
         }
     }
 }
@@ -134,7 +144,7 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
         const std::size_t size_x = 3;
         const std::size_t size_y = 4;
         const std::size_t size_q = 9;
-        DistributionField<FakeD2Q9, size_y, size_x> distributionField;
+        bolt::lbm::DistributionField<FakeD2Q9, size_y, size_x> distributionField;
 
         WHEN("Assigning a value to each node using linear indexing")
         {
@@ -206,7 +216,7 @@ SCENARIO("Linear and Cartesian indexing of a distribution field is consistent")
         const std::size_t size_y = 4;
         const std::size_t size_z = 5;
         const std::size_t size_q = 27;
-        DistributionField<FakeD3Q27, size_z, size_y, size_x> distributionField;
+        bolt::lbm::DistributionField<FakeD3Q27, size_z, size_y, size_x> distributionField;
 
         WHEN("Assigning a value to each node using linear indexing")
         {

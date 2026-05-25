@@ -7,6 +7,15 @@
 #include <cstddef>
 #include <type_traits>
 
+namespace bolt
+{
+
+namespace lbm
+{
+
+namespace detail
+{
+
 template <typename Lattice>
 // cppcheck-suppress unusedFunction
 consteval auto zero_sum_velocities() -> bool
@@ -81,6 +90,8 @@ concept HasValidLatticeSoundSpeed = HasFloatingPointValueType<Lattice> && requir
     requires(Lattice::sound_speed_inverse_squared > typename Lattice::value_type{0});
 };
 
+} // namespace detail
+
 /**
  * @brief Concept that defines the requirements for a lattice model..
  *
@@ -91,203 +102,13 @@ concept HasValidLatticeSoundSpeed = HasFloatingPointValueType<Lattice> && requir
  * @tparam Lattice The lattice model to be checked.
  */
 template <typename Lattice>
-concept LatticeModel = HasFloatingPointValueType<Lattice> && HasValidDimension<Lattice> &&
-                       HasValidLatticeSize<Lattice> && HasValidLatticeVelocities<Lattice> &&
-                       HasValidLatticeWeights<Lattice> && HasValidLatticeSoundSpeed<Lattice>;
+concept LatticeModel = bolt::lbm::detail::HasFloatingPointValueType<Lattice> &&
+                       bolt::lbm::detail::HasValidDimension<Lattice> &&
+                       bolt::lbm::detail::HasValidLatticeSize<Lattice> &&
+                       bolt::lbm::detail::HasValidLatticeVelocities<Lattice> &&
+                       bolt::lbm::detail::HasValidLatticeWeights<Lattice> &&
+                       bolt::lbm::detail::HasValidLatticeSoundSpeed<Lattice>;
 
-/**
- * @brief A class template representing the D1Q3 lattice model.
- *
- * @tparam Real The floating-point value types.
- */
-template <std::floating_point Real>
-class D1Q3
-{
-public:
-    /**
-     * @brief The floating-point type value type.
-     */
-    using value_type = Real;
+} // namespace lbm
 
-    D1Q3() = delete;
-    ~D1Q3() = delete;
-    D1Q3(const D1Q3& other) = delete;
-    auto operator=(const D1Q3& other) -> D1Q3& = delete;
-    D1Q3(D1Q3&& other) = delete;
-    auto operator=(D1Q3&& other) -> D1Q3& = delete;
-
-    /**
-     * @brief The spatial dimension of the lattice model (1D).
-     */
-    static constexpr std::size_t dimension = 1;
-    /**
-     * @brief The number of discrete velocities in the lattice model.
-     */
-    static constexpr std::size_t size = 3;
-
-    /**
-     * @brief The discrete velocities of the lattice model.
-     */
-    static constexpr std::array<std::array<int, dimension>, size> velocities{
-        {{{0}}, {{1}}, {{-1}}}
-    };
-
-    /**
-     * @brief The weights associated with each discrete velocity.
-     */
-    static constexpr std::array<Real, size> weights{
-        static_cast<Real>(4) / static_cast<Real>(6), static_cast<Real>(1) / static_cast<Real>(6),
-        static_cast<Real>(1) / static_cast<Real>(6)
-    };
-
-    /**
-     * @brief The inverse squared sound speed for the lattice model.
-     */
-    static constexpr Real sound_speed_inverse_squared{static_cast<Real>(3)};
-};
-
-/**
- * @brief A class template representing the D2Q9 lattice model.
- *
- * @tparam Real The floating-point value types.
- */
-template <std::floating_point Real>
-class D2Q9
-{
-public:
-    /**
-     * @brief The floating-point type value type.
-     */
-    using value_type = Real;
-
-    D2Q9() = delete;
-    ~D2Q9() = delete;
-    D2Q9(const D2Q9& other) = delete;
-    auto operator=(const D2Q9& other) -> D2Q9& = delete;
-    D2Q9(D2Q9&& other) = delete;
-    auto operator=(D2Q9&& other) -> D2Q9& = delete;
-
-    /**
-     * @brief The spatial dimension of the lattice model (2D).
-     */
-    static constexpr std::size_t dimension{2};
-    /**
-     * @brief The number of discrete velocities in the lattice model.
-     */
-    static constexpr std::size_t size = 9;
-
-    /**
-     * @brief The discrete velocities of the lattice model.
-     */
-    static constexpr std::array<std::array<int, dimension>, size> velocities{
-        {{{0, 0}},
-         {{1, 0}},
-         {{0, 1}},
-         {{-1, 0}},
-         {{0, -1}},
-         {{1, 1}},
-         {{-1, 1}},
-         {{-1, -1}},
-         {{1, -1}}}
-
-    };
-
-    /**
-     * @brief The weights associated with each discrete velocity.
-     */
-    static constexpr std::array<Real, size> weights{
-        static_cast<Real>(4) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
-        static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(9),
-        static_cast<Real>(1) / static_cast<Real>(9),  static_cast<Real>(1) / static_cast<Real>(36),
-        static_cast<Real>(1) / static_cast<Real>(36), static_cast<Real>(1) / static_cast<Real>(36),
-        static_cast<Real>(1) / static_cast<Real>(36)
-
-    };
-
-    /**
-     * @brief The inverse squared sound speed for the lattice model.
-     */
-    static constexpr Real sound_speed_inverse_squared{static_cast<Real>(3)};
-};
-
-/**
- * @brief A class template representing the D3Q27 lattice model.
- *
- * @tparam Real The floating-point value types.
- */
-template <std::floating_point Real>
-class D3Q27
-{
-public:
-    /**
-     * @brief The floating-point type value type.
-     */
-    using value_type = Real;
-
-    D3Q27() = delete;
-    ~D3Q27() = delete;
-    D3Q27(const D3Q27& other) = delete;
-    auto operator=(const D3Q27& other) -> D3Q27& = delete;
-    D3Q27(D3Q27&& other) = delete;
-    auto operator=(D3Q27&& other) -> D3Q27& = delete;
-
-    /**
-     * @brief The spatial dimension of the lattice model (3D).
-     */
-    static constexpr std::size_t dimension = 3;
-    /**
-     * @brief The number of discrete velocities in the lattice model.
-     */
-    static constexpr std::size_t size = 27;
-
-    /**
-     * @brief The discrete velocities of the lattice model.
-     */
-    static constexpr std::array<std::array<int, dimension>, size> velocities{
-        {{{0, 0, 0}},   {{1, 0, 0}},   {{-1, 0, 0}},  {{0, 1, 0}},  {{0, -1, 0}},  {{0, 0, 1}},
-         {{0, 0, -1}},  {{1, 1, 0}},   {{-1, 1, 0}},  {{1, -1, 0}}, {{-1, -1, 0}}, {{1, 0, 1}},
-         {{-1, 0, 1}},  {{1, 0, -1}},  {{-1, 0, -1}}, {{0, 1, 1}},  {{0, -1, 1}},  {{0, 1, -1}},
-         {{0, -1, -1}}, {{1, 1, 1}},   {{-1, 1, 1}},  {{1, -1, 1}}, {{-1, -1, 1}}, {{1, 1, -1}},
-         {{-1, 1, -1}}, {{1, -1, -1}}, {{-1, -1, -1}}}
-
-    };
-
-    /**
-     * @brief The weights associated with each discrete velocity.
-     */
-    static constexpr std::array<Real, size> weights{
-        static_cast<Real>(8) / static_cast<Real>(27),
-        static_cast<Real>(2) / static_cast<Real>(27),
-        static_cast<Real>(2) / static_cast<Real>(27),
-        static_cast<Real>(2) / static_cast<Real>(27),
-        static_cast<Real>(2) / static_cast<Real>(27),
-        static_cast<Real>(2) / static_cast<Real>(27),
-        static_cast<Real>(2) / static_cast<Real>(27),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(54),
-        static_cast<Real>(1) / static_cast<Real>(216),
-        static_cast<Real>(1) / static_cast<Real>(216),
-        static_cast<Real>(1) / static_cast<Real>(216),
-        static_cast<Real>(1) / static_cast<Real>(216),
-        static_cast<Real>(1) / static_cast<Real>(216),
-        static_cast<Real>(1) / static_cast<Real>(216),
-        static_cast<Real>(1) / static_cast<Real>(216),
-        static_cast<Real>(1) / static_cast<Real>(216)
-
-    };
-
-    /**
-     * @brief The inverse squared sound speed for the lattice model.
-     */
-    static constexpr Real sound_speed_inverse_squared{static_cast<Real>(3)};
-};
+} // namespace bolt

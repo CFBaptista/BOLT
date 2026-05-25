@@ -6,6 +6,12 @@
 #include <mdspan>
 #include <vector>
 
+namespace bolt
+{
+
+namespace core
+{
+
 /**
  * @brief A custom allocator that aligns memory allocations to a specified alignment.
  *
@@ -153,4 +159,8 @@ private:
     std::mdspan<Real, std::extents<std::size_t, Shape...>> view_;
 };
 
-#include "core/AlignedArray.tpp"
+#include "core/containers/AlignedArray.tpp"
+
+} // namespace core
+
+} // namespace bolt

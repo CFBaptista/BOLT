@@ -13,6 +13,9 @@ target_compile_features(lbm INTERFACE
 )
 
 target_sources(lbm INTERFACE
+    D1Q3.hpp
+    D2Q9.hpp
+    D3Q27.hpp
     DistributionField.hpp
     LatticeModel.hpp
 )

@@ -3,6 +3,13 @@
 #include <cstddef>
 
 #include "lbm/DistributionField.hpp"
+#include "lbm/LatticeModel.hpp"
+
+namespace bolt
+{
+
+namespace lbm
+{
 
 template <LatticeModel Lattice, std::size_t... Shape>
 auto DistributionField<Lattice, Shape...>::operator[](std::size_t index) -> Lattice::value_type&
@@ -31,3 +38,7 @@ auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) const
 {
     return data_[indices...];
 }
+
+} // namespace lbm
+
+} // namespace bolt

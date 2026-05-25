@@ -3,8 +3,14 @@
 #include <array>
 #include <cstddef>
 
-#include "core/AlignedArray.hpp"
+#include "core/containers/AlignedArray.hpp"
 #include "lbm/LatticeModel.hpp"
+
+namespace bolt
+{
+
+namespace lbm
+{
 
 /**
  * @brief A class template representing a N-dimensional Cartesian grid containing distributions at
@@ -99,7 +105,11 @@ public:
     auto operator[](Indices... indices) const -> const Lattice::value_type&;
 
 private:
-    AlignedArray<typename Lattice::value_type, Lattice::size, Shape...> data_;
+    bolt::core::AlignedArray<typename Lattice::value_type, Lattice::size, Shape...> data_;
 };
+
+} // namespace lbm
+
+} // namespace bolt
 
 #include "lbm/DistributionField.tpp"

@@ -13,5 +13,5 @@ target_compile_features(core INTERFACE
 )
 
 target_sources(core INTERFACE
-    AlignedArray.hpp
+    containers/AlignedArray.hpp
 )
