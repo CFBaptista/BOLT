@@ -5,7 +5,7 @@
 # Contact   : cfd.baptista@gmail.com
 # ==================================================================================================
 
-cmake_minimum_required(VERSION 3.30.5)
+cmake_minimum_required(VERSION 3.30)
 
 # Enable the export of compile commands by logging it to a JSON file. This improves integration
 # with code analysis tools and IDEs.
