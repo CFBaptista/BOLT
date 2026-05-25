@@ -159,8 +159,8 @@ private:
     std::mdspan<Real, std::extents<std::size_t, Shape...>> view_;
 };
 
-#include "core/containers/AlignedArray.tpp"
-
 } // namespace core
 
 } // namespace bolt
+
+#include "core/containers/AlignedArray.tpp"

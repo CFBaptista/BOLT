@@ -6,6 +6,12 @@
 
 #include "core/containers/AlignedArray.hpp"
 
+namespace bolt
+{
+
+namespace core
+{
+
 template <typename Real, std::size_t Alignment>
 template <typename U>
 constexpr AlignedAllocator<Real, Alignment>::AlignedAllocator(
@@ -79,3 +85,7 @@ auto AlignedArray<Real, Shape...>::operator[](Indices... indices) const -> const
 {
     return view_[indices...];
 }
+
+} // namespace core
+
+} // namespace bolt
