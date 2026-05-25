@@ -1,3 +1,11 @@
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+    execute_process(
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            ${CMAKE_BINARY_DIR}/compile_commands.json
+            ${CMAKE_SOURCE_DIR}/build/compile_commands.json
+    )
+endif()
+
 # Define compile flags
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(BOLT_COMPILE_FLAGS
