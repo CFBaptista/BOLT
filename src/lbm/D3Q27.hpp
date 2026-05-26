@@ -1,4 +1,5 @@
 #include <array>
+#include <concepts>
 #include <cstddef>
 
 namespace bolt
