@@ -16,4 +16,5 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     )
 endif()
 
+add_subdirectory(core)
 add_subdirectory(lbm)
