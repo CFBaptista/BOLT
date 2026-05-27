@@ -46,12 +46,15 @@ auto SimulationTime<Real>::end_time() const -> Real
 }
 
 template <std::floating_point Real>
-auto SimulationTime<Real>::advance() -> void
+auto SimulationTime<Real>::advance() -> bool
 {
     if (current_step_ < number_of_steps_)
     {
         ++current_step_;
+        return true;
     }
+
+    return false;
 }
 
 } // namespace core

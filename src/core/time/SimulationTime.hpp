@@ -21,6 +21,9 @@ template <std::floating_point Real>
 class SimulationTime
 {
 public:
+    /**
+     * @brief The floating-point type value type.
+     */
     using value_type = Real;
 
     /**
@@ -58,8 +61,10 @@ public:
     auto end_time() const -> Real;
     /**
      * @brief Advance the simulation time by one time step.
+     *
+     * @return False if the simulation has reached the end time, true otherwise.
      */
-    auto advance() -> void;
+    auto advance() -> bool;
 
 private:
     Real starting_time_;
