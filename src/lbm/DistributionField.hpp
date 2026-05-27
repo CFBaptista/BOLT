@@ -67,6 +67,8 @@ public:
     DistributionField(DistributionField&&) noexcept = default;
     /**
      * @brief Move assignment operator.
+     *
+     * @return A reference to the assigned object.
      */
     auto operator=(DistributionField&&) noexcept -> DistributionField& = default;
 

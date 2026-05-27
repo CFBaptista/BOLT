@@ -69,6 +69,19 @@ public:
     static auto deallocate(Real* pointer, std::size_t element_count) noexcept -> void;
 };
 
+/**
+ * @brief Compares two aligned allocators for equality.
+ *
+ * @tparam T1 The type of elements in the first allocator.
+ * @tparam A1 The alignment of the first allocator.
+ * @tparam T2 The type of elements in the second allocator.
+ * @tparam A2 The alignment of the second allocator.
+ *
+ * @param left The first allocator.
+ * @param right The second allocator.
+ *
+ * @return True if the allocators are equal, false otherwise.
+ */
 template <typename T1, std::size_t A1, typename T2, std::size_t A2>
 constexpr auto
 operator==(const AlignedAllocator<T1, A1>& left, const AlignedAllocator<T2, A2>& right) noexcept
@@ -118,6 +131,8 @@ public:
     AlignedArray(AlignedArray&&) noexcept = default;
     /**
      * @brief Move assignment operator.
+     *
+     * @return A reference to the assigned object.
      */
     auto operator=(AlignedArray&&) noexcept -> AlignedArray& = default;
 

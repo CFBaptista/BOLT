@@ -31,7 +31,7 @@ jobs:
         run: cmake --preset linux-x86-64-llvm-debug
 
       - name: Run documentation generator (Doxygen)
-        run: cmake --build --preset linux-x86-64-llvm-debug --target Doxygen
+        run: cmake --build --preset linux-x86-64-llvm-debug --target documentation
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
