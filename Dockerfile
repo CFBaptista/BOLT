@@ -36,7 +36,9 @@ RUN \
 RUN \
     # Configure default GNU tools
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-16 100 && update-alternatives --set g++ /usr/bin/g++-16 && \
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-16 100 && update-alternatives --set gcc /usr/bin/gcc-16 && \
     # Configure default LLVM tools
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-21 100 && update-alternatives --set clang /usr/bin/clang-21 && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-21 100 && update-alternatives --set clang++ /usr/bin/clang++-21 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-21 100 && update-alternatives --set clang-format /usr/bin/clang-format-21 && \
     update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-21 100 && update-alternatives --set clang-tidy /usr/bin/clang-tidy-21 && \
