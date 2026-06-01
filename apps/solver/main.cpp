@@ -17,7 +17,7 @@
 auto main(int argc, char* argv[]) -> int
 {
     const auto now = std::chrono::floor<std::chrono::seconds>(std::chrono::system_clock::now());
-    const auto timestamp = std::format("{:%Y%m%d-%H%M%S}", now);
+    const auto timestamp = std::format("{:%Y%m%dT%H%M%SZ}", now);
 
     CLI::App app{"BOLT (Boltzmann Operator Lattice Toolkit) is a C++ library for Computational "
                  "Fluid Dynamics based on the Lattice Boltzmann Method."};
