@@ -1,4 +1,5 @@
 #include <chrono>
+#include <cstddef>
 #include <filesystem>
 #include <format>
 #include <string>
@@ -9,10 +10,14 @@
 #include "quill/Frontend.h"
 #include "quill/LogMacros.h"
 #include "quill/Logger.h"
+#include "quill/core/Common.h"
 #include "quill/core/LogLevel.h"
 #include "quill/core/PatternFormatterOptions.h"
 #include "quill/sinks/ConsoleSink.h"
 #include "quill/sinks/FileSink.h"
+#include <toml++/impl/parse_error.hpp>
+#include <toml++/impl/parser.hpp>
+#include <toml++/impl/table.hpp>
 #include <toml++/toml.hpp>
 
 auto main(int argc, char* argv[]) -> int

@@ -6,6 +6,7 @@ Checks: >
     clang-*,
     clang-analyzer-*,
     cppcoreguidelines-*,
+    -cppcoreguidelines-avoid-do-while,
     -cppcoreguidelines-pro-bounds-constant-array-index,
     modernize-*,
     performance-*,
