@@ -10,6 +10,7 @@
 #include "quill/LogMacros.h"
 #include "quill/Logger.h"
 #include "quill/core/LogLevel.h"
+#include "quill/core/PatternFormatterOptions.h"
 #include "quill/sinks/ConsoleSink.h"
 #include "quill/sinks/FileSink.h"
 #include <toml++/toml.hpp>
@@ -51,9 +52,14 @@ auto main(int argc, char* argv[]) -> int
     auto file_sink = quill::Frontend::create_or_get_sink<quill::FileSink>(
         output_directory / std::format("bolt_{}.log", timestamp)
     );
+    quill::PatternFormatterOptions formatter_options{
+        "%(time)    [%(thread_id)]    %(short_source_location:<32)    %(log_level:<8)    "
+        "%(logger:<4)    %(message)",
+        "%Y-%m-%dT%H:%M:%S.%QnsZ", quill::Timezone::GmtTime
+    };
 
     quill::Logger* logger = quill::Frontend::create_or_get_logger(
-        "quill", {std::move(console_sink), std::move(file_sink)}
+        "bolt", {std::move(console_sink), std::move(file_sink)}, formatter_options
     );
 
     if (log_level == "trace_l3")
@@ -112,6 +118,52 @@ auto main(int argc, char* argv[]) -> int
     catch (const toml::parse_error& e)
     {
         LOG_ERROR(logger, "Failed to parse configuration file:\n{}", e.what());
+        return 1;
+    }
+
+    if (!configuration.contains("start_time"))
+    {
+        LOG_ERROR(logger, "Configuration file is missing required key: 'start_time'");
+        return 1;
+    }
+    if (!configuration["start_time"].is_floating_point())
+    {
+        LOG_ERROR(logger, "Configuration file key 'start_time' must be a floating point number");
+        return 1;
+    }
+
+    if (!configuration.contains("time_step"))
+    {
+        LOG_ERROR(logger, "Configuration file is missing required key: 'time_step'");
+        return 1;
+    }
+    if (!configuration["time_step"].is_floating_point())
+    {
+        LOG_ERROR(logger, "Configuration file key 'time_step' must be a floating point number");
+        return 1;
+    }
+    if (configuration["time_step"].value<double>() <= 0.0)
+    {
+        LOG_ERROR(
+            logger,
+            "Configuration file key 'time_step' must be a positive definite floating point number"
+        );
+        return 1;
+    }
+
+    if (!configuration.contains("number_of_steps"))
+    {
+        LOG_ERROR(logger, "Configuration file is missing required key: 'number_of_steps'");
+        return 1;
+    }
+    if (!configuration["number_of_steps"].is_integer())
+    {
+        LOG_ERROR(logger, "Configuration file key 'number_of_steps' must be an integer");
+        return 1;
+    }
+    if (configuration["number_of_steps"].value<std::size_t>() < 1)
+    {
+        LOG_ERROR(logger, "Configuration file key 'number_of_steps' must be a positive integer");
         return 1;
     }
 
