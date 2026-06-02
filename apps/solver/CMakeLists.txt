@@ -1,5 +1,9 @@
 add_executable(bolt
+    configuration.cpp
+    logger.cpp    
     main.cpp
+    utilities.cpp
+    CommandLineOptions.cpp
 )
 
 target_compile_features(bolt PRIVATE cxx_std_23)
