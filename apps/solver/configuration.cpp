@@ -1,9 +1,6 @@
 #include <cstddef>
 #include <stdexcept>
 
-#include <toml++/impl/parse_error.hpp>
-#include <toml++/impl/parser.hpp>
-#include <toml++/impl/table.hpp>
 #include <toml++/toml.hpp>
 
 #include "configuration.hpp"

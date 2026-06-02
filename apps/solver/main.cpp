@@ -7,12 +7,10 @@
 #include "CLI/CLI.hpp"
 #include "quill/LogMacros.h"
 #include "quill/Logger.h"
-#include <toml++/impl/parse_error.hpp>
-#include <toml++/impl/parser.hpp>
-#include <toml++/impl/table.hpp>
 #include <toml++/toml.hpp>
 
 #include "CommandLineOptions.hpp"
+#include "LBMSolver.hpp"
 #include "configuration.hpp"
 #include "logger.hpp"
 
@@ -58,6 +56,18 @@ auto main(int argc, char* argv[]) -> int
     catch (const std::exception& e)
     {
         LOG_ERROR(logger, "Configuration validation failed: {}", e.what());
+        return 1;
+    }
+
+    try
+    {
+        LOG_INFO(logger, "Starting simulation");
+        LBMSolver solver(configuration, logger);
+        solver.run();
+    }
+    catch (const std::exception& e)
+    {
+        LOG_ERROR(logger, "An error occurred during simulation: {}", e.what());
         return 1;
     }
 
