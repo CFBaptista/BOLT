@@ -18,7 +18,7 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.1.0
+      image: ghcr.io/cfbaptista/bolt-dev:0.2.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -78,7 +78,7 @@ jobs:
     name: Build-Test-Matrix (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.1.0
+      image: ghcr.io/cfbaptista/bolt-dev:0.2.0
     needs: Code-Quality
     strategy:
       matrix:
