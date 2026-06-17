@@ -2,10 +2,8 @@
 
 #include "CommandLineOptions.hpp"
 
-auto configure_options(CLI::App& app) -> CommandLineOptions
+auto configure_options(CLI::App& app, CommandLineOptions& options) -> void
 {
-    CommandLineOptions options;
-
     app.add_option(
            "-c,--config_file", options.config_file,
            "Path to a TOML configuration file for running a simulation with BOLT"
@@ -23,6 +21,4 @@ auto configure_options(CLI::App& app) -> CommandLineOptions
            "Logging level (trace, debug, info, warning, error, critical)"
     )
         ->default_str(options.log_level);
-
-    return options;
-};
+}

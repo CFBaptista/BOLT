@@ -1,5 +1,4 @@
 #include <exception>
-#include <filesystem>
 #include <format>
 #include <iostream>
 #include <string>
@@ -16,11 +15,20 @@
 
 auto main(int argc, char* argv[]) -> int
 {
-    CLI::App app{"BOLT (Boltzmann Operator Lattice Toolkit) is a C++ library for Computational "
-                 "Fluid Dynamics based on the Lattice Boltzmann Method."};
+    CommandLineOptions options;
+    try
+    {
+        CLI::App app{"BOLT (Boltzmann Operator Lattice Toolkit) is a C++ library for Computational "
+                     "Fluid Dynamics based on the Lattice Boltzmann Method."};
 
-    const CommandLineOptions options = configure_options(app);
-    CLI11_PARSE(app, argc, argv);
+        configure_options(app, options);
+        CLI11_PARSE(app, argc, argv);
+    }
+    catch (const CLI::ParseError& e)
+    {
+        std::cerr << std::format("Failed to parse command-line arguments: {}", e.what());
+        return 1;
+    }
 
     quill::Logger* logger = nullptr;
     try
@@ -29,7 +37,7 @@ auto main(int argc, char* argv[]) -> int
     }
     catch (const std::exception& e)
     {
-        std::cerr << std::format("Failed to configure logger: {}\n", e.what());
+        std::cerr << std::format("Failed to configure logger: {}", e.what());
         return 1;
     }
 
@@ -44,7 +52,7 @@ auto main(int argc, char* argv[]) -> int
     }
     catch (const toml::parse_error& e)
     {
-        LOG_ERROR(logger, "Failed to parse configuration file:\n{}", e.what());
+        LOG_ERROR(logger, "Failed to parse configuration file: {}", e.what());
         return 1;
     }
 
