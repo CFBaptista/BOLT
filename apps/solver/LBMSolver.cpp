@@ -19,9 +19,10 @@ LBMSolver::LBMSolver(const toml::table& configuration, quill::Logger* logger)
 auto LBMSolver::run() -> void
 {
     LOG_INFO(logger_, "Starting time loop");
+    LOG_INFO(logger_, "Time step size: {}", time_.time_step());
     LOG_INFO(
-        logger_, "Time step: {}/{} | Simulation time: {}", time_.current_step(),
-        time_.number_of_steps(), time_.current_time()
+        logger_, "Time step: {}/{} | Simulation time: {}", 0, time_.number_of_steps(),
+        time_.starting_time()
     );
 
     while (time_.advance())
