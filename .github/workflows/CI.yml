@@ -58,6 +58,7 @@ jobs:
       - name: Run static analysis (cppcheck)
         run: |
           cppcheck \
+            --project=build/compile_commands.json \
             --enable=all \
             --inconclusive \
             --force \
@@ -66,10 +67,6 @@ jobs:
             --inline-suppr \
             --std=c++23 \
             --error-exitcode=1 \
-            -I src \
-            apps \
-            src \
-            test \
             2>&1
 
       - name: Run documentation generation (Doxygen)
