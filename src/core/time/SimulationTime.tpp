@@ -34,6 +34,30 @@ SimulationTime<Real>::SimulationTime(
 }
 
 template <std::floating_point Real>
+auto SimulationTime<Real>::starting_time() const -> Real
+{
+    return starting_time_;
+}
+
+template <std::floating_point Real>
+auto SimulationTime<Real>::time_step() const -> Real
+{
+    return time_step_;
+}
+
+template <std::floating_point Real>
+auto SimulationTime<Real>::number_of_steps() const -> std::size_t
+{
+    return number_of_steps_;
+}
+
+template <std::floating_point Real>
+auto SimulationTime<Real>::current_step() const -> std::size_t
+{
+    return current_step_;
+}
+
+template <std::floating_point Real>
 auto SimulationTime<Real>::current_time() const -> Real
 {
     return starting_time_ + (time_step_ * static_cast<Real>(current_step_));

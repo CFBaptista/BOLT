@@ -48,6 +48,34 @@ public:
     auto operator=(SimulationTime&&) noexcept -> SimulationTime& = delete;
 
     /**
+     * @brief Get the starting time of the simulation.
+     *
+     * @return The starting time of the simulation.
+     */
+    auto starting_time() const -> Real;
+
+    /**
+     * @brief Get the time step of the simulation.
+     *
+     * @return The time step of the simulation.
+     */
+    auto time_step() const -> Real;
+
+    /**
+     * @brief Get the total number of steps in the simulation.
+     *
+     * @return The total number of steps in the simulation.
+     */
+    auto number_of_steps() const -> std::size_t;
+
+    /**
+     * @brief Get the current step of the simulation.
+     *
+     * @return The current step of the simulation.
+     */
+    auto current_step() const -> std::size_t;
+
+    /**
      * @brief Get the current time of the simulation.
      *
      * @return The current time of the simulation.
