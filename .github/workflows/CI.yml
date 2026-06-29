@@ -50,7 +50,7 @@ jobs:
           clang-tidy \
             $(git ls-files '*.cpp') \
             -p build/linux-x86-64-llvm-debug \
-            -header-filter='^(src|test)/' \
+            -header-filter='^(apps|src|test)/' \
             -format-style=file \
             -warnings-as-errors=* \
             2>&1
@@ -67,6 +67,7 @@ jobs:
             --std=c++23 \
             --error-exitcode=1 \
             -I src \
+            apps \
             src \
             test \
             2>&1
