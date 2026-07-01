@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <string>
 
-#include "quill/Logger.h"
+#include <quill/Logger.h>
 
 /**
  * @brief Configures a Quill logger for the application.

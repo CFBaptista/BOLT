@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quill/Logger.h"
+#include <quill/Logger.h>
 #include <toml++/toml.hpp>
 
 #include "core/time/SimulationTime.hpp"

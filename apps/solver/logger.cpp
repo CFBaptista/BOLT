@@ -4,15 +4,15 @@
 #include <string>
 #include <utility>
 
-#include "quill/Backend.h"
-#include "quill/Frontend.h"
-#include "quill/LogMacros.h"
-#include "quill/Logger.h"
-#include "quill/core/Common.h"
-#include "quill/core/LogLevel.h"
-#include "quill/core/PatternFormatterOptions.h"
-#include "quill/sinks/ConsoleSink.h"
-#include "quill/sinks/FileSink.h"
+#include <quill/Backend.h>
+#include <quill/Frontend.h>
+#include <quill/LogMacros.h>
+#include <quill/Logger.h>
+#include <quill/core/Common.h>
+#include <quill/core/LogLevel.h>
+#include <quill/core/PatternFormatterOptions.h>
+#include <quill/sinks/ConsoleSink.h>
+#include <quill/sinks/FileSink.h>
 
 #include "logger.hpp"
 #include "utilities.hpp"

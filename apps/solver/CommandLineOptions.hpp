@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <string>
 
-#include "CLI/CLI.hpp"
+#include <CLI/CLI.hpp>
 
 /**
  * @brief Command line options for the BOLT solver

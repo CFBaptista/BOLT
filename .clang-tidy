@@ -14,4 +14,4 @@ Checks: >
     misc-include-cleaner
 FormatStyle: file
 WarningsAsErrors: true
-HeaderFilterRegex: ".*"
+HeaderFilterRegex: "^(apps|src|test)/.*"

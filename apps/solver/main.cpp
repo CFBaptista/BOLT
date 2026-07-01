@@ -3,9 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include "CLI/CLI.hpp"
-#include "quill/LogMacros.h"
-#include "quill/Logger.h"
+#include <CLI/CLI.hpp>
+#include <quill/LogMacros.h>
+#include <quill/Logger.h>
 #include <toml++/toml.hpp>
 
 #include "CommandLineOptions.hpp"

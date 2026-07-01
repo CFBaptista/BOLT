@@ -58,7 +58,7 @@ jobs:
       - name: Run static analysis (cppcheck)
         run: |
           cppcheck \
-            --project=build/compile_commands.json \
+            --project=build/linux-x86-64-llvm-debug/compile_commands.json \
             --enable=all \
             --inconclusive \
             --force \
