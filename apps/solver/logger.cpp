@@ -28,7 +28,7 @@ auto configure_logger(const std::filesystem::path& output_directory, const std::
     auto file_sink = quill::Frontend::create_or_get_sink<quill::FileSink>(
         output_directory / std::format("bolt_{}.log", timestamp)
     );
-    quill::PatternFormatterOptions formatter_options{
+    const quill::PatternFormatterOptions formatter_options{
         "%(time)    [%(thread_id)]    %(short_source_location:<32)    %(log_level:<8)    "
         "%(logger:<4)    %(message)",
         "%Y-%m-%dT%H:%M:%S.%QnsZ", quill::Timezone::GmtTime
