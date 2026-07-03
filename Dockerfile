@@ -20,7 +20,6 @@ RUN \
     apt-get install -y lld-21 && \
     apt-get install -y lldb-21 && \
     # Install additional tools
-    apt-get install -y catch2 && \
     apt-get install -y cmake && \
     apt-get install -y cppcheck && \
     apt-get install -y doxygen && \

@@ -8,6 +8,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(CLI11)
+get_target_property(CLI11_INCLUDE_DIRS CLI11::CLI11 INTERFACE_INCLUDE_DIRECTORIES)
 
 FetchContent_Declare(
     quill
@@ -17,6 +18,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(quill)
+get_target_property(QUILL_INCLUDE_DIRS quill::quill INTERFACE_INCLUDE_DIRECTORIES)
 
 FetchContent_Declare(
     tomlplusplus
@@ -26,5 +28,6 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(tomlplusplus)
+get_target_property(TOMLPLUSPLUS_INCLUDE_DIRS tomlplusplus::tomlplusplus INTERFACE_INCLUDE_DIRECTORIES)
 
 add_subdirectory(solver)
