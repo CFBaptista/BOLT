@@ -50,9 +50,6 @@ jobs:
           clang-tidy \
             $(git ls-files '*.cpp') \
             -p build/linux-x86-64-llvm-debug \
-            -header-filter='^(apps|src|test)/' \
-            -format-style=file \
-            -warnings-as-errors=* \
             2>&1
 
       - name: Run static analysis (cppcheck)

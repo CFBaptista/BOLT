@@ -8,10 +8,10 @@ Checks: >
     cppcoreguidelines-*,
     -cppcoreguidelines-avoid-do-while,
     -cppcoreguidelines-pro-bounds-constant-array-index,
+    misc-include-cleaner.IgnoreHeaders: "*_deps/*",
     modernize-*,
     performance-*,
-    readability-*,
-    misc-include-cleaner
+    readability-*
 FormatStyle: file
-WarningsAsErrors: true
-HeaderFilterRegex: "^(apps|src|test)/.*"
+HeaderFilterRegex: "^(apps|src|test)/"
+WarningsAsErrors: "*"
