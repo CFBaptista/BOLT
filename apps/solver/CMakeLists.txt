@@ -3,7 +3,6 @@ add_executable(bolt
     logger.cpp    
     main.cpp
     utilities.cpp
-    CommandLineOptions.cpp
     LBMSolver.cpp
 )
 

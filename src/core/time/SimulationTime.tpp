@@ -3,6 +3,7 @@
 #include <concepts>
 #include <cstddef>
 #include <stdexcept>
+#include <string>
 
 #include "core/time/SimulationTime.hpp"
 
@@ -15,11 +16,11 @@ namespace core
 template <std::floating_point Real>
 
 SimulationTime<Real>::SimulationTime(
-    const Real& starting_time, // NOLINT(bugprone-easily-swappable-parameters)
-    const Real& time_step,     // NOLINT(bugprone-easily-swappable-parameters)
+    const Real& start_time, // NOLINT(bugprone-easily-swappable-parameters)
+    const Real& time_step,  // NOLINT(bugprone-easily-swappable-parameters)
     const std::size_t& number_of_steps
 )
-    : starting_time_(starting_time), time_step_(time_step), number_of_steps_(number_of_steps),
+    : start_time_(start_time), time_step_(time_step), number_of_steps_(number_of_steps),
       current_step_(0)
 {
     if (time_step_ <= static_cast<Real>(0))
@@ -34,9 +35,9 @@ SimulationTime<Real>::SimulationTime(
 }
 
 template <std::floating_point Real>
-auto SimulationTime<Real>::starting_time() const -> Real
+auto SimulationTime<Real>::start_time() const -> Real
 {
-    return starting_time_;
+    return start_time_;
 }
 
 template <std::floating_point Real>
@@ -60,13 +61,13 @@ auto SimulationTime<Real>::current_step() const -> std::size_t
 template <std::floating_point Real>
 auto SimulationTime<Real>::current_time() const -> Real
 {
-    return starting_time_ + (time_step_ * static_cast<Real>(current_step_));
+    return start_time_ + (time_step_ * static_cast<Real>(current_step_));
 }
 
 template <std::floating_point Real>
 auto SimulationTime<Real>::end_time() const -> Real
 {
-    return starting_time_ + (time_step_ * static_cast<Real>(number_of_steps_));
+    return start_time_ + (time_step_ * static_cast<Real>(number_of_steps_));
 }
 
 template <std::floating_point Real>

@@ -52,7 +52,7 @@ public:
      *
      * @return The starting time of the simulation.
      */
-    auto starting_time() const -> Real;
+    auto start_time() const -> Real;
 
     /**
      * @brief Get the time step of the simulation.
@@ -95,7 +95,7 @@ public:
     auto advance() -> bool;
 
 private:
-    Real starting_time_;
+    Real start_time_;
     Real time_step_;
     std::size_t number_of_steps_;
     std::size_t current_step_;

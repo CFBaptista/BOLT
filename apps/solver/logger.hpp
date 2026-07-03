@@ -9,8 +9,8 @@
  * @brief Configures a Quill logger for the application.
  *
  * @param output_directory The directory where log files should be stored.
- * @param log_level The logging level (e.g., "trace_l3", "trace_l2", "trace_l1", "debug", "info",
- * "warning", "error", "critical").
+ * @param log_level The logging level. Available options are "trace_l3", "trace_l2", "trace_l1",
+ * "debug", "info", "notice", "warning", "error", "critical".
  *
  * @return A pointer to the configured quill::Logger instance.
  */
