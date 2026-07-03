@@ -19,9 +19,3 @@ target_link_libraries(bolt PRIVATE
     tomlplusplus::tomlplusplus
     core
 )
-
-target_include_directories(bolt SYSTEM PRIVATE
-    ${CLI11_INCLUDE_DIRS}
-    ${QUILL_INCLUDE_DIRS}
-    ${TOMLPLUSPLUS_INCLUDE_DIRS}
-)

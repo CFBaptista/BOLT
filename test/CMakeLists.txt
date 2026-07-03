@@ -8,8 +8,20 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(Catch2)
+
+get_target_property(
+    CATCH2_INCLUDE_DIRECTORIES
+    Catch2
+    INTERFACE_INCLUDE_DIRECTORIES
+)
+
+set_target_properties(
+    Catch2 
+    PROPERTIES
+        INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "${CATCH2_INCLUDE_DIRECTORIES}"
+)
+
 include(Catch)
-get_target_property(CATCH2_INCLUDE_DIRECTORIES Catch2 INTERFACE_INCLUDE_DIRECTORIES)
 
 set(BOLT_COMPILE_PROPERTIES
     CXX_EXTENSIONS OFF

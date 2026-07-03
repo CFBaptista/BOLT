@@ -5,10 +5,6 @@ target_link_libraries(lbm_test PRIVATE
     Catch2::Catch2WithMain
 )
 
-target_include_directories(lbm_test SYSTEM PRIVATE
-    ${CATCH2_INCLUDE_DIRECTORIES}
-)
-
 target_link_options(lbm_test PRIVATE
     ${BOLT_LINK_OPTIONS}
 )
