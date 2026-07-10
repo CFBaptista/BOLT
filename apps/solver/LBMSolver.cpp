@@ -7,7 +7,7 @@
 
 LBMSolver::LBMSolver(const ApplicationConfiguration& configuration, quill::Logger* logger)
     : time_(
-          configuration.time.starting_time,
+          configuration.time.start_time,
           configuration.time.time_step,
           configuration.time.number_of_steps
       ),

@@ -29,12 +29,12 @@ public:
     /**
      * @brief Constructor to initialize the simulation time.
      *
-     * @param starting_time The initial time of the simulation.
+     * @param start_time The initial time of the simulation.
      * @param time_step The time step to advance the simulation at each step.
      * @param number_of_steps The total number of steps in the simulation.
      */
     SimulationTime(
-        const Real& starting_time,
+        const Real& start_time,
         const Real& time_step,
         const std::size_t& number_of_steps
     );

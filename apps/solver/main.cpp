@@ -10,9 +10,9 @@
 
 auto main(int argc, char* argv[]) -> int
 {
-    std::span<char*> args{argv, static_cast<std::size_t>(argc)};
+    const std::span<char*> args{argv, static_cast<std::size_t>(argc)};
 
-    ApplicationConfiguration configuration{parse_configuration(args)};
+    const ApplicationConfiguration configuration{parse_configuration(args)};
 
     quill::Logger* logger{
         configure_logger(configuration.io.output_directory, configuration.io.log_level)

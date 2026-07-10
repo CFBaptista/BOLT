@@ -3,7 +3,7 @@
 #include <cstddef>
 
 #include "core/concepts/LatticeModel.hpp"
-#include "lbm/DistributionField.hpp"
+#include "lbm/DistributionField.hpp" // NOLINT(misc-header-include-cycle)
 
 namespace bolt
 {

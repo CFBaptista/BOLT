@@ -42,7 +42,7 @@ struct IOConfiguration
 struct TimeConfiguration
 {
     /** Starting time for the simulation. */
-    double starting_time;
+    double start_time;
     /** Time step for the simulation. */
     double time_step;
     /** Number of time steps for the simulation. */

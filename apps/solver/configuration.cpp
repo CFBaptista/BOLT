@@ -7,11 +7,13 @@
 #include <span>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 
 #include <CLI/CLI.hpp>
 #include <toml++/toml.hpp>
 
 #include "configuration.hpp"
+#include "utilities.hpp"
 
 auto validate_command_line_options(const CommandLineOptions& options) -> void
 {
@@ -154,26 +156,26 @@ auto read_configuration_file(const std::filesystem::path& file_path) -> toml::ta
 
 auto parse_configuration(std::span<char*> args) -> ApplicationConfiguration
 {
-    CommandLineOptions options = read_command_line_options(args);
-    toml::table configuration = read_configuration_file(options.config_file);
+    const CommandLineOptions options = read_command_line_options(args);
+    const toml::table configuration = read_configuration_file(options.config_file);
 
-    double starting_time = *configuration["start_time"].value<double>();
-    double time_step = *configuration["time_step"].value<double>();
-    std::size_t number_of_steps = *configuration["number_of_steps"].value<std::size_t>();
+    const auto start_time = get_toml_value<double>(configuration, "start_time");
+    const auto time_step = get_toml_value<double>(configuration, "time_step");
+    const auto number_of_steps = get_toml_value<std::size_t>(configuration, "number_of_steps");
 
-    IOConfiguration io_configuration{
+    const IOConfiguration io_configuration{
         .configuration_file = options.config_file.string(),
         .output_directory = options.output_directory.string(),
         .log_level = options.log_level,
     };
 
-    TimeConfiguration time_configuration{
-        .starting_time = starting_time,
+    const TimeConfiguration time_configuration{
+        .start_time = start_time,
         .time_step = time_step,
         .number_of_steps = number_of_steps,
     };
 
-    ApplicationConfiguration application_configuration{
+    const ApplicationConfiguration application_configuration{
         .io = io_configuration,
         .time = time_configuration,
     };

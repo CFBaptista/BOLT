@@ -10,28 +10,28 @@ SCENARIO("Verify properties and state of simulation time")
 {
     GIVEN("A valid set of parameters")
     {
-        const double starting_time = 0.0;
+        const double start_time = 0.0;
         const double time_step = 0.1;
         const std::size_t number_of_steps = 10;
 
-        bolt::core::SimulationTime<double> time(starting_time, time_step, number_of_steps);
+        bolt::core::SimulationTime<double> time(start_time, time_step, number_of_steps);
 
         THEN("The current time is equal to the starting time")
         {
-            REQUIRE(time.current_time() == starting_time);
+            REQUIRE(time.current_time() == start_time);
         }
 
         THEN("The end time is correctly calculated")
         {
 
-            REQUIRE(time.end_time() == starting_time + (time_step * number_of_steps));
+            REQUIRE(time.end_time() == start_time + (time_step * number_of_steps));
         }
 
         THEN("Advancing the simulation time updates the current time correctly")
         {
             for (std::size_t step = 0; step < number_of_steps; ++step)
             {
-                REQUIRE(time.current_time() == starting_time + (time_step * step));
+                REQUIRE(time.current_time() == start_time + (time_step * step));
                 time.advance();
             }
 

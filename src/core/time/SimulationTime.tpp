@@ -3,9 +3,8 @@
 #include <concepts>
 #include <cstddef>
 #include <stdexcept>
-#include <string>
 
-#include "core/time/SimulationTime.hpp"
+#include "core/time/SimulationTime.hpp" //NOLINT(misc-header-include-cycle)
 
 namespace bolt
 {
