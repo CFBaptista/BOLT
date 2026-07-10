@@ -8,7 +8,6 @@ if(DOXYGEN_FOUND)
 
     doxygen_add_docs(
         documentation
-        ${CMAKE_SOURCE_DIR}/src
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         CONFIG_FILE ${DOXYGEN_OUT}
         COMMENT "Generating documentation with Doxygen"
