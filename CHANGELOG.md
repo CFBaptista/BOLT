@@ -21,6 +21,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `DistributionField` template for storing lattice distributions on 1D, 2D, and 3D Cartesian grids.
 - `SimulationTime` template for managing fixed-step simulation time in the core module.
 
+- Command-line application for simulating CFD cases with the Lattice Boltzmann method. The application includes a CLI11-based command-line argument parser, a TOML-based configuration file parser, and a quill-based logger.
+- `ApplicationConfiguration` struct that holds parsed command-line arguments and settings read from a TOML configuration file.
+
 ### Changed
 
 - None.
