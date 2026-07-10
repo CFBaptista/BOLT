@@ -64,6 +64,7 @@ jobs:
             --inline-suppr \
             --std=c++23 \
             --error-exitcode=1 \
+            -i build/*/_deps \
             2>&1
 
       - name: Run documentation generation (Doxygen)
