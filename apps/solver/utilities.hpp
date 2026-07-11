@@ -35,10 +35,17 @@ auto get_timestamp() -> std::string;
 template <typename T>
 auto get_toml_value(const toml::table& table, std::string_view key) -> T
 {
-    if (const auto value = table[key].value<T>(); value)
+    if (!table.contains(key))
+    {
+        throw std::invalid_argument(std::format("Key '{}' not found in TOML table", key));
+    }
+
+    if (auto value = table[key].value<T>(); value)
     {
         return *value;
     }
 
-    throw std::invalid_argument(std::format("Missing or invalid TOML value for key: {}", key));
+    throw std::invalid_argument(
+        std::format("Value for key '{}' in TOML table is not convertible to the expected type", key)
+    );
 }
