@@ -6,6 +6,7 @@
 
 #include "LBMSolver.hpp"
 #include "configuration.hpp"
+#include "configuration_datatypes.hpp"
 #include "logger.hpp"
 
 auto main(int argc, char* argv[]) -> int
