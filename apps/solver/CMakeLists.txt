@@ -10,18 +10,18 @@ target_compile_options(bolt PRIVATE
 
 target_compile_features(bolt PRIVATE cxx_std_23)
 
+add_subdirectory(configuration)
+
 target_link_libraries(bolt PRIVATE
     CLI11::CLI11
     quill::quill
     tomlplusplus::tomlplusplus
     core
     lbm
+    configuration
 )
 
 target_sources(bolt PRIVATE
-    configuration.cpp
-    logger.cpp    
     main.cpp
-    utilities.cpp
     LBMSolver.cpp
 )

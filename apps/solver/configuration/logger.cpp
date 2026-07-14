@@ -14,8 +14,8 @@
 #include <quill/sinks/ConsoleSink.h>
 #include <quill/sinks/FileSink.h>
 
-#include "logger.hpp"
-#include "utilities.hpp"
+#include "configuration/logger.hpp"
+#include "configuration/utilities.hpp"
 
 auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
     -> quill::Logger*

@@ -5,9 +5,9 @@
 #include <quill/Logger.h>
 
 #include "LBMSolver.hpp"
-#include "configuration.hpp"
-#include "configuration_datatypes.hpp"
-#include "logger.hpp"
+#include "configuration/configuration.hpp"
+#include "configuration/configuration_datatypes.hpp"
+#include "configuration/logger.hpp"
 
 auto main(int argc, char* argv[]) -> int
 {

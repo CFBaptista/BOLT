@@ -3,7 +3,7 @@
 #include <quill/Logger.h>
 #include <toml++/toml.hpp>
 
-#include "configuration_datatypes.hpp"
+#include "configuration/configuration_datatypes.hpp"
 #include "core/time/SimulationTime.hpp"
 
 /**
