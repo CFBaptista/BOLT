@@ -1,5 +1,5 @@
-#include <cstddef>
-#include <span>
+#include <string_view>
+#include <vector>
 
 #include <quill/LogMacros.h>
 #include <quill/Logger.h>
@@ -11,7 +11,9 @@
 
 auto main(int argc, char* argv[]) -> int
 {
-    const std::span<char*> args{argv, static_cast<std::size_t>(argc)};
+    const std::vector<std::string_view> args{
+        argv, argv + argc // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    };
 
     const ApplicationConfiguration configuration{parse_configuration(args)};
 

@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <span>
+#include <string_view>
 
 #include <CLI/CLI.hpp>
 #include <quill/LogMacros.h>
@@ -17,7 +18,7 @@
  *
  * @return Parsed command line options.
  */
-auto read_command_line_options(std::span<char*> args) -> CommandLineOptions;
+auto read_command_line_options(std::span<const std::string_view> args) -> CommandLineOptions;
 
 /**
  * @brief Reads the TOML configuration file for the LBM solver.
@@ -35,4 +36,4 @@ auto read_configuration_file(const std::filesystem::path& file_path) -> toml::ta
  *
  * @return Parsed application configuration.
  */
-auto parse_configuration(std::span<char*> args) -> ApplicationConfiguration;
+auto parse_configuration(std::span<const std::string_view> args) -> ApplicationConfiguration;

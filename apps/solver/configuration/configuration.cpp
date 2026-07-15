@@ -4,6 +4,8 @@
 #include <iostream>
 #include <span>
 #include <string>
+#include <string_view>
+#include <vector>
 
 #include <CLI/CLI.hpp>
 #include <toml++/toml.hpp>
@@ -12,7 +14,27 @@
 #include "configuration_datatypes.hpp"
 #include "validation.hpp"
 
-auto read_command_line_options(std::span<char*> args) -> CommandLineOptions
+namespace
+{
+
+auto cli11_compatible_args(std::span<const std::string_view> args) -> std::vector<char*>
+{
+    std::vector<char*> argv;
+    argv.reserve(args.size());
+
+    for (const auto& arg : args)
+    {
+        argv.push_back(
+            const_cast<char*>(arg.data()) // NOLINT(cppcoreguidelines-pro-type-const-cast)
+        );
+    }
+
+    return argv;
+}
+
+} // namespace
+
+auto read_command_line_options(std::span<const std::string_view> args) -> CommandLineOptions
 {
     CLI::App app{};
     CommandLineOptions options;
@@ -43,7 +65,9 @@ auto read_command_line_options(std::span<char*> args) -> CommandLineOptions
             )
         );
 
-    app.parse(static_cast<int>(args.size()), args.data());
+    auto argv{cli11_compatible_args(args)};
+
+    app.parse(static_cast<int>(argv.size()), argv.data());
 
     return options;
 }
@@ -64,7 +88,7 @@ auto read_configuration_file(const std::filesystem::path& file_path) -> toml::ta
     return configuration;
 }
 
-auto parse_configuration(std::span<char*> args) -> ApplicationConfiguration
+auto parse_configuration(std::span<const std::string_view> args) -> ApplicationConfiguration
 {
     const CommandLineOptions options = read_command_line_options(args);
     const toml::table configuration = read_configuration_file(options.config_file);
