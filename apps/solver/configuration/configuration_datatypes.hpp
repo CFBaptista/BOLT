@@ -5,7 +5,7 @@
 #include <string>
 
 /**
- * @brief Command line options for the LBM solver.
+ * @brief Command line options passed by user to the LBM application.
  */
 struct CommandLineOptions
 {
@@ -18,7 +18,20 @@ struct CommandLineOptions
 };
 
 /**
- * @brief Input and output configuration for the LBM solver.
+ * @brief Settings configured by user in a configuration file read by the LBM application.
+ */
+struct ConfigurationFileSettings
+{
+    /** Starting time for the simulation. */
+    double start_time;
+    /** Time step for the simulation. */
+    double time_step;
+    /** Number of time steps for the simulation. */
+    std::size_t number_of_steps;
+};
+
+/**
+ * @brief Input and output sub-configuration for the LBM application.
  */
 struct IOConfiguration
 {
@@ -31,7 +44,7 @@ struct IOConfiguration
 };
 
 /**
- * @brief Time configuration for the LBM solver.
+ * @brief Time sub-configuration for the LBM application.
  */
 struct TimeConfiguration
 {
@@ -44,7 +57,7 @@ struct TimeConfiguration
 };
 
 /**
- * @brief Application configuration for the LBM solver.
+ * @brief Complete configuration for the LBM application.
  */
 struct ApplicationConfiguration
 {

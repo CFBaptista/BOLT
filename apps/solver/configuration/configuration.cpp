@@ -1,7 +1,9 @@
+#include <algorithm>
 #include <cstddef>
 #include <filesystem>
 #include <format>
 #include <iostream>
+#include <iterator>
 #include <span>
 #include <string>
 #include <string_view>
@@ -17,24 +19,47 @@
 namespace
 {
 
-auto cli11_compatible_args(std::span<const std::string_view> args) -> std::vector<char*>
+/**
+ * @brief Converts a span of string views into a vector of C-style string arguments compatible with
+ * CLI11.
+ *
+ * Modern C++ codebases often pack command-line arguments in a C++ container instead of propagating
+ * the traditional C-style `int argc` and `char* argv[]` arguments. However, CLI11 expects C-style
+ * arguments. This function converts the C++ container to a C-style array of char pointers, ensuring
+ * compatibility with CLI11's parsing functions.
+ *
+ * @param args A span of string views representing command-line arguments.
+ *
+ * @return A vector of C-style char pointer arguments suitable for CLI11.
+ */
+auto cli11_compatible_args_from_main(std::span<const std::string_view> args)
+    -> std::vector<const char*>
 {
-    std::vector<char*> argv;
+    std::vector<const char*> argv;
     argv.reserve(args.size());
 
-    for (const auto& arg : args)
-    {
-        argv.push_back(
-            const_cast<char*>(arg.data()) // NOLINT(cppcoreguidelines-pro-type-const-cast)
-        );
-    }
+    std::ranges::transform(
+        args, std::back_inserter(argv),
+        [](const std::string_view& arg) -> const char* { return arg.data(); }
+    );
 
     return argv;
 }
 
-} // namespace
+} // anonymous namespace
 
-auto read_command_line_options(std::span<const std::string_view> args) -> CommandLineOptions
+namespace detail
+{
+
+/**
+ * @brief Parse and validate command-line options for the LBM solver.
+ *
+ * @param args command-line arguments.
+ *
+ * @return Validated command-line options.
+ */
+// NOLINTNEXTLINE(misc-use-internal-linkage)
+auto parse_command_line_options(std::span<const std::string_view> args) -> CommandLineOptions
 {
     CLI::App app{};
     CommandLineOptions options;
@@ -65,14 +90,48 @@ auto read_command_line_options(std::span<const std::string_view> args) -> Comman
             )
         );
 
-    auto argv{cli11_compatible_args(args)};
+    auto argv{cli11_compatible_args_from_main(args)};
 
     app.parse(static_cast<int>(argv.size()), argv.data());
 
     return options;
 }
 
-auto read_configuration_file(const std::filesystem::path& file_path) -> toml::table
+/**
+ * @brief Validate the TOML table for the LBM solver.
+ *
+ * @param table TOML table containing configuration settings.
+ *
+ * @return Validated configuration settings.
+ */
+// NOLINTNEXTLINE(misc-use-internal-linkage)
+auto validate_configuration_file_settings(const toml::table& table) -> ConfigurationFileSettings
+{
+    const auto start_time =
+        NumberValidator<double>(table, "start_time").greater_or_equal(0.0).value();
+    const auto time_step = NumberValidator<double>(table, "time_step").greater_than(0.0).value();
+    const auto number_of_steps =
+        NumberValidator<std::size_t>(table, "number_of_steps").greater_than(0).value();
+
+    const ConfigurationFileSettings settings{
+        .start_time = start_time,
+        .time_step = time_step,
+        .number_of_steps = number_of_steps,
+    };
+
+    return settings;
+}
+
+/**
+ * @brief Parse and validate the TOML configuration file for the LBM solver.
+ *
+ * @param file_path Path to the TOML configuration file.
+ *
+ * @return Validated configuration file settings.
+ */
+// NOLINTNEXTLINE(misc-use-internal-linkage)
+auto parse_configuration_file_settings(const std::filesystem::path& file_path)
+    -> ConfigurationFileSettings
 {
     toml::table configuration;
     try
@@ -85,20 +144,18 @@ auto read_configuration_file(const std::filesystem::path& file_path) -> toml::ta
         throw;
     }
 
-    return configuration;
+    const ConfigurationFileSettings settings = validate_configuration_file_settings(configuration);
+
+    return settings;
 }
+
+} // namespace detail
 
 auto parse_configuration(std::span<const std::string_view> args) -> ApplicationConfiguration
 {
-    const CommandLineOptions options = read_command_line_options(args);
-    const toml::table configuration = read_configuration_file(options.config_file);
-
-    const auto start_time =
-        NumberValidator<double>(configuration, "start_time").greater_or_equal(0.0).value();
-    const auto time_step =
-        NumberValidator<double>(configuration, "time_step").greater_than(0.0).value();
-    const auto number_of_steps =
-        NumberValidator<std::size_t>(configuration, "number_of_steps").greater_than(0).value();
+    const CommandLineOptions options = detail::parse_command_line_options(args);
+    const ConfigurationFileSettings settings =
+        detail::parse_configuration_file_settings(options.config_file);
 
     const IOConfiguration io_configuration{
         .configuration_file = options.config_file.string(),
@@ -107,9 +164,9 @@ auto parse_configuration(std::span<const std::string_view> args) -> ApplicationC
     };
 
     const TimeConfiguration time_configuration{
-        .start_time = start_time,
-        .time_step = time_step,
-        .number_of_steps = number_of_steps,
+        .start_time = settings.start_time,
+        .time_step = settings.time_step,
+        .number_of_steps = settings.number_of_steps,
     };
 
     const ApplicationConfiguration application_configuration{
