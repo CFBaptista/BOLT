@@ -48,7 +48,8 @@
             "hidden": true,
             "inherits": "base",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BOLT_ARCHITECTURE_FLAGS": ""
             }
         },
         {
@@ -57,7 +58,8 @@
             "hidden": true,
             "inherits": "base",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "BOLT_ARCHITECTURE_FLAGS": "-march=native -mtune=native"
             }
         },
         {
@@ -66,7 +68,8 @@
             "hidden": true,
             "inherits": "base",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "BOLT_ARCHITECTURE_FLAGS": "-march=native -mtune=native"
             }
         },
         {

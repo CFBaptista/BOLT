@@ -18,9 +18,12 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(BOLT_COMPILE_FLAGS
         -O3
         -ffast-math
-        -march=native
-        -mtune=native
         -flto
+    )
+elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    set(BOLT_COMPILE_FLAGS
+        -O2
+        -g
     )
 endif()
 
@@ -51,12 +54,20 @@ set(BOLT_WARNING_FLAGS
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(BOLT_COMPILE_OPTIONS
         ${BOLT_COMPILE_FLAGS}
+        ${BOLT_ARCHITECTURE_FLAGS}
         ${BOLT_COVERAGE_FLAGS}
         ${BOLT_WARNING_FLAGS}
     )
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(BOLT_COMPILE_OPTIONS
         ${BOLT_COMPILE_FLAGS}
+        ${BOLT_ARCHITECTURE_FLAGS}
+        ${BOLT_WARNING_FLAGS}
+    )
+elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    set(BOLT_COMPILE_OPTIONS
+        ${BOLT_COMPILE_FLAGS}
+        ${BOLT_ARCHITECTURE_FLAGS}
         ${BOLT_WARNING_FLAGS}
     )
 endif()
