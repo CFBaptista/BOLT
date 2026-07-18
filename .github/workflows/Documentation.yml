@@ -21,7 +21,7 @@ jobs:
     name: Build Documentation
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.2.0
+      image: ghcr.io/cfbaptista/bolt-dev:0.3.0
 
     steps:
       - name: Checkout code
