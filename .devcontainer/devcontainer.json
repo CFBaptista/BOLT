@@ -1,7 +1,7 @@
 {
     "name": "BOLT Development Container",
     "build": {
-        "dockerfile": "../Dockerfile"
+        "dockerfile": "../docker/ubuntu.Dockerfile"
     },
     "customizations": {
         "vscode": {
