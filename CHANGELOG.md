@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Command-line application for simulating CFD cases with the Lattice Boltzmann method. The application includes a CLI11-based command-line argument parser, a TOML-based configuration file parser, and a quill-based logger.
 - `ApplicationConfiguration` struct that holds parsed command-line arguments and settings read from a TOML configuration file.
+- Use `parse_configuration` to construct a `ApplicationConfiguration` from command-line arguments.
 
 ### Changed
 
