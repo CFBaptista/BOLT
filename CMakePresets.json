@@ -70,8 +70,8 @@
             }
         },
         {
-            "name": "linux-x86-64-llvm-debug",
-            "displayName": "Linux x86-64 LLVM Debug",
+            "name": "linux-native-llvm-debug",
+            "displayName": "Linux native LLVM Debug",
             "description": "Configure preset on Linux using the LLVM toolchain for Debug build",
             "hidden": false,
             "inherits": [
@@ -80,8 +80,8 @@
             ]
         },
         {
-            "name": "linux-x86-64-llvm-release",
-            "displayName": "Linux x86-64 LLVM Release",
+            "name": "linux-native-llvm-release",
+            "displayName": "Linux native LLVM Release",
             "description": "Configure preset on Linux using the LLVM toolchain for Release build",
             "hidden": false,
             "inherits": [
@@ -90,8 +90,8 @@
             ]
         },
         {
-            "name": "linux-x86-64-llvm-relWithDebInfo",
-            "displayName": "Linux x86-64 LLVM RelWithDebInfo",
+            "name": "linux-native-llvm-relWithDebInfo",
+            "displayName": "Linux native LLVM RelWithDebInfo",
             "description": "Configure preset on Linux using the LLVM toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": [
@@ -100,8 +100,8 @@
             ]
         },
         {
-            "name": "linux-x86-64-gnu-debug",
-            "displayName": "Linux x86-64 GNU Debug",
+            "name": "linux-native-gnu-debug",
+            "displayName": "Linux native GNU Debug",
             "description": "Configure preset on Linux using the GNU toolchain for Debug build",
             "hidden": false,
             "inherits": [
@@ -110,8 +110,8 @@
             ]
         },
         {
-            "name": "linux-x86-64-gnu-release",
-            "displayName": "Linux x86-64 GNU Release",
+            "name": "linux-native-gnu-release",
+            "displayName": "Linux native GNU Release",
             "description": "Configure preset on Linux using the GNU toolchain for Release build",
             "hidden": false,
             "inherits": [
@@ -120,8 +120,8 @@
             ]
         },
         {
-            "name": "linux-x86-64-gnu-relWithDebInfo",
-            "displayName": "Linux x86-64 GNU RelWithDebInfo",
+            "name": "linux-native-gnu-relWithDebInfo",
+            "displayName": "Linux native GNU RelWithDebInfo",
             "description": "Configure preset on Linux using the GNU toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": [
@@ -140,58 +140,58 @@
             "jobs": 4
         },
         {
-            "name": "linux-x86-64-llvm-debug",
-            "displayName": "Linux x86-64 LLVM Debug",
+            "name": "linux-native-llvm-debug",
+            "displayName": "Linux native LLVM Debug",
             "description": "Build preset on Linux using the LLVM toolchain for Debug build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "linux-x86-64-llvm-debug"
+            "configurePreset": "linux-native-llvm-debug"
         },
         {
-            "name": "linux-x86-64-llvm-release",
-            "displayName": "Linux x86-64 LLVM Release",
+            "name": "linux-native-llvm-release",
+            "displayName": "Linux native LLVM Release",
             "description": "Build preset on Linux using the LLVM toolchain for Release build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "linux-x86-64-llvm-release"
+            "configurePreset": "linux-native-llvm-release"
         },
         {
-            "name": "linux-x86-64-llvm-relWithDebInfo",
-            "displayName": "Linux x86-64 LLVM RelWithDebInfo",
+            "name": "linux-native-llvm-relWithDebInfo",
+            "displayName": "Linux native LLVM RelWithDebInfo",
             "description": "Build preset on Linux using the LLVM toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "linux-x86-64-llvm-relWithDebInfo"
+            "configurePreset": "linux-native-llvm-relWithDebInfo"
         },
         {
-            "name": "linux-x86-64-gnu-debug",
-            "displayName": "Linux x86-64 GNU Debug",
+            "name": "linux-native-gnu-debug",
+            "displayName": "Linux native GNU Debug",
             "description": "Build preset on Linux using the GNU toolchain for Debug build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "linux-x86-64-gnu-debug"
+            "configurePreset": "linux-native-gnu-debug"
         },
         {
-            "name": "linux-x86-64-gnu-release",
-            "displayName": "Linux x86-64 GNU Release",
+            "name": "linux-native-gnu-release",
+            "displayName": "Linux native GNU Release",
             "description": "Build preset on Linux using the GNU toolchain for Release build",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "linux-x86-64-gnu-release"
+            "configurePreset": "linux-native-gnu-release"
         },
         {
-            "name": "linux-x86-64-gnu-relWithDebInfo",
-            "displayName": "Linux x86-64 GNU RelWithDebInfo",
+            "name": "linux-native-gnu-relWithDebInfo",
+            "displayName": "Linux native GNU RelWithDebInfo",
             "description": "Build preset on Linux using the GNU toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "linux-x86-64-gnu-relWithDebInfo"
+            "configurePreset": "linux-native-gnu-relWithDebInfo"
         }
     ],
     "testPresets": [
@@ -209,58 +209,58 @@
             }
         },
         {
-            "name": "linux-x86-64-llvm-debug",
-            "displayName": "Linux x86-64 LLVM Debug",
-            "description": "Test preset on Linux for Debug build built with the LLVM toolchain",
+            "name": "linux-native-llvm-debug",
+            "displayName": "Linux native LLVM Debug",
+            "description": "Test preset on Linux for Debug build using the LLVM toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "linux-x86-64-llvm-debug"
+            "configurePreset": "linux-native-llvm-debug"
         },
         {
-            "name": "linux-x86-64-llvm-release",
-            "displayName": "Linux x86-64 LLVM Release",
-            "description": "Test preset on Linux for Release build built with the LLVM toolchain",
+            "name": "linux-native-llvm-release",
+            "displayName": "Linux native LLVM Release",
+            "description": "Test preset on Linux for Release build using the LLVM toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "linux-x86-64-llvm-release"
+            "configurePreset": "linux-native-llvm-release"
         },
         {
-            "name": "linux-x86-64-llvm-relWithDebInfo",
-            "displayName": "Linux x86-64 LLVM RelWithDebInfo",
-            "description": "Test preset on Linux for RelWithDebInfo build built with the LLVM toolchain",
+            "name": "linux-native-llvm-relWithDebInfo",
+            "displayName": "Linux native LLVM RelWithDebInfo",
+            "description": "Test preset on Linux for RelWithDebInfo build using the LLVM toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "linux-x86-64-llvm-relWithDebInfo"
+            "configurePreset": "linux-native-llvm-relWithDebInfo"
         },
         {
-            "name": "linux-x86-64-gnu-debug",
-            "displayName": "Linux x86-64 GNU Debug",
-            "description": "Test preset on Linux for Debug build built with the GNU toolchain",
+            "name": "linux-native-gnu-debug",
+            "displayName": "Linux native GNU Debug",
+            "description": "Test preset on Linux for Debug build using the GNU toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Debug",
-            "configurePreset": "linux-x86-64-gnu-debug"
+            "configurePreset": "linux-native-gnu-debug"
         },
         {
-            "name": "linux-x86-64-gnu-release",
-            "displayName": "Linux x86-64 GNU Release",
-            "description": "Test preset on Linux for Release build built with the GNU toolchain",
+            "name": "linux-native-gnu-release",
+            "displayName": "Linux native GNU Release",
+            "description": "Test preset on Linux for Release build using the GNU toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "Release",
-            "configurePreset": "linux-x86-64-gnu-release"
+            "configurePreset": "linux-native-gnu-release"
         },
         {
-            "name": "linux-x86-64-gnu-relWithDebInfo",
-            "displayName": "Linux x86-64 GNU RelWithDebInfo",
-            "description": "Test preset on Linux for RelWithDebInfo build built with the GNU toolchain",
+            "name": "linux-native-gnu-relWithDebInfo",
+            "displayName": "Linux native GNU RelWithDebInfo",
+            "description": "Test preset on Linux for RelWithDebInfo build using the GNU toolchain",
             "hidden": false,
             "inherits": "base",
             "configuration": "RelWithDebInfo",
-            "configurePreset": "linux-x86-64-gnu-relWithDebInfo"
+            "configurePreset": "linux-native-gnu-relWithDebInfo"
         }
     ]
 }
