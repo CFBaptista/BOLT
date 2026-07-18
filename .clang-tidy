@@ -6,11 +6,18 @@ Checks: >
     clang-*,
     clang-analyzer-*,
     cppcoreguidelines-*,
+    -cppcoreguidelines-avoid-do-while,
     -cppcoreguidelines-pro-bounds-constant-array-index,
+    hicpp-*,
+    misc-*,
     modernize-*,
+    -modernize-concat-nested-namespaces,
     performance-*,
-    readability-*,
-    misc-include-cleaner
+    readability-*
 FormatStyle: file
-WarningsAsErrors: true
-HeaderFilterRegex: ".*"
+HeaderFilterRegex: "^(apps|src|test)/"
+WarningsAsErrors: "*"
+
+CheckOptions:
+    - key: misc-include-cleaner.IgnoreHeaders
+      value: ".*_deps/.*"

@@ -19,6 +19,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `LatticeModel` concept for validating lattice model requirements.
 - Lattice model interfaces for `D1Q3`, `D2Q9`, and `D3Q27`.
 - `DistributionField` template for storing lattice distributions on 1D, 2D, and 3D Cartesian grids.
+- `SimulationTime` template for managing fixed-step simulation time in the core module.
+
+- Command-line application for simulating CFD cases with the Lattice Boltzmann method. The application includes a CLI11-based command-line argument parser, a TOML-based configuration file parser, and a quill-based logger.
+- `ApplicationConfiguration` struct that holds parsed command-line arguments and settings read from a TOML configuration file.
+- Use `parse_configuration` to construct a `ApplicationConfiguration` from command-line arguments.
 
 ### Changed
 
@@ -34,7 +39,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- None.
+- Added direct `<concepts>` includes to lattice model headers to satisfy include-cleaner diagnostics.
 
 ### Security
 

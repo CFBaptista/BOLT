@@ -48,7 +48,7 @@ public:
 };
 
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
-SCENARIO("Verify intrinsic properties of a distribution field with specified shape")
+SCENARIO("Verify properties and state of a distribution field")
 {
     GIVEN("A node count in a single direction")
     {

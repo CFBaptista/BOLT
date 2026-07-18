@@ -15,4 +15,5 @@ target_compile_features(core INTERFACE
 target_sources(core INTERFACE
     concepts/LatticeModel.hpp
     containers/AlignedArray.hpp
+    time/SimulationTime.hpp
 )

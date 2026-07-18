@@ -1,8 +1,11 @@
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
-    execute_process(
+    add_custom_target(copy_compile_commands ALL
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
             ${CMAKE_BINARY_DIR}/compile_commands.json
             ${CMAKE_SOURCE_DIR}/build/compile_commands.json
+        BYPRODUCTS ${CMAKE_SOURCE_DIR}/build/compile_commands.json
+        COMMENT "Copying compile_commands.json from preset build directory to root build directory"
+        VERBATIM
     )
 endif()
 
@@ -33,6 +36,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     )
 endif()
 
+set(BOLT_LINK_OPTIONS
+    ${BOLT_COVERAGE_FLAGS}
+)
+
 set(BOLT_WARNING_FLAGS
   -Wall
   -Wextra
@@ -57,6 +64,9 @@ endif()
 set(BOLT_COMPILE_FEATURES
     cxx_std_23
 )
+
+set(BOLT_COMPILE_OPTIONS "${BOLT_COMPILE_OPTIONS}" PARENT_SCOPE)
+set(BOLT_LINK_OPTIONS "${BOLT_LINK_OPTIONS}" PARENT_SCOPE)
 
 add_subdirectory(core)
 add_subdirectory(lbm)

@@ -22,6 +22,7 @@
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_C_COMPILER": "clang",
                 "CMAKE_LINKER": "lld"
             },
             "environment": {
@@ -37,6 +38,7 @@
             "generator": "Unix Makefiles",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_LINKER": "ld"
             }
         },

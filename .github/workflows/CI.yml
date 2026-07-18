@@ -18,7 +18,7 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.1.0
+      image: ghcr.io/cfbaptista/bolt-dev:0.3.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -50,14 +50,12 @@ jobs:
           clang-tidy \
             $(git ls-files '*.cpp') \
             -p build/linux-x86-64-llvm-debug \
-            -header-filter='^(src|test)/' \
-            -format-style=file \
-            -warnings-as-errors=* \
             2>&1
 
       - name: Run static analysis (cppcheck)
         run: |
           cppcheck \
+            --project=build/linux-x86-64-llvm-debug/compile_commands.json \
             --enable=all \
             --inconclusive \
             --force \
@@ -66,19 +64,17 @@ jobs:
             --inline-suppr \
             --std=c++23 \
             --error-exitcode=1 \
-            -I src \
-            src \
-            test \
+            -i build/*/_deps \
             2>&1
 
       - name: Run documentation generation (Doxygen)
-        run: cmake --build --preset linux-x86-64-llvm-debug --target Doxygen
+        run: cmake --build --preset linux-x86-64-llvm-debug --target documentation
 
   Configure-Build-Test:
     name: Build-Test-Matrix (${{ matrix.preset }})
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.1.0
+      image: ghcr.io/cfbaptista/bolt-dev:0.3.0
     needs: Code-Quality
     strategy:
       matrix:

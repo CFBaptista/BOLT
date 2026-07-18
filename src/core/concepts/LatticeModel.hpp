@@ -92,15 +92,13 @@ concept HasValidLatticeSoundSpeed = HasFloatingPointValueType<Lattice> && requir
 
 } // namespace detail
 
-/**
- * @brief Concept that defines the requirements for a lattice model.
- *
- * A LatticeModel must have a floating-point value type, a valid dimension (1D, 2D or 3D), a
- * positive lattice size, zero-sum velocities, unit-sum weights and a positive inverse squared sound
- * speed.
- *
- * @tparam Lattice The lattice model to be checked.
- */
+/// @brief Concept that defines the requirements for a lattice model.
+///
+/// A LatticeModel must have a floating-point value type, a valid dimension (1D, 2D or 3D), a
+/// positive lattice size, zero-sum velocities, unit-sum weights and a positive inverse squared
+/// sound speed.
+///
+/// @tparam Lattice The lattice model to be checked.
 template <typename Lattice>
 concept LatticeModel = bolt::lbm::detail::HasFloatingPointValueType<Lattice> &&
                        bolt::lbm::detail::HasValidDimension<Lattice> &&
