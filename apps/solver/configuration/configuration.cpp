@@ -19,19 +19,17 @@
 namespace
 {
 
-/**
- * @brief Converts a span of string views into a vector of C-style string arguments compatible with
- * CLI11.
- *
- * Modern C++ codebases often pack command-line arguments in a C++ container instead of propagating
- * the traditional C-style `int argc` and `char* argv[]` arguments. However, CLI11 expects C-style
- * arguments. This function converts the C++ container to a C-style array of char pointers, ensuring
- * compatibility with CLI11's parsing functions.
- *
- * @param args A span of string views representing command-line arguments.
- *
- * @return A vector of C-style char pointer arguments suitable for CLI11.
- */
+/// @brief Converts a span of string views into a vector of C-style string arguments compatible with
+/// CLI11.
+///
+/// Modern C++ codebases often pack command-line arguments in a C++ container instead of propagating
+/// the traditional C-style `int argc` and `char* argv[]` arguments. However, CLI11 expects C-style
+/// arguments. This function converts the C++ container to a C-style array of char pointers,
+/// ensuring compatibility with CLI11's parsing functions.
+///
+/// @param args A span of string views representing command-line arguments.
+///
+/// @return A vector of C-style char pointer arguments suitable for CLI11.
 auto cli11_compatible_args_from_main(std::span<const std::string_view> args)
     -> std::vector<const char*>
 {
@@ -51,13 +49,11 @@ auto cli11_compatible_args_from_main(std::span<const std::string_view> args)
 namespace detail
 {
 
-/**
- * @brief Parse and validate command-line options for the LBM solver.
- *
- * @param args command-line arguments.
- *
- * @return Validated command-line options.
- */
+/// @brief Parse and validate command-line options for the LBM solver.
+///
+/// @param args command-line arguments.
+///
+/// @return Validated command-line options.
 // NOLINTNEXTLINE(misc-use-internal-linkage)
 auto parse_command_line_options(std::span<const std::string_view> args) -> CommandLineOptions
 {
@@ -97,13 +93,11 @@ auto parse_command_line_options(std::span<const std::string_view> args) -> Comma
     return options;
 }
 
-/**
- * @brief Validate the TOML table for the LBM solver.
- *
- * @param table TOML table containing configuration settings.
- *
- * @return Validated configuration settings.
- */
+/// @brief Validate the TOML table for the LBM solver.
+///
+/// @param table TOML table containing configuration settings.
+///
+/// @return Validated configuration settings.
 // NOLINTNEXTLINE(misc-use-internal-linkage)
 auto validate_configuration_file_settings(const toml::table& table) -> ConfigurationFileSettings
 {
@@ -122,13 +116,11 @@ auto validate_configuration_file_settings(const toml::table& table) -> Configura
     return settings;
 }
 
-/**
- * @brief Parse and validate the TOML configuration file for the LBM solver.
- *
- * @param file_path Path to the TOML configuration file.
- *
- * @return Validated configuration file settings.
- */
+/// @brief Parse and validate the TOML configuration file for the LBM solver.
+///
+/// @param file_path Path to the TOML configuration file.
+///
+/// @return Validated configuration file settings.
 // NOLINTNEXTLINE(misc-use-internal-linkage)
 auto parse_configuration_file_settings(const std::filesystem::path& file_path)
     -> ConfigurationFileSettings
