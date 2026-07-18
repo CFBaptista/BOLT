@@ -10,7 +10,6 @@ RUN \
     apt-get install -y g++-16 && \
     apt-get install -y gdb && \
     apt-get install -y libstdc++-16-dev && \
-    apt-get install -y make && \
     # Install LLVM tools
     apt-get install -y clang-21 && \
     apt-get install -y clang-format-21 && \

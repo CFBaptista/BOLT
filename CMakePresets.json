@@ -35,7 +35,7 @@
             "description": "Configure preset using the GNU toolchain",
             "hidden": true,
             "inherits": "base",
-            "generator": "Unix Makefiles",
+            "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_C_COMPILER": "gcc",
