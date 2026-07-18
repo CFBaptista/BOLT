@@ -18,14 +18,14 @@ jobs:
     name: Code Quality
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.3.0
+      image: ghcr.io/cfbaptista/bolt-dev:0.4.0
     strategy:
       matrix:
         preset:
-          - linux-x86-64-gnu-debug
-          - linux-x86-64-gnu-release
-          - linux-x86-64-llvm-debug
-          - linux-x86-64-llvm-release
+          - linux-native-gnu-debug
+          - linux-native-gnu-release
+          - linux-native-llvm-debug
+          - linux-native-llvm-release
       fail-fast: true
 
     steps:
