@@ -36,6 +36,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     )
 endif()
 
+set(BOLT_LINK_OPTIONS
+    ${BOLT_COVERAGE_FLAGS}
+)
+
 set(BOLT_WARNING_FLAGS
   -Wall
   -Wextra
@@ -60,6 +64,9 @@ endif()
 set(BOLT_COMPILE_FEATURES
     cxx_std_23
 )
+
+set(BOLT_COMPILE_OPTIONS "${BOLT_COMPILE_OPTIONS}" PARENT_SCOPE)
+set(BOLT_LINK_OPTIONS "${BOLT_LINK_OPTIONS}" PARENT_SCOPE)
 
 add_subdirectory(core)
 add_subdirectory(lbm)

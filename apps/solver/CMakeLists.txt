@@ -5,7 +5,17 @@ target_include_directories(bolt INTERFACE
 )
 
 target_compile_options(bolt PRIVATE
-    -Wno-error=gnu-zero-variadic-macro-arguments
+    ${BOLT_COMPILE_OPTIONS}
+)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_link_options(bolt PRIVATE --coverage)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_link_options(bolt PRIVATE -fprofile-instr-generate -fcoverage-mapping)
+endif()
+
+target_link_options(bolt PRIVATE
+    ${BOLT_LINK_OPTIONS}
 )
 
 target_compile_features(bolt PRIVATE cxx_std_23)
