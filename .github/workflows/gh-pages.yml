@@ -21,7 +21,7 @@ jobs:
     name: Build Documentation
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/cfbaptista/bolt-dev-x86_64:0.1.0
+      image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
 
     steps:
       - name: Checkout code

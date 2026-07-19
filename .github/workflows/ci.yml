@@ -32,10 +32,10 @@ jobs:
         include:
           - arch: x86_64
             runner: ubuntu-26.04
-            container_image: ghcr.io/cfbaptista/bolt-dev-x86_64:0.1.0
+            container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
           - arch: aarch64
             runner: ubuntu-26.04-arm
-            container_image: ghcr.io/cfbaptista/bolt-dev-aarch64:0.1.0
+            container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-arm64
       fail-fast: true
 
     steps:
