@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   native:
-    name: Native build (${{ matrix.arch }}, ${{ matrix.preset }})
+    name: ${{ matrix.arch }} / ${{ matrix.preset }}
     runs-on: ${{ matrix.runner }}
     container:
       image: ${{ matrix.container_image }}
@@ -36,7 +36,7 @@ jobs:
           - arch: aarch64
             runner: ubuntu-26.04-arm
             container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-arm64
-      fail-fast: true
+      fail-fast: false
 
     steps:
       - name: Fix dubious ownership warning
@@ -67,6 +67,7 @@ jobs:
             2>&1
 
       - name: Run static analysis (clang-tidy)
+        if: contains(matrix.preset, 'llvm')
         run: |
           clang-tidy \
             $(git ls-files '*.cpp') \
