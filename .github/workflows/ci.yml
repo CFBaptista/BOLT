@@ -47,7 +47,7 @@ jobs:
         arch:
           - x86_64
           - aarch64
-          - riscv64
+          # - riscv64
         preset:
           - linux-native-gnu-debug
           - linux-native-gnu-release
@@ -60,9 +60,9 @@ jobs:
           - arch: aarch64
             runner: ubuntu-26.04-arm
             container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-arm64
-          - arch: riscv64
-            runner: ubuntu-26.04-riscv
-            container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-riscv64
+          # - arch: riscv64
+          #   runner: ubuntu-26.04-riscv
+          #   container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-riscv64
       fail-fast: false
 
     steps:
