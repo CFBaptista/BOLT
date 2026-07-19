@@ -14,7 +14,30 @@ concurrency:
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 
 jobs:
-  native:
+  format:
+    name: Format
+    runs-on: ubuntu-26.04
+    container:
+      image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
+
+    steps:
+      - name: Fix dubious ownership warning
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Run formatter (clang-format)
+        run: |
+          clang-format \
+            --style=file \
+            $(git ls-files '*.cpp' '*.hpp' '*.tpp') \
+            --dry-run \
+            --Werror \
+            2>&1
+
+  build-test-project:
+    needs: format
     name: ${{ matrix.arch }} / ${{ matrix.preset }}
     runs-on: ${{ matrix.runner }}
     container:
@@ -24,6 +47,7 @@ jobs:
         arch:
           - x86_64
           - aarch64
+          - riscv64
         preset:
           - linux-native-gnu-debug
           - linux-native-gnu-release
@@ -36,17 +60,20 @@ jobs:
           - arch: aarch64
             runner: ubuntu-26.04-arm
             container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-arm64
+          - arch: riscv64
+            runner: ubuntu-26.04-riscv
+            container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-riscv64
       fail-fast: false
 
     steps:
       - name: Fix dubious ownership warning
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Checkout code
-        uses: actions/checkout@v5
-
       - name: Show architecture
         run: uname -m
+
+      - name: Checkout code
+        uses: actions/checkout@v5
 
       - name: Configure project
         run: cmake --preset ${{ matrix.preset }}
@@ -56,15 +83,6 @@ jobs:
 
       - name: Test project
         run: ctest --preset ${{ matrix.preset }}
-
-      - name: Run formatter (clang-format)
-        run: |
-          clang-format \
-            --style=file \
-            $(git ls-files '*.cpp' '*.hpp' '*.tpp') \
-            --dry-run \
-            --Werror \
-            2>&1
 
       - name: Run static analysis (clang-tidy)
         if: contains(matrix.preset, 'llvm')
@@ -89,6 +107,22 @@ jobs:
             -i build/*/_deps \
             2>&1
 
-      - name: Run documentation generation (Doxygen)
-        if: contains(matrix.preset, 'llvm') && contains(matrix.preset, 'debug')
-        run: cmake --build --preset ${{ matrix.preset }} --target documentation
+  build-documentation:
+    needs: build-test-project
+    name: Build documentation
+    runs-on: ubuntu-26.04
+    container:
+      image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
+
+    steps:
+      - name: Fix dubious ownership warning
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset linux-native-llvm-debug
+
+      - name: Run documentation generator (Doxygen)
+        run: cmake --build --preset linux-native-llvm-debug --target documentation

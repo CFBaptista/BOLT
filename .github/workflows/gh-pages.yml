@@ -17,8 +17,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Build-Documentation:
-    name: Build Documentation
+  build:
+    name: Build documentation
     runs-on: ubuntu-26.04
     container:
       image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
@@ -41,9 +41,9 @@ jobs:
         with:
           path: build/linux-native-llvm-debug/doc/doxygen/html
 
-  Deploy-Documentation:
-    needs: Build-Documentation
-    name: Deploy Documentation
+  deploy:
+    needs: build
+    name: Deploy documentation
     runs-on: ubuntu-26.04
     environment:
       name: github-pages
