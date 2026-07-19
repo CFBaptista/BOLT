@@ -14,18 +14,28 @@ concurrency:
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 
 jobs:
-  Code-Quality:
-    name: Code Quality
-    runs-on: ubuntu-latest
+  native:
+    name: Native build (${{ matrix.arch }}, ${{ matrix.preset }})
+    runs-on: ${{ matrix.runner }}
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.4.0
+      image: ${{ matrix.container_image }}
     strategy:
       matrix:
+        arch:
+          - x86_64
+          - aarch64
         preset:
           - linux-native-gnu-debug
           - linux-native-gnu-release
           - linux-native-llvm-debug
           - linux-native-llvm-release
+        include:
+          - arch: x86_64
+            runner: ubuntu-26.04
+            container_image: ghcr.io/cfbaptista/bolt-dev-x86_64:0.1.0
+          - arch: aarch64
+            runner: ubuntu-26.04-arm
+            container_image: ghcr.io/cfbaptista/bolt-dev-aarch64:0.1.0
       fail-fast: true
 
     steps:
@@ -34,6 +44,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v5
+
+      - name: Show architecture
+        run: uname -m
 
       - name: Configure project
         run: cmake --preset ${{ matrix.preset }}
