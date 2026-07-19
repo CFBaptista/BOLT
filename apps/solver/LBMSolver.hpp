@@ -3,8 +3,8 @@
 #include <quill/Logger.h>
 #include <toml++/toml.hpp>
 
+#include "configuration/SimulationTime.hpp"
 #include "configuration/configuration_datatypes.hpp"
-#include "core/time/SimulationTime.hpp"
 
 /// @brief Lattice Boltzmann Method (LBM) solver.
 ///

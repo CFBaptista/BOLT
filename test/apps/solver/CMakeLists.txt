@@ -9,5 +9,6 @@ target_link_libraries(solver_test PRIVATE
 catch_discover_tests(solver_test)
 
 target_sources(solver_test PRIVATE
+    SimulationTime.cpp    
     configuration.cpp
 )

@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <stdexcept>
 
-#include "core/time/SimulationTime.hpp" //NOLINT(misc-header-include-cycle)
+#include "configuration/SimulationTime.hpp" //NOLINT(misc-header-include-cycle)
 
 namespace bolt
 {
