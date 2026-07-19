@@ -22,5 +22,8 @@ include(cmake/initialization.cmake)
 
 add_subdirectory(src)
 add_subdirectory(apps)
+
+include(CTest)
+
 add_subdirectory(test)
 add_subdirectory(doc)
