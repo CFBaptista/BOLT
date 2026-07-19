@@ -7,8 +7,7 @@
 
 cmake_minimum_required(VERSION 3.30)
 
-# Enable the export of compile commands by logging it to a JSON file. This improves integration
-# with code analysis tools and IDEs.
+set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(
@@ -19,13 +18,9 @@ project(
     LANGUAGES CXX
 )
 
-set(CMAKE_CXX_EXTENSIONS OFF)
+include(cmake/initialization.cmake)
 
 add_subdirectory(src)
-
-include(CTest)
-add_subdirectory(test)
-
-add_subdirectory(doc)
-
 add_subdirectory(apps)
+add_subdirectory(test)
+add_subdirectory(doc)
