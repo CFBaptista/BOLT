@@ -90,4 +90,5 @@ jobs:
             2>&1
 
       - name: Run documentation generation (Doxygen)
+        if: contains(matrix.preset, 'llvm') && contains(matrix.preset, 'debug')
         run: cmake --build --preset ${{ matrix.preset }} --target documentation
