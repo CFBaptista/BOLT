@@ -9,75 +9,41 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS)
     )
 endif()
 
-# Define compile flags
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(BOLT_COMPILE_FLAGS
-        -O0
-    )
-elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(BOLT_COMPILE_FLAGS
-        -O3
-        -ffast-math
-        -flto
-    )
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-    set(BOLT_COMPILE_FLAGS
-        -O2
-        -g
-    )
-endif()
+option(BOLT_ENABLE_COVERAGE "Enable compiler and linker coverage flags" OFF)
 
-# Define coverage flags
-if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set(BOLT_COVERAGE_FLAGS
-        -fprofile-instr-generate
-        -fcoverage-mapping
-    )
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(BOLT_COVERAGE_FLAGS
-        --coverage
-    )
-endif()
+add_library(bolt_compile_settings INTERFACE)
 
-set(BOLT_LINK_OPTIONS
-    ${BOLT_COVERAGE_FLAGS}
-)
-
-set(BOLT_WARNING_FLAGS
-  -Wall
-  -Wextra
-  -Werror
-  -Wpedantic
-)
-
-# Merge flags into compile options
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(BOLT_COMPILE_OPTIONS
-        ${BOLT_COMPILE_FLAGS}
-        ${BOLT_ARCHITECTURE_FLAGS}
-        ${BOLT_COVERAGE_FLAGS}
-        ${BOLT_WARNING_FLAGS}
-    )
-elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(BOLT_COMPILE_OPTIONS
-        ${BOLT_COMPILE_FLAGS}
-        ${BOLT_ARCHITECTURE_FLAGS}
-        ${BOLT_WARNING_FLAGS}
-    )
-elseif(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-    set(BOLT_COMPILE_OPTIONS
-        ${BOLT_COMPILE_FLAGS}
-        ${BOLT_ARCHITECTURE_FLAGS}
-        ${BOLT_WARNING_FLAGS}
-    )
-endif()
-
-set(BOLT_COMPILE_FEATURES
+target_compile_features(bolt_compile_settings INTERFACE
     cxx_std_23
 )
 
-set(BOLT_COMPILE_OPTIONS "${BOLT_COMPILE_OPTIONS}" PARENT_SCOPE)
-set(BOLT_LINK_OPTIONS "${BOLT_LINK_OPTIONS}" PARENT_SCOPE)
+set_target_properties(bolt_compile_settings PROPERTIES
+    CXX_EXTENSIONS OFF
+    INTERFACE_CXX_EXTENSIONS OFF
+)
+
+target_compile_options(bolt_compile_settings INTERFACE
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Werror
+    $<$<CONFIG:Debug>:-O0>
+    $<$<CONFIG:Release>:-O3;-ffast-math;-flto>
+    $<$<CONFIG:RelWithDebInfo>:-O2;-g>
+    ${BOLT_ARCHITECTURE_FLAGS}
+)
+
+if(BOLT_ENABLE_COVERAGE)
+    target_compile_options(bolt_compile_settings INTERFACE
+        $<$<CXX_COMPILER_ID:Clang>:-fprofile-instr-generate;-fcoverage-mapping>
+        $<$<CXX_COMPILER_ID:GNU>:--coverage>
+    )
+
+    target_link_options(bolt_compile_settings INTERFACE
+        $<$<CXX_COMPILER_ID:Clang>:-fprofile-instr-generate;-fcoverage-mapping>
+        $<$<CXX_COMPILER_ID:GNU>:--coverage>
+    )
+endif()
 
 add_subdirectory(core)
 add_subdirectory(lbm)

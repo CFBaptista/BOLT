@@ -4,12 +4,8 @@ target_include_directories(lbm INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_compile_options(lbm INTERFACE
-    ${BOLT_COMPILE_OPTIONS}
-)
-
-target_compile_features(lbm INTERFACE
-    ${BOLT_COMPILE_FEATURES}
+target_link_libraries(lbm INTERFACE
+    bolt_compile_settings
 )
 
 target_sources(lbm INTERFACE

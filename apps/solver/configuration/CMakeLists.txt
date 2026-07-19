@@ -4,18 +4,13 @@ target_include_directories(configuration PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-# target_compile_options(configuration PUBLIC
-#
-# )
-
-target_compile_features(configuration PRIVATE cxx_std_23)
-
 target_link_libraries(configuration PUBLIC
     CLI11::CLI11
     quill::quill
     tomlplusplus::tomlplusplus
     core
     lbm
+    bolt_compile_settings
 )
 
 target_sources(configuration
