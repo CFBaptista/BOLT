@@ -126,3 +126,12 @@ jobs:
 
       - name: Run documentation generator (Doxygen)
         run: cmake --build --preset linux-native-llvm-release --target docs
+
+  success:
+    needs: [format, build-test-project, build-documentation]
+    name: Success
+    runs-on: ubuntu-26.04
+
+    steps:
+      - name: Report success
+        run: echo "All checks passed successfully!"
