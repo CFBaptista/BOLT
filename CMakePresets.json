@@ -11,14 +11,45 @@
             "hidden": true,
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
+                "BOLT_ARCHITECTURE_FLAGS": "",
+                "BUILD_DOCS": "OFF",
+                "BUILD_TESTING": "OFF",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "debug",
+            "description": "Configure preset for Debug build",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "BUILD_TESTING": "ON",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "release",
+            "description": "Configure preset for Release build",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "relWithDebInfo",
+            "description": "Configure preset for RelWithDebInfo build",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "BUILD_TESTING": "ON",
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
             }
         },
         {
             "name": "llvm",
             "description": "Configure preset using the LLVM toolchain",
             "hidden": true,
-            "inherits": "base",
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clang++",
@@ -34,7 +65,6 @@
             "name": "gnu",
             "description": "Configure preset using the GNU toolchain",
             "hidden": true,
-            "inherits": "base",
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
@@ -43,32 +73,10 @@
             }
         },
         {
-            "name": "debug",
-            "description": "Configure preset for Debug build",
+            "name": "native",
+            "description": "Configure preset for host-specific native optimization flags",
             "hidden": true,
-            "inherits": "base",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "BOLT_ARCHITECTURE_FLAGS": ""
-            }
-        },
-        {
-            "name": "release",
-            "description": "Configure preset for Release build",
-            "hidden": true,
-            "inherits": "base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "BOLT_ARCHITECTURE_FLAGS": "-march=native;-mtune=native"
-            }
-        },
-        {
-            "name": "relWithDebInfo",
-            "description": "Configure preset for RelWithDebInfo build",
-            "hidden": true,
-            "inherits": "base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
                 "BOLT_ARCHITECTURE_FLAGS": "-march=native;-mtune=native"
             }
         },
@@ -78,8 +86,9 @@
             "description": "Configure preset on Linux using the LLVM toolchain for Debug build",
             "hidden": false,
             "inherits": [
+                "debug",
                 "llvm",
-                "debug"
+                "native"
             ]
         },
         {
@@ -88,8 +97,9 @@
             "description": "Configure preset on Linux using the LLVM toolchain for Release build",
             "hidden": false,
             "inherits": [
+                "release",
                 "llvm",
-                "release"
+                "native"
             ]
         },
         {
@@ -98,8 +108,9 @@
             "description": "Configure preset on Linux using the LLVM toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": [
+                "relWithDebInfo",
                 "llvm",
-                "relWithDebInfo"
+                "native"
             ]
         },
         {
@@ -108,8 +119,9 @@
             "description": "Configure preset on Linux using the GNU toolchain for Debug build",
             "hidden": false,
             "inherits": [
+                "debug",
                 "gnu",
-                "debug"
+                "native"
             ]
         },
         {
@@ -118,8 +130,9 @@
             "description": "Configure preset on Linux using the GNU toolchain for Release build",
             "hidden": false,
             "inherits": [
+                "release",
                 "gnu",
-                "release"
+                "native"
             ]
         },
         {
@@ -128,8 +141,17 @@
             "description": "Configure preset on Linux using the GNU toolchain for RelWithDebInfo build",
             "hidden": false,
             "inherits": [
+                "relWithDebInfo",
                 "gnu",
-                "relWithDebInfo"
+                "native"
+            ]
+        },
+        {
+            "name": "default",
+            "description": "Default configure preset",
+            "hidden": false,
+            "inherits": [
+                "release"
             ]
         }
     ],
@@ -141,6 +163,13 @@
             "inheritConfigureEnvironment": true,
             "verbose": true,
             "jobs": 4
+        },
+        {
+            "name": "default",
+            "description": "Default build preset",
+            "hidden": false,
+            "inherits": "base",
+            "configurePreset": "default"
         },
         {
             "name": "linux-native-llvm-debug",
@@ -210,6 +239,14 @@
                 "noTestsAction": "error",
                 "stopOnFailure": false
             }
+        },
+        {
+            "name": "default",
+            "description": "Default test preset",
+            "hidden": false,
+            "inherits": "base",
+            "configuration": "Release",
+            "configurePreset": "default"
         },
         {
             "name": "linux-native-llvm-debug",

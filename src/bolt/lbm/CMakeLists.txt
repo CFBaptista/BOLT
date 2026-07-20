@@ -1,7 +1,7 @@
 add_library(lbm INTERFACE)
 
 target_include_directories(lbm INTERFACE
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
+    ${BOLT_SOURCE_DIRECTORY}/..
 )
 
 target_link_libraries(lbm INTERFACE

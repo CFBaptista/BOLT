@@ -28,10 +28,10 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Configure project
-        run: cmake --preset linux-native-llvm-debug
+        run: cmake --preset linux-native-llvm-release -DBUILD_DOCS=ON -DBUILD_TESTING=OFF
 
       - name: Run documentation generator (Doxygen)
-        run: cmake --build --preset linux-native-llvm-debug --target documentation
+        run: cmake --build --preset linux-native-llvm-release --target docs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -39,7 +39,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/linux-native-llvm-debug/doc/doxygen/html
+          path: build/linux-native-llvm-release/doc/doxygen/html
 
   deploy:
     needs: build

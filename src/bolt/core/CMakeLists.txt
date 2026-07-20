@@ -1,7 +1,7 @@
 add_library(core INTERFACE)
 
 target_include_directories(core INTERFACE
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
+    ${BOLT_SOURCE_DIRECTORY}/..
 )
 
 target_link_libraries(core INTERFACE

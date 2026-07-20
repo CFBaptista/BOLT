@@ -4,7 +4,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "lbm/DistributionField.hpp"
+#include "bolt/lbm/DistributionField.hpp"
 
 template <std::floating_point Real, std::size_t Size>
 consteval auto uniform_weights(Real value) -> std::array<Real, Size>

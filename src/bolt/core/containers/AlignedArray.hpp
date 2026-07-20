@@ -45,6 +45,7 @@ public:
     /// @brief Allocates memory for a specified number of elements.
     ///
     /// @param count The number of elements to allocate.
+    ///
     /// @return A pointer to the allocated memory.
     [[nodiscard]] static auto allocate(std::size_t count) -> Real*;
 
@@ -91,12 +92,16 @@ public:
 
     /// @brief Default constructor.
     AlignedArray();
+
     /// @brief Destructor.
     ~AlignedArray() = default;
+
     AlignedArray(const AlignedArray&) = delete;
     auto operator=(const AlignedArray&) -> AlignedArray& = delete;
+
     /// @brief Move constructor.
     AlignedArray(AlignedArray&&) noexcept = default;
+
     /// @brief Move assignment operator.
     ///
     /// @return A reference to the assigned object.
@@ -105,17 +110,21 @@ public:
     /// @brief Access an element by its linear index.
     ///
     /// @param index The linear index of the element.
+    ///
     /// @return A reference to the element at the specified index.
     auto operator[](std::size_t index) -> Real&;
+
     /// @brief Access an element by its linear index (const version).
     ///
     /// @param index The linear index of the element.
+    ///
     /// @return A const reference to the element at the specified index.
     auto operator[](std::size_t index) const -> const Real&;
 
     /// @brief Access an element by its multi-dimensional indices.
     ///
     /// @param indices The multi-dimensional indices of the element.
+    ///
     /// @return A reference to the element at the specified indices.
     template <typename... Indices>
     auto operator[](Indices... indices) -> Real&;
@@ -123,6 +132,7 @@ public:
     /// @brief Access an element by its multi-dimensional indices (const version).
     ///
     /// @param indices The multi-dimensional indices of the element.
+    ///
     /// @return A const reference to the element at the specified indices.
     template <typename... Indices>
     auto operator[](Indices... indices) const -> const Real&;
@@ -136,4 +146,4 @@ private:
 
 } // namespace bolt
 
-#include "core/containers/AlignedArray.tpp"
+#include "AlignedArray.tpp"

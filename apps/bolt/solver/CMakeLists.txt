@@ -1,7 +1,7 @@
 add_executable(bolt)
 
 target_include_directories(bolt INTERFACE
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
+    ${BOLT_APPLICATION_DIRECTORY}/..
 )
 
 add_subdirectory(configuration)

@@ -8,7 +8,6 @@
 cmake_minimum_required(VERSION 3.30)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(
     BOLT
@@ -23,7 +22,10 @@ include(cmake/initialization.cmake)
 add_subdirectory(src)
 add_subdirectory(apps)
 
-include(CTest)
+if (BUILD_TESTING)
+    add_subdirectory(test)
+endif()
 
-add_subdirectory(test)
-add_subdirectory(doc)
+if (BUILD_DOCS)
+    add_subdirectory(doc)
+endif()

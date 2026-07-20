@@ -1,6 +1,6 @@
 #include <toml++/toml.hpp>
 
-#include "configuration/configuration_datatypes.hpp"
+#include "bolt/solver/configuration/configuration_datatypes.hpp"
 
 namespace detail
 {

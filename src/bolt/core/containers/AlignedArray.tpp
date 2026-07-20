@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <new>
 
-#include "core/containers/AlignedArray.hpp" // NOLINT(misc-header-include-cycle)
+#include "AlignedArray.hpp" // NOLINT(misc-header-include-cycle)
 
 namespace bolt
 {

@@ -3,8 +3,8 @@
 #include <array>
 #include <cstddef>
 
-#include "core/concepts/LatticeModel.hpp"
-#include "core/containers/AlignedArray.hpp"
+#include "bolt/core/concepts/LatticeModel.hpp"
+#include "bolt/core/containers/AlignedArray.hpp"
 
 namespace bolt
 {
@@ -43,12 +43,16 @@ public:
 
     /// @brief Default constructor.
     DistributionField() = default;
+
     /// @brief Destructor.
     ~DistributionField() = default;
+
     DistributionField(const DistributionField&) = delete;
     auto operator=(const DistributionField&) -> DistributionField& = delete;
+
     /// @brief Move constructor.
     DistributionField(DistributionField&&) noexcept = default;
+
     /// @brief Move assignment operator.
     ///
     /// @return A reference to the assigned object.
@@ -57,18 +61,22 @@ public:
     /// @brief Access the distribution for a velocity at a node using a linear index.
     ///
     /// @param index The linear index of the distribution for a velocity at a node.
+    ///
     /// @return A reference to the distribution at the specified index.
     auto operator[](std::size_t index) -> Lattice::value_type&;
+
     /// @brief Access the distribution for a velocity at a node using a linear index (const
     /// version).
     ///
     /// @param index The linear index of the distribution for a velocity at a node.
+    ///
     /// @return A const reference to the distribution at the specified index.
     auto operator[](std::size_t index) const -> const Lattice::value_type&;
 
     /// @brief Access the distribution for a velocity at a node using a multi-dimensional index.
     ///
     /// @param indices The multi-dimensional indices of the distribution for a velocity at a node.
+    ///
     /// @return A reference to the distribution at the specified indices.
     template <typename... Indices>
     auto operator[](Indices... indices) -> Lattice::value_type&;
@@ -77,6 +85,7 @@ public:
     /// (const version).
     ///
     /// @param indices The multi-dimensional indices of the distribution for a velocity at a node.
+    ///
     /// @return A const reference to the distribution at the specified indices.
     template <typename... Indices>
     auto operator[](Indices... indices) const -> const Lattice::value_type&;
@@ -89,4 +98,4 @@ private:
 
 } // namespace bolt
 
-#include "lbm/DistributionField.tpp"
+#include "DistributionField.tpp"

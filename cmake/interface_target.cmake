@@ -20,7 +20,7 @@ target_compile_options(bolt_compile_settings INTERFACE
     ${BOLT_ARCHITECTURE_FLAGS}
 )
 
-if(BOLT_ENABLE_COVERAGE)
+if(ENABLE_COVERAGE)
     target_compile_options(bolt_compile_settings INTERFACE
         $<$<CXX_COMPILER_ID:Clang>:-fprofile-instr-generate;-fcoverage-mapping>
         $<$<CXX_COMPILER_ID:GNU>:--coverage>

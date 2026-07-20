@@ -1,4 +1,5 @@
-include(cmake/options.cmake)
-include(cmake/fetch_content.cmake)
-include(cmake/compile_settings.cmake)
+include(cmake/variables.cmake)
+include(cmake/dependencies.cmake)
+include(cmake/interface_target.cmake)
 include(cmake/custom_targets.cmake)
+include(cmake/summary.cmake)

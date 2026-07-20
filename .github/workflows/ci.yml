@@ -76,7 +76,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Configure project
-        run: cmake --preset ${{ matrix.preset }}
+        run: cmake --preset ${{ matrix.preset }} -DBUILD_DOCS=OFF -DBUILD_TESTING=ON
 
       - name: Build project
         run: cmake --build --preset ${{ matrix.preset }}
@@ -122,7 +122,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Configure project
-        run: cmake --preset linux-native-llvm-debug
+        run: cmake --preset linux-native-llvm-release -DBUILD_DOCS=ON -DBUILD_TESTING=OFF
 
       - name: Run documentation generator (Doxygen)
-        run: cmake --build --preset linux-native-llvm-debug --target documentation
+        run: cmake --build --preset linux-native-llvm-release --target docs

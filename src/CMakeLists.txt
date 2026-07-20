@@ -1,2 +1,2 @@
-add_subdirectory(core)
-add_subdirectory(lbm)
+add_subdirectory(bolt/core)
+add_subdirectory(bolt/lbm)

@@ -3,7 +3,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "configuration/SimulationTime.hpp"
+#include "bolt/solver/configuration/SimulationTime.hpp"
 
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
 SCENARIO("Verify properties and state of simulation time")

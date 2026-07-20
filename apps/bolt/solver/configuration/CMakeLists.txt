@@ -1,7 +1,7 @@
 add_library(configuration STATIC)
 
 target_include_directories(configuration PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
+    ${BOLT_APPLICATION_DIRECTORY}/..
 )
 
 target_link_libraries(configuration PUBLIC
@@ -13,12 +13,8 @@ target_link_libraries(configuration PUBLIC
     bolt_compile_settings
 )
 
-target_sources(configuration
-    PUBLIC
-        utilities.hpp
-        validation.hpp
-    PRIVATE
-        configuration.cpp
-        logger.cpp
-        utilities.cpp
+target_sources(configuration PRIVATE
+    configuration.cpp
+    logger.cpp
+    utilities.cpp
 )
