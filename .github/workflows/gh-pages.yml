@@ -1,0 +1,55 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - master
+    tags: ["*"]
+
+permissions:
+  contents: read
+  packages: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build documentation
+    runs-on: ubuntu-26.04
+    container:
+      image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset linux-native-llvm-release -DBUILD_DOCS=ON -DBUILD_TESTING=OFF
+
+      - name: Run documentation generator (Doxygen)
+        run: cmake --build --preset linux-native-llvm-release --target docs
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/linux-native-llvm-release/doc/doxygen/html
+
+  deploy:
+    needs: build
+    name: Deploy documentation
+    runs-on: ubuntu-26.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

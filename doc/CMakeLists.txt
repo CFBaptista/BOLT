@@ -7,7 +7,7 @@ if(DOXYGEN_FOUND)
     configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
 
     doxygen_add_docs(
-        documentation
+        docs
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         CONFIG_FILE ${DOXYGEN_OUT}
         COMMENT "Generating documentation with Doxygen"

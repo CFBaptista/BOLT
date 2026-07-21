@@ -7,8 +7,7 @@
 #include <CLI/CLI.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-#include "configuration/configuration.hpp"
-
+#include "bolt/solver/configuration/configuration.hpp"
 #include "configuration_helper.hpp"
 
 SCENARIO("Parsing a valid configuration does not throw an exception")
@@ -31,7 +30,7 @@ SCENARIO("Parsing a valid configuration does not throw an exception")
             {
                 THEN("No exception is thrown")
                 {
-                    REQUIRE_NOTHROW(parse_configuration(args));
+                    REQUIRE_NOTHROW(bolt::app::parse_configuration(args));
                 }
             }
         }
@@ -44,7 +43,9 @@ SCENARIO("Parsing a valid configuration does not throw an exception")
             {
                 THEN("No exception is thrown")
                 {
-                    REQUIRE_NOTHROW(detail::validate_configuration_file_settings(config_table));
+                    REQUIRE_NOTHROW(
+                        bolt::app::detail::validate_configuration_file_settings(config_table)
+                    );
                 }
             }
         }
@@ -72,7 +73,7 @@ SCENARIO("Parsing an invalid configuration setting throws an exception")
                 THEN("An exception is thrown")
                 {
                     REQUIRE_THROWS_AS(
-                        detail::validate_configuration_file_settings(config_table),
+                        bolt::app::detail::validate_configuration_file_settings(config_table),
                         std::invalid_argument
                     );
                 }
@@ -90,7 +91,7 @@ SCENARIO("Parsing an invalid configuration setting throws an exception")
                 THEN("An exception is thrown")
                 {
                     REQUIRE_THROWS_AS(
-                        detail::validate_configuration_file_settings(config_table),
+                        bolt::app::detail::validate_configuration_file_settings(config_table),
                         std::invalid_argument
                     );
                 }
@@ -108,7 +109,7 @@ SCENARIO("Parsing an invalid configuration setting throws an exception")
                 THEN("An exception is thrown")
                 {
                     REQUIRE_THROWS_AS(
-                        detail::validate_configuration_file_settings(config_table),
+                        bolt::app::detail::validate_configuration_file_settings(config_table),
                         std::invalid_argument
                     );
                 }
@@ -126,7 +127,7 @@ SCENARIO("Parsing an invalid configuration setting throws an exception")
                 THEN("An exception is thrown")
                 {
                     REQUIRE_THROWS_AS(
-                        detail::validate_configuration_file_settings(config_table),
+                        bolt::app::detail::validate_configuration_file_settings(config_table),
                         std::invalid_argument
                     );
                 }
@@ -144,7 +145,7 @@ SCENARIO("Parsing an invalid configuration setting throws an exception")
                 THEN("An exception is thrown")
                 {
                     REQUIRE_THROWS_AS(
-                        detail::validate_configuration_file_settings(config_table),
+                        bolt::app::detail::validate_configuration_file_settings(config_table),
                         std::invalid_argument
                     );
                 }
@@ -162,7 +163,7 @@ SCENARIO("Parsing an invalid configuration setting throws an exception")
                 THEN("An exception is thrown")
                 {
                     REQUIRE_THROWS_AS(
-                        detail::validate_configuration_file_settings(config_table),
+                        bolt::app::detail::validate_configuration_file_settings(config_table),
                         std::invalid_argument
                     );
                 }
@@ -180,7 +181,7 @@ SCENARIO("Parsing an invalid configuration setting throws an exception")
                 THEN("An exception is thrown")
                 {
                     REQUIRE_THROWS_AS(
-                        detail::validate_configuration_file_settings(config_table),
+                        bolt::app::detail::validate_configuration_file_settings(config_table),
                         std::invalid_argument
                     );
                 }
@@ -199,7 +200,7 @@ SCENARIO("Parsing invalid command-line arguments throws an exception")
         {
             THEN("An exception is thrown")
             {
-                REQUIRE_THROWS_AS(parse_configuration(args), CLI::ParseError);
+                REQUIRE_THROWS_AS(bolt::app::parse_configuration(args), CLI::ParseError);
             }
         }
     }
@@ -214,7 +215,7 @@ SCENARIO("Parsing invalid command-line arguments throws an exception")
         {
             THEN("An exception is thrown")
             {
-                REQUIRE_THROWS_AS(parse_configuration(args), CLI::ParseError);
+                REQUIRE_THROWS_AS(bolt::app::parse_configuration(args), CLI::ParseError);
             }
         }
     }
@@ -235,7 +236,7 @@ SCENARIO("Parsing invalid command-line arguments throws an exception")
         {
             THEN("An exception is thrown")
             {
-                REQUIRE_THROWS_AS(parse_configuration(args), CLI::ParseError);
+                REQUIRE_THROWS_AS(bolt::app::parse_configuration(args), CLI::ParseError);
             }
         }
     }
@@ -256,7 +257,7 @@ SCENARIO("Parsing invalid command-line arguments throws an exception")
         {
             THEN("An exception is thrown")
             {
-                REQUIRE_THROWS_AS(parse_configuration(args), CLI::ParseError);
+                REQUIRE_THROWS_AS(bolt::app::parse_configuration(args), CLI::ParseError);
             }
         }
     }

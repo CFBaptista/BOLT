@@ -1,18 +1,14 @@
 add_executable(solver_test)
 
-target_link_libraries(solver_test PRIVATE
-    configuration
+target_link_libraries(solver_test PRIVATE    
     Catch2::Catch2WithMain
+    configuration
+    bolt_compile_settings
 )
-
-target_link_options(solver_test PRIVATE
-    ${BOLT_LINK_OPTIONS}
-)
-
-set_target_properties(solver_test PROPERTIES ${BOLT_COMPILE_PROPERTIES})
 
 catch_discover_tests(solver_test)
 
 target_sources(solver_test PRIVATE
+    SimulationTime.cpp    
     configuration.cpp
 )

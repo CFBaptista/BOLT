@@ -11,7 +11,6 @@ Checks: >
     hicpp-*,
     misc-*,
     modernize-*,
-    -modernize-concat-nested-namespaces,
     performance-*,
     readability-*
 FormatStyle: file

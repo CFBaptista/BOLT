@@ -9,9 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Initial CMake-based project structure for the BOLT library, including source, test, and documentation targets.
-- CMake presets for GNU and LLVM debug, release and relWithDebInfo configurations.
+- Interface target `bolt_compile_settings` for consolidation of compilation settings.
+- CMake presets supporting GNU and LLVM toolchains and debug, release and relWithDebInfo builds.
 - Development container configuration and Docker image definition for a reproducible development environment (also used by GitHub Action workflows).
 - GitHub Actions workflows for continuous integration and documentation deployment.
+- CI includes `x86_64` and `aarch64` jobs.
 - Doxygen-based documentation build configuration and BibTex-based bibliography support.
 - Repository-wide tooling configuration for `clang-format`, `clang-tidy`, `clangd`, and `cppcheck`.
 
