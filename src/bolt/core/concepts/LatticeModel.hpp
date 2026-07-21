@@ -7,10 +7,7 @@
 #include <cstddef>
 #include <type_traits>
 
-namespace bolt
-{
-
-namespace lbm
+namespace bolt::lbm
 {
 
 namespace detail
@@ -107,6 +104,4 @@ concept LatticeModel = bolt::lbm::detail::HasFloatingPointValueType<Lattice> &&
                        bolt::lbm::detail::HasValidLatticeWeights<Lattice> &&
                        bolt::lbm::detail::HasValidLatticeSoundSpeed<Lattice>;
 
-} // namespace lbm
-
-} // namespace bolt
+} // namespace bolt::lbm

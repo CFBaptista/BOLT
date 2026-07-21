@@ -6,10 +6,7 @@
 #include "bolt/core/concepts/LatticeModel.hpp"
 #include "bolt/core/containers/AlignedArray.hpp"
 
-namespace bolt
-{
-
-namespace lbm
+namespace bolt::lbm
 {
 
 /// @brief A class template representing a N-dimensional Cartesian grid containing distributions at
@@ -94,8 +91,6 @@ private:
     bolt::core::AlignedArray<typename Lattice::value_type, Lattice::size, Shape...> data_;
 };
 
-} // namespace lbm
-
-} // namespace bolt
+} // namespace bolt::lbm
 
 #include "DistributionField.tpp"

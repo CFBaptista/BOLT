@@ -2,10 +2,7 @@
 #include <concepts>
 #include <cstddef>
 
-namespace bolt
-{
-
-namespace lbm
+namespace bolt::lbm
 {
 
 /// @brief A class template representing the D2Q9 lattice model.
@@ -58,6 +55,4 @@ public:
     static constexpr Real sound_speed_inverse_squared{static_cast<Real>(3)};
 };
 
-} // namespace lbm
-
-} // namespace bolt
+} // namespace bolt::lbm

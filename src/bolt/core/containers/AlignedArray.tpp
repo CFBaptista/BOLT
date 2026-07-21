@@ -6,10 +6,7 @@
 
 #include "AlignedArray.hpp" // NOLINT(misc-header-include-cycle)
 
-namespace bolt
-{
-
-namespace core
+namespace bolt::core
 {
 
 template <typename Real, std::size_t Alignment>
@@ -86,6 +83,4 @@ auto AlignedArray<Real, Shape...>::operator[](Indices... indices) const -> const
     return view_[indices...];
 }
 
-} // namespace core
-
-} // namespace bolt
+} // namespace bolt::core

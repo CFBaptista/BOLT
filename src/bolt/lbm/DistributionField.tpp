@@ -5,10 +5,7 @@
 #include "DistributionField.hpp" // NOLINT(misc-header-include-cycle)
 #include "bolt/core/concepts/LatticeModel.hpp"
 
-namespace bolt
-{
-
-namespace lbm
+namespace bolt::lbm
 {
 
 template <LatticeModel Lattice, std::size_t... Shape>
@@ -39,6 +36,4 @@ auto DistributionField<Lattice, Shape...>::operator[](Indices... indices) const
     return data_[indices...];
 }
 
-} // namespace lbm
-
-} // namespace bolt
+} // namespace bolt::lbm
