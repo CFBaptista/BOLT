@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   format:
-    name: Format
+    name: Check formatting
     runs-on: ubuntu-26.04
     container:
       image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
@@ -36,9 +36,9 @@ jobs:
             --Werror \
             2>&1
 
-  build-test-project:
+  build-test:
     needs: format
-    name: ${{ matrix.arch }} / ${{ matrix.preset }}
+    name: ${{ matrix.arch }} / ${{ matrix.toolchain }} / ${{ matrix.build_type }}
     runs-on: ${{ matrix.runner }}
     container:
       image: ${{ matrix.container_image }}
@@ -61,8 +61,20 @@ jobs:
             runner: ubuntu-26.04-arm
             container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-arm64
           # - arch: riscv64
-          #   runner: ubuntu-26.04-riscv
+          #   runner: ubuntu-24.04-riscv
           #   container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-riscv64
+          - preset: linux-native-gnu-debug
+            toolchain: gnu
+            build_type: debug
+          - preset: linux-native-gnu-release
+            toolchain: gnu
+            build_type: release
+          - preset: linux-native-llvm-debug
+            toolchain: llvm
+            build_type: debug
+          - preset: linux-native-llvm-release
+            toolchain: llvm
+            build_type: release
       fail-fast: false
 
     steps:
@@ -107,8 +119,8 @@ jobs:
             -i build/*/_deps \
             2>&1
 
-  build-documentation:
-    needs: build-test-project
+  documentation:
+    needs: build-test
     name: Build documentation
     runs-on: ubuntu-26.04
     container:
@@ -128,7 +140,7 @@ jobs:
         run: cmake --build --preset linux-native-llvm-release --target docs
 
   success:
-    needs: [format, build-test-project, build-documentation]
+    needs: [format, build-test, documentation]
     name: Success
     runs-on: ubuntu-26.04
 
