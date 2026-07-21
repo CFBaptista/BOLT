@@ -5,6 +5,9 @@
 #include "LBMSolver.hpp"
 #include "configuration/configuration_datatypes.hpp"
 
+namespace bolt::app
+{
+
 LBMSolver::LBMSolver(const ApplicationConfiguration& configuration, quill::Logger* logger)
     : time_(
           configuration.time.start_time,
@@ -48,3 +51,5 @@ auto LBMSolver::run() -> void
 
     final_log_messages();
 }
+
+} // namespace bolt::app

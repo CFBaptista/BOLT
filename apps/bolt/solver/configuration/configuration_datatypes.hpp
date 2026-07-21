@@ -4,6 +4,9 @@
 #include <filesystem>
 #include <string>
 
+namespace bolt::app
+{
+
 /// @brief Command line options passed by user to the LBM application.
 struct CommandLineOptions
 {
@@ -56,3 +59,5 @@ struct ApplicationConfiguration
     /// Time configuration.
     TimeConfiguration time{};
 };
+
+} // namespace bolt::app

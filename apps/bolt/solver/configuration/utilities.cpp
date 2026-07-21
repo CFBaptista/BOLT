@@ -4,6 +4,9 @@
 #include <format>
 #include <string>
 
+namespace bolt::app
+{
+
 auto get_timestamp() -> std::string
 {
     const auto now = std::chrono::floor<std::chrono::seconds>(std::chrono::system_clock::now());
@@ -11,3 +14,5 @@ auto get_timestamp() -> std::string
 
     return timestamp;
 }
+
+} // namespace bolt::app

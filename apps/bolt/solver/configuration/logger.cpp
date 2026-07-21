@@ -17,6 +17,9 @@
 #include "logger.hpp"
 #include "utilities.hpp"
 
+namespace bolt::app
+{
+
 auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
     -> quill::Logger*
 {
@@ -84,3 +87,5 @@ auto configure_logger(const std::filesystem::path& output_directory, const std::
 
     return logger;
 }
+
+} // namespace bolt::app

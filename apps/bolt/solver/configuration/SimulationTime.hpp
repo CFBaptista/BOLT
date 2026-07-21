@@ -3,10 +3,7 @@
 #include <concepts>
 #include <cstddef>
 
-namespace bolt
-{
-
-namespace core
+namespace bolt::app
 {
 
 /// @brief A class template representing the time for a numerical simulation.
@@ -79,8 +76,6 @@ private:
     std::size_t current_step_;
 };
 
-} // namespace core
-
-} // namespace bolt
+} // namespace bolt::app
 
 #include "SimulationTime.tpp"

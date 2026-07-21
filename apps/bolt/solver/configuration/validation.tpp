@@ -9,6 +9,9 @@
 #include "utilities.hpp"
 #include "validation.hpp" // NOLINT(misc-header-include-cycle)
 
+namespace bolt::app
+{
+
 template <typename T>
 NumberValidator<T>::NumberValidator(const toml::table& table, const std::string& key)
     : key_(key), value_(get_toml_value<T>(table, key))
@@ -85,3 +88,5 @@ auto NumberValidator<T>::between(const T& lower, const T& upper) -> NumberValida
 
     return *this;
 }
+
+} // namespace bolt::app

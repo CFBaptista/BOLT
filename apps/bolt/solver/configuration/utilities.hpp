@@ -7,6 +7,9 @@
 
 #include <toml++/toml.hpp>
 
+namespace bolt::app
+{
+
 /// @brief Get ISO 8601 formatted timestamp without special characters.
 ///
 /// @return A string representing the current timestamp in ISO 8601 format without special
@@ -45,3 +48,5 @@ auto get_toml_value(const toml::table& table, std::string_view key) -> T
         std::format("Value for key '{}' in TOML table is not convertible to the expected type", key)
     );
 }
+
+} // namespace bolt::app

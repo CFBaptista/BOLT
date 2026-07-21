@@ -15,13 +15,13 @@ auto main(int argc, char* argv[]) -> int
         argv, argv + argc // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     };
 
-    const ApplicationConfiguration configuration{parse_configuration(args)};
+    const bolt::app::ApplicationConfiguration configuration{bolt::app::parse_configuration(args)};
 
     quill::Logger* logger{
-        configure_logger(configuration.io.output_directory, configuration.io.log_level)
+        bolt::app::configure_logger(configuration.io.output_directory, configuration.io.log_level)
     };
 
-    LBMSolver solver(configuration, logger);
+    bolt::app::LBMSolver solver(configuration, logger);
     solver.run();
 
     return 0;

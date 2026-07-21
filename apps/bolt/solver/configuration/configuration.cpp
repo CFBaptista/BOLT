@@ -16,6 +16,9 @@
 #include "configuration_datatypes.hpp"
 #include "validation.hpp"
 
+namespace bolt::app
+{
+
 namespace
 {
 
@@ -168,3 +171,5 @@ auto parse_configuration(std::span<const std::string_view> args) -> ApplicationC
 
     return application_configuration;
 }
+
+} // namespace bolt::app

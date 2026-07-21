@@ -10,9 +10,14 @@
 
 #include "configuration_datatypes.hpp"
 
+namespace bolt::app
+{
+
 /// @brief Parse command-line arguments and the input configuration file for the LBM solver.
 ///
 /// @param args command-line arguments.
 ///
 /// @return Parsed application configuration.
 auto parse_configuration(std::span<const std::string_view> args) -> ApplicationConfiguration;
+
+} // namespace bolt::app

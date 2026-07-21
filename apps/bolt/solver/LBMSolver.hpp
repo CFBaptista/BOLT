@@ -6,6 +6,9 @@
 #include "configuration/SimulationTime.hpp"
 #include "configuration/configuration_datatypes.hpp"
 
+namespace bolt::app
+{
+
 /// @brief Lattice Boltzmann Method (LBM) solver.
 ///
 /// This class encapsulates a LBM solver and manages the simulation.
@@ -34,6 +37,8 @@ public:
     auto run() -> void;
 
 private:
-    bolt::core::SimulationTime<double> time_;
+    bolt::app::SimulationTime<double> time_;
     quill::Logger* logger_;
 };
+
+} // namespace bolt::app

@@ -4,6 +4,9 @@
 
 #include <toml++/toml.hpp>
 
+namespace bolt::app
+{
+
 /// @brief Validator for numerical configuration settings.
 ///
 /// This class provides a fluent interface for validating numerical values
@@ -79,5 +82,7 @@ private:
     std::string key_;
     T value_;
 };
+
+} // namespace bolt::app
 
 #include "validation.tpp"

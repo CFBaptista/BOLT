@@ -14,7 +14,7 @@ SCENARIO("Verify properties and state of simulation time")
         const double time_step = 0.1;
         const std::size_t number_of_steps = 10;
 
-        bolt::core::SimulationTime<double> time(start_time, time_step, number_of_steps);
+        bolt::app::SimulationTime<double> time(start_time, time_step, number_of_steps);
 
         THEN("The current time is equal to the starting time")
         {
@@ -46,13 +46,13 @@ SCENARIO("Invalid parameters for simulation time throw exceptions")
     THEN("Non-positive time step throws an exception")
     {
         // NOLINTNEXTLINE(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
-        REQUIRE_THROWS_AS(bolt::core::SimulationTime<double>(0.0, -0.1, 10), std::invalid_argument);
-        REQUIRE_THROWS_AS(bolt::core::SimulationTime<double>(0.0, 0.0, 10), std::invalid_argument);
+        REQUIRE_THROWS_AS(bolt::app::SimulationTime<double>(0.0, -0.1, 10), std::invalid_argument);
+        REQUIRE_THROWS_AS(bolt::app::SimulationTime<double>(0.0, 0.0, 10), std::invalid_argument);
     }
 
     THEN("Zero number of steps throws an exception")
     {
         // NOLINTNEXTLINE(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
-        REQUIRE_THROWS_AS(bolt::core::SimulationTime<double>(0.0, 0.1, 0), std::invalid_argument);
+        REQUIRE_THROWS_AS(bolt::app::SimulationTime<double>(0.0, 0.1, 0), std::invalid_argument);
     }
 }

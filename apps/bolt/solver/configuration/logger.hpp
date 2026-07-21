@@ -5,6 +5,9 @@
 
 #include <quill/Logger.h>
 
+namespace bolt::app
+{
+
 /// @brief Configures a Quill logger for the application.
 ///
 /// @param output_directory The directory where log files should be stored.
@@ -14,3 +17,5 @@
 /// @return A pointer to the configured quill::Logger instance.
 auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
     -> quill::Logger*;
+
+} // namespace bolt::app
