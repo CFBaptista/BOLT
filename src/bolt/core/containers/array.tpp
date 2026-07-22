@@ -5,7 +5,7 @@
 
 #include "array.hpp" // NOLINT(misc-header-include-cycle)
 
-namespace bolt::core
+namespace bolt
 {
 
 template <std::floating_point Real, std::size_t... Shape>
@@ -39,4 +39,4 @@ auto array<Real, Shape...>::operator[](Indices... indices) const -> const Real&
     return view_[indices...];
 }
 
-} // namespace bolt::core
+} // namespace bolt

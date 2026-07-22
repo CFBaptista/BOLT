@@ -5,7 +5,7 @@
 
 #include "aligned_allocator.hpp" // NOLINT(misc-header-include-cycle)
 
-namespace bolt::core
+namespace bolt
 {
 
 template <typename Real, std::size_t Alignment>
@@ -51,4 +51,4 @@ operator==(const aligned_allocator<T1, A1>& left, const aligned_allocator<T2, A2
     return A1 == A2;
 }
 
-} // namespace bolt::core
+} // namespace bolt

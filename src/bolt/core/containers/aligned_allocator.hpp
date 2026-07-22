@@ -2,7 +2,7 @@
 
 #include <cstddef>
 
-namespace bolt::core
+namespace bolt
 {
 
 /// @brief A custom allocator that aligns memory allocations to a specified alignment.
@@ -66,6 +66,6 @@ constexpr auto
 operator==(const aligned_allocator<T1, A1>& left, const aligned_allocator<T2, A2>& right) noexcept
     -> bool;
 
-} // namespace bolt::core
+} // namespace bolt
 
 #include "aligned_allocator.tpp"

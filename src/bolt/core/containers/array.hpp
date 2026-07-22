@@ -8,7 +8,7 @@
 
 #include "aligned_allocator.hpp"
 
-namespace bolt::core
+namespace bolt
 {
 
 /// @brief A class template representing an array of elements with a specified alignment.
@@ -81,6 +81,6 @@ private:
     std::mdspan<Real, std::extents<std::size_t, Shape...>> view_;
 };
 
-} // namespace bolt::core
+} // namespace bolt
 
 #include "array.tpp"
