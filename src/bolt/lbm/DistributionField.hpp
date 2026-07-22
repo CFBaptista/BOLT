@@ -4,7 +4,7 @@
 #include <cstddef>
 
 #include "LatticeModel.hpp"
-#include "bolt/core/containers/array.hpp"
+#include "bolt/core/array.hpp"
 
 namespace bolt::lbm
 {

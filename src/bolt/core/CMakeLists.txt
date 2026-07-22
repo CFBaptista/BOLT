@@ -9,6 +9,6 @@ target_link_libraries(core INTERFACE
 )
 
 target_sources(core INTERFACE
-    containers/aligned_allocator.hpp
-    containers/array.hpp
+    aligned_allocator.hpp
+    array.hpp
 )
