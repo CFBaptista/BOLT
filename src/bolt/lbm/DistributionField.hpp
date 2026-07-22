@@ -4,7 +4,7 @@
 #include <cstddef>
 
 #include "bolt/core/concepts/LatticeModel.hpp"
-#include "bolt/core/containers/AlignedArray.hpp"
+#include "bolt/core/containers/array.hpp"
 
 namespace bolt::lbm
 {
@@ -88,7 +88,7 @@ public:
     auto operator[](Indices... indices) const -> const Lattice::value_type&;
 
 private:
-    bolt::core::AlignedArray<typename Lattice::value_type, Lattice::size, Shape...> data_;
+    bolt::core::array<typename Lattice::value_type, Lattice::size, Shape...> data_;
 };
 
 } // namespace bolt::lbm

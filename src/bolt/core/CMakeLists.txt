@@ -10,5 +10,6 @@ target_link_libraries(core INTERFACE
 
 target_sources(core INTERFACE
     concepts/LatticeModel.hpp
-    containers/AlignedArray.hpp
+    containers/aligned_allocator.hpp
+    containers/array.hpp
 )
