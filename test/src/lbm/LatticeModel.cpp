@@ -1,7 +1,7 @@
 #include <array>
 #include <cstddef>
 
-#include "bolt/core/concepts/LatticeModel.hpp"
+#include "bolt/lbm/LatticeModel.hpp"
 
 template <typename Real, std::size_t Size>
 consteval auto filled_weights(Real value) -> std::array<Real, Size>

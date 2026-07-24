@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Doxygen-based documentation build configuration and BibTex-based bibliography support.
 - Repository-wide tooling configuration for `clang-format`, `clang-tidy`, `clangd`, and `cppcheck`.
 
-- Aligned storage utilities with `AlignedAllocator` custom allocator and multi-dimensional `AlignedArray` container.
+- Aligned storage utilities with `aligned_allocator` custom allocator and multi-dimensional `array` container.
 - `LatticeModel` concept for validating lattice model requirements.
 - Lattice model interfaces for `D1Q3`, `D2Q9`, and `D3Q27`.
 - `DistributionField` template for storing lattice distributions on 1D, 2D, and 3D Cartesian grids.

@@ -1,7 +1,16 @@
+set(BOLT_CORE_HEADERS
+    aligned_allocator.hpp
+    array.hpp
+)
+
+set(BOLT_CORE_SOURCES
+)
+
 add_library(core INTERFACE)
 
 target_include_directories(core INTERFACE
-    ${BOLT_SOURCE_DIRECTORY}/..
+    $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 target_link_libraries(core INTERFACE
@@ -9,6 +18,14 @@ target_link_libraries(core INTERFACE
 )
 
 target_sources(core INTERFACE
-    concepts/LatticeModel.hpp
-    containers/AlignedArray.hpp
+    aligned_allocator.hpp
+    array.hpp
+)
+
+install(FILES ${BOLT_CORE_HEADERS}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/core
+)
+
+install(TARGETS core
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
