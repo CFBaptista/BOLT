@@ -96,6 +96,9 @@ jobs:
       - name: Test project
         run: ctest --preset ${{ matrix.preset }}
 
+      - name: Install project
+        run: cmake --install build/${{ matrix.preset }} --prefix install/${{ matrix.preset }}
+
       - name: Run static analysis (clang-tidy)
         if: contains(matrix.preset, 'llvm')
         run: |

@@ -31,8 +31,9 @@
 *.out
 *.app
 
-# Build folders
+# Development folders
 build
+install
 
 # Caches
 .cache

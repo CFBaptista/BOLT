@@ -20,3 +20,7 @@ target_sources(bolt PRIVATE
     main.cpp
     LBMSolver.cpp
 )
+
+install(TARGETS bolt
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)

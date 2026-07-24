@@ -1,7 +1,25 @@
+set(BOLT_CONFIGURATION_HEADERS
+    configuration_datatypes.hpp
+    configuration.hpp
+    logger.hpp
+    utilities.hpp
+    validation.hpp
+    validation.tpp
+    SimulationTime.hpp
+    SimulationTime.tpp
+)
+
+set(BOLT_CONFIGURATION_SOURCES
+    configuration.cpp
+    logger.cpp
+    utilities.cpp
+)
+
 add_library(configuration STATIC)
 
 target_include_directories(configuration PUBLIC
-    ${BOLT_APPLICATION_DIRECTORY}/..
+    $<BUILD_INTERFACE:${BOLT_APPLICATION_DIRECTORY}/..>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 target_link_libraries(configuration PUBLIC
@@ -14,7 +32,14 @@ target_link_libraries(configuration PUBLIC
 )
 
 target_sources(configuration PRIVATE
-    configuration.cpp
-    logger.cpp
-    utilities.cpp
+    ${BOLT_CONFIGURATION_SOURCES}
+)
+
+install(FILES ${BOLT_CONFIGURATION_HEADERS}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/configuration
+)
+
+install(TARGETS configuration
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
