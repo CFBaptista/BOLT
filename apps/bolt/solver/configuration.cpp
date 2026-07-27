@@ -13,8 +13,8 @@
 #include <toml++/toml.hpp>
 
 #include "configuration.hpp"
+#include "configuration/validation.hpp"
 #include "configuration_datatypes.hpp"
-#include "validation.hpp"
 
 namespace bolt::app
 {

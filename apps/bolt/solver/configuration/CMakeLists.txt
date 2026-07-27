@@ -1,6 +1,4 @@
 set(BOLT_CONFIGURATION_HEADERS
-    configuration_datatypes.hpp
-    configuration.hpp
     logger.hpp
     utilities.hpp
     validation.hpp
@@ -10,7 +8,6 @@ set(BOLT_CONFIGURATION_HEADERS
 )
 
 set(BOLT_CONFIGURATION_SOURCES
-    configuration.cpp
     logger.cpp
     utilities.cpp
 )

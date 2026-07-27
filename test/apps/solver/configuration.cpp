@@ -7,7 +7,7 @@
 #include <CLI/CLI.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-#include "bolt/solver/configuration/configuration.hpp"
+#include "bolt/solver/configuration.hpp"
 #include "configuration_helper.hpp"
 
 SCENARIO("Parsing a valid configuration does not throw an exception")

@@ -31,3 +31,8 @@ if(ENABLE_COVERAGE)
         $<$<CXX_COMPILER_ID:GNU>:--coverage>
     )
 endif()
+
+install(TARGETS bolt_compile_settings
+    EXPORT bolt-targets
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)

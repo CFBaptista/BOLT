@@ -17,6 +17,7 @@ target_link_libraries(bolt PRIVATE
 )
 
 target_sources(bolt PRIVATE
+    configuration.cpp
     main.cpp
     LBMSolver.cpp
 )

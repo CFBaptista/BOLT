@@ -3,7 +3,7 @@
 #include <toml++/toml.hpp>
 
 #include "LBMSolver.hpp"
-#include "configuration/configuration_datatypes.hpp"
+#include "configuration_datatypes.hpp"
 
 namespace bolt::app
 {

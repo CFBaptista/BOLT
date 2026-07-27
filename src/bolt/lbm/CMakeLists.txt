@@ -21,15 +21,11 @@ target_link_libraries(lbm INTERFACE
     bolt_compile_settings
 )
 
-target_sources(lbm INTERFACE
-    ${BOLT_LBM_HEADERS}
-)
-
 install(FILES ${BOLT_LBM_HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lbm
 )
 
 install(TARGETS lbm
+    EXPORT bolt-targets
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-

@@ -11,4 +11,5 @@ catch_discover_tests(solver_test)
 target_sources(solver_test PRIVATE
     SimulationTime.cpp    
     configuration.cpp
+    ${CMAKE_SOURCE_DIR}/apps/bolt/solver/configuration.cpp
 )
