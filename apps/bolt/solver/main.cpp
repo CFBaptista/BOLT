@@ -5,8 +5,8 @@
 #include <quill/Logger.h>
 
 #include "LBMSolver.hpp"
+#include "bolt/core/logger.hpp"
 #include "configuration.hpp"
-#include "configuration/logger.hpp"
 #include "configuration_datatypes.hpp"
 
 auto main(int argc, char* argv[]) -> int
@@ -18,7 +18,7 @@ auto main(int argc, char* argv[]) -> int
     const bolt::app::ApplicationConfiguration configuration{bolt::app::parse_configuration(args)};
 
     quill::Logger* logger{
-        bolt::app::configure_logger(configuration.io.output_directory, configuration.io.log_level)
+        bolt::core::configure_logger(configuration.io.output_directory, configuration.io.log_level)
     };
 
     bolt::app::LBMSolver solver(configuration, logger);

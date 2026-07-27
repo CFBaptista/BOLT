@@ -4,6 +4,9 @@
 @namespace bolt::app
 @brief Command-line applications and tools.
 
+@namespace bolt::config
+@brief Application configuration facilities
+
 @namespace bolt::core
 @brief Core facilities.
 

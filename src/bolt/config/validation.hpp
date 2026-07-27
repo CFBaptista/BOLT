@@ -1,34 +1,28 @@
 #pragma once
 
-#include <string>
-
-#include <toml++/toml.hpp>
-
-namespace bolt::app
+namespace bolt::config
 {
 
 /// @brief Validator for numerical configuration settings.
 ///
-/// This class provides a fluent interface for validating numerical values
-/// from a TOML configuration table. It supports common validation checks
-/// such existence, proper typing and bounds checking.
+/// This class provides a fluent interface for validating numerical values. It supports common
+/// validation checks such existence, proper typing and bounds checking.
 ///
 /// @tparam T The type of the numerical value to validate.
 template <typename T>
 class NumberValidator
 {
 public:
-    /// @brief Construct a NumberValidator for a specific key in a TOML table.
+    /// @brief Construct a number validator for a value of type T.
     ///
-    /// @param table The TOML table containing the configuration settings.
-    /// @param key The key corresponding to the numerical value to validate.
+    /// @param value The numerical value to validate.
     ///
-    /// @throws std::invalid_argument if the key does not exist or the value is not of type T.
-    explicit NumberValidator(const toml::table& table, const std::string& key);
+    /// @throws std::invalid_argument if the value is not of type T.
+    explicit NumberValidator(const T& value);
 
     /// @brief Get the validated value.
     ///
-    /// @return The validated numerical value.
+    /// @return The numerical value.
     auto value() const -> T;
 
     /// @brief Ensure the value is greater than the given reference.
@@ -79,10 +73,9 @@ public:
     auto between(const T& lower, const T& upper) -> NumberValidator&;
 
 private:
-    std::string key_;
     T value_;
 };
 
-} // namespace bolt::app
+} // namespace bolt::config
 
 #include "validation.tpp"

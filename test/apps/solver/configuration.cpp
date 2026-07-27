@@ -6,6 +6,7 @@
 
 #include <CLI/CLI.hpp>
 #include <catch2/catch_test_macros.hpp>
+#include <toml++/toml.hpp>
 
 #include "bolt/solver/configuration.hpp"
 #include "configuration_helper.hpp"

@@ -6,7 +6,7 @@
 
 #include "SimulationTime.hpp" //NOLINT(misc-header-include-cycle)
 
-namespace bolt::app
+namespace bolt::config
 {
 
 template <std::floating_point Real>
@@ -78,4 +78,4 @@ auto SimulationTime<Real>::advance() -> bool
     return false;
 }
 
-} // namespace bolt::app
+} // namespace bolt::config

@@ -5,7 +5,7 @@
 
 #include <quill/Logger.h>
 
-namespace bolt::app
+namespace bolt::core
 {
 
 /// @brief Configures a Quill logger for the application.
@@ -18,4 +18,4 @@ namespace bolt::app
 auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
     -> quill::Logger*;
 
-} // namespace bolt::app
+} // namespace bolt::core

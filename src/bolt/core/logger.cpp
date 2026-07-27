@@ -15,9 +15,9 @@
 #include <quill/sinks/FileSink.h>
 
 #include "logger.hpp"
-#include "utilities.hpp"
+#include "timestamp.hpp"
 
-namespace bolt::app
+namespace bolt::core
 {
 
 auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
@@ -88,4 +88,4 @@ auto configure_logger(const std::filesystem::path& output_directory, const std::
     return logger;
 }
 
-} // namespace bolt::app
+} // namespace bolt::core

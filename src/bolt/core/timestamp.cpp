@@ -1,10 +1,10 @@
-#include "utilities.hpp"
-
 #include <chrono>
 #include <format>
 #include <string>
 
-namespace bolt::app
+#include "timestamp.hpp"
+
+namespace bolt::core
 {
 
 auto get_timestamp() -> std::string
@@ -15,4 +15,4 @@ auto get_timestamp() -> std::string
     return timestamp;
 }
 
-} // namespace bolt::app
+} // namespace bolt::core

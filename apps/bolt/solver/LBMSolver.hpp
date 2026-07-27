@@ -3,7 +3,7 @@
 #include <quill/Logger.h>
 #include <toml++/toml.hpp>
 
-#include "configuration/SimulationTime.hpp"
+#include "bolt/config/SimulationTime.hpp"
 #include "configuration_datatypes.hpp"
 
 namespace bolt::app
@@ -37,7 +37,7 @@ public:
     auto run() -> void;
 
 private:
-    bolt::app::SimulationTime<double> time_;
+    bolt::config::SimulationTime<double> time_;
     quill::Logger* logger_;
 };
 

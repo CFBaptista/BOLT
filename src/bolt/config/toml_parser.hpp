@@ -2,19 +2,12 @@
 
 #include <format>
 #include <stdexcept>
-#include <string>
 #include <string_view>
 
 #include <toml++/toml.hpp>
 
-namespace bolt::app
+namespace bolt::config
 {
-
-/// @brief Get ISO 8601 formatted timestamp without special characters.
-///
-/// @return A string representing the current timestamp in ISO 8601 format without special
-/// characters.
-auto get_timestamp() -> std::string;
 
 /// @brief Get a value from a TOML table with error handling.
 ///
@@ -49,4 +42,4 @@ auto get_toml_value(const toml::table& table, std::string_view key) -> T
     );
 }
 
-} // namespace bolt::app
+} // namespace bolt::config

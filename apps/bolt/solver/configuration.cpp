@@ -12,8 +12,9 @@
 #include <CLI/CLI.hpp>
 #include <toml++/toml.hpp>
 
+#include "bolt/config/toml_parser.hpp"
+#include "bolt/config/validation.hpp"
 #include "configuration.hpp"
-#include "configuration/validation.hpp"
 #include "configuration_datatypes.hpp"
 
 namespace bolt::app
@@ -105,10 +106,19 @@ auto parse_command_line_options(std::span<const std::string_view> args) -> Comma
 auto validate_configuration_file_settings(const toml::table& table) -> ConfigurationFileSettings
 {
     const auto start_time =
-        NumberValidator<double>(table, "start_time").greater_or_equal(0.0).value();
-    const auto time_step = NumberValidator<double>(table, "time_step").greater_than(0.0).value();
+        bolt::config::NumberValidator(bolt::config::get_toml_value<double>(table, "start_time"))
+            .greater_or_equal(0.0)
+            .value();
+    const auto time_step =
+        bolt::config::NumberValidator(bolt::config::get_toml_value<double>(table, "time_step"))
+            .greater_than(0.0)
+            .value();
     const auto number_of_steps =
-        NumberValidator<std::size_t>(table, "number_of_steps").greater_than(0).value();
+        bolt::config::NumberValidator(
+            bolt::config::get_toml_value<std::size_t>(table, "number_of_steps")
+        )
+            .greater_than(0)
+            .value();
 
     const ConfigurationFileSettings settings{
         .start_time = start_time,
