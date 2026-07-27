@@ -23,6 +23,6 @@ install(FILES
 
 install(EXPORT bolt-targets
     FILE BoltTargets.cmake
-    NAMESPACE BOLT::
+    NAMESPACE bolt::
     DESTINATION "${BOLT_INSTALL_CMAKEDIR}"
 )

@@ -14,6 +14,8 @@ set(BOLT_CONFIGURATION_SOURCES
 
 add_library(configuration STATIC)
 
+add_library(bolt::configuration ALIAS configuration)
+
 target_include_directories(configuration PUBLIC
     $<BUILD_INTERFACE:${BOLT_APPLICATION_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
@@ -30,6 +32,10 @@ target_link_libraries(configuration PUBLIC
 
 target_sources(configuration PRIVATE
     ${BOLT_CONFIGURATION_SOURCES}
+)
+
+set_target_properties(configuration PROPERTIES
+    OUTPUT_NAME bolt_configuration
 )
 
 install(FILES ${BOLT_CONFIGURATION_HEADERS}

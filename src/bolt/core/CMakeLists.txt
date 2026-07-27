@@ -10,6 +10,8 @@ set(BOLT_CORE_SOURCES
 
 add_library(core INTERFACE)
 
+add_library(bolt::core ALIAS core)
+
 target_include_directories(core INTERFACE
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
@@ -17,6 +19,10 @@ target_include_directories(core INTERFACE
 
 target_link_libraries(core INTERFACE
     bolt_compile_settings
+)
+
+set_target_properties(core PROPERTIES
+    OUTPUT_NAME bolt_core
 )
 
 install(FILES ${BOLT_CORE_HEADERS}
