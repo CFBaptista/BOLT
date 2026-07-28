@@ -9,5 +9,7 @@ target_link_libraries(config_test PRIVATE
 catch_discover_tests(config_test)
 
 target_sources(config_test PRIVATE
+    toml_parser.cpp
+    validation.cpp
     SimulationTime.cpp
 )
