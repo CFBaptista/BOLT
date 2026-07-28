@@ -17,12 +17,12 @@ add_library(core STATIC)
 add_library(bolt::core ALIAS core)
 
 target_include_directories(core PUBLIC
+    $<BUILD_INTERFACE:${quill_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 target_link_libraries(core PUBLIC
-    quill::quill
     bolt_compile_settings
 )
 
@@ -39,6 +39,7 @@ install(FILES ${BOLT_CORE_HEADERS}
 )
 
 install(TARGETS core
+    EXPORT bolt-targets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )

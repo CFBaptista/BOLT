@@ -14,6 +14,7 @@ target_compile_options(bolt_compile_settings INTERFACE
     -Wextra
     -Wpedantic
     -Werror
+    $<$<CXX_COMPILER_ID:Clang>:-Wno-gnu-zero-variadic-macro-arguments>
     $<$<CONFIG:Debug>:-O0>
     $<$<CONFIG:Release>:-O3;-ffast-math;-flto>
     $<$<CONFIG:RelWithDebInfo>:-O2;-g>

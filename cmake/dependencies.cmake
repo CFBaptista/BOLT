@@ -43,6 +43,8 @@ set_target_properties(
         INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "${CLI11_INCLUDE_DIRS}"
 )
 
+set(QUILL_INSTALL OFF CACHE BOOL "" FORCE)
+
 FetchContent_Declare(
     quill
     GIT_REPOSITORY https://github.com/odygrd/quill.git
@@ -62,6 +64,11 @@ set_target_properties(
     quill
     PROPERTIES
         INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "${QUILL_INCLUDE_DIRS}"
+)
+
+install(
+    DIRECTORY "${quill_SOURCE_DIR}/include/quill"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
 FetchContent_Declare(
