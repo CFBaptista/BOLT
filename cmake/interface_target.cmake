@@ -1,12 +1,16 @@
 add_library(bolt_compile_settings INTERFACE)
 
-target_compile_features(bolt_compile_settings INTERFACE
-    cxx_std_23
-)
-
 set_target_properties(bolt_compile_settings PROPERTIES
     CXX_EXTENSIONS OFF
     INTERFACE_CXX_EXTENSIONS OFF
+)
+
+target_compile_definitions(bolt_compile_settings INTERFACE
+    QUILL_COMPILE_ACTIVE_LOG_LEVEL=${QUILL_LOG_LEVEL}
+)
+
+target_compile_features(bolt_compile_settings INTERFACE
+    cxx_std_23
 )
 
 target_compile_options(bolt_compile_settings INTERFACE
