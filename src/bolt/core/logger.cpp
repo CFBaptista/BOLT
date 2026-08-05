@@ -1,3 +1,4 @@
+#include <chrono>
 #include <filesystem>
 #include <format>
 #include <stdexcept>
@@ -15,15 +16,27 @@
 #include <quill/sinks/FileSink.h>
 
 #include "logger.hpp"
-#include "timestamp.hpp"
 
 namespace bolt::core
 {
 
+namespace
+{
+
+auto get_iso_8601_timestamp() -> std::string
+{
+    const auto now = std::chrono::floor<std::chrono::seconds>(std::chrono::system_clock::now());
+    const auto timestamp = std::format("{:%Y%m%dT%H%M%SZ}", now);
+
+    return timestamp;
+}
+
+} // anonymous namespace
+
 auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
     -> quill::Logger*
 {
-    const std::string timestamp = get_timestamp();
+    const std::string timestamp = get_iso_8601_timestamp();
 
     quill::Backend::start();
 

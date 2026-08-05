@@ -4,12 +4,10 @@ set(BOLT_CORE_HEADERS
     array.hpp
     array.tpp
     logger.hpp
-    timestamp.hpp
 )
 
 set(BOLT_CORE_SOURCES
     logger.cpp
-    timestamp.cpp
 )
 
 add_library(core STATIC)
