@@ -18,7 +18,7 @@ LBMSolver::LBMSolver(const ApplicationConfiguration& configuration, quill::Logge
 {
 }
 
-auto LBMSolver::initial_log_messages() -> void
+auto LBMSolver::initial_log_messages() const -> void
 {
     LOG_INFO(logger_, "Starting simulation");
     LOG_INFO(logger_, "Start time: {}", time_.start_time());
@@ -31,7 +31,7 @@ auto LBMSolver::initial_log_messages() -> void
     );
 }
 
-auto LBMSolver::final_log_messages() -> void
+auto LBMSolver::final_log_messages() const -> void
 {
     LOG_INFO(logger_, "Finished time loop");
     LOG_INFO(logger_, "Finished simulation");
