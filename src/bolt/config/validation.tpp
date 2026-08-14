@@ -3,23 +3,24 @@
 #include <format>
 #include <stdexcept>
 
+#include "bolt/core/Number.hpp"
 #include "validation.hpp" // NOLINT(misc-header-include-cycle)
 
 namespace bolt::config
 {
 
-template <typename T>
+template <Number T>
 NumberValidator<T>::NumberValidator(const T& value) : value_(value)
 {
 }
 
-template <typename T>
+template <Number T>
 auto NumberValidator<T>::value() const -> T
 {
     return value_;
 }
 
-template <typename T>
+template <Number T>
 auto NumberValidator<T>::greater_than(const T& reference) -> NumberValidator&
 {
     if (value_ <= reference)
@@ -32,7 +33,7 @@ auto NumberValidator<T>::greater_than(const T& reference) -> NumberValidator&
     return *this;
 }
 
-template <typename T>
+template <Number T>
 auto NumberValidator<T>::greater_or_equal(const T& reference) -> NumberValidator&
 {
     if (value_ < reference)
@@ -45,7 +46,7 @@ auto NumberValidator<T>::greater_or_equal(const T& reference) -> NumberValidator
     return *this;
 }
 
-template <typename T>
+template <Number T>
 auto NumberValidator<T>::less_than(const T& reference) -> NumberValidator&
 {
     if (value_ >= reference)
@@ -56,7 +57,7 @@ auto NumberValidator<T>::less_than(const T& reference) -> NumberValidator&
     return *this;
 }
 
-template <typename T>
+template <Number T>
 auto NumberValidator<T>::less_or_equal(const T& reference) -> NumberValidator&
 {
     if (value_ > reference)
@@ -69,7 +70,7 @@ auto NumberValidator<T>::less_or_equal(const T& reference) -> NumberValidator&
     return *this;
 }
 
-template <typename T>
+template <Number T>
 auto NumberValidator<T>::between(const T& lower, const T& upper) -> NumberValidator&
 {
     if (value_ < lower || value_ > upper)

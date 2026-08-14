@@ -4,6 +4,7 @@ set(BOLT_CORE_HEADERS
     array.hpp
     array.tpp
     logger.hpp
+    Number.hpp
 )
 
 set(BOLT_CORE_SOURCES
@@ -15,12 +16,12 @@ add_library(core STATIC)
 add_library(bolt::core ALIAS core)
 
 target_include_directories(core PUBLIC
-    $<BUILD_INTERFACE:${quill_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 target_link_libraries(core PUBLIC
+    quill
     bolt_compile_settings
 )
 
@@ -36,7 +37,7 @@ install(FILES ${BOLT_CORE_HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/core
 )
 
-install(TARGETS core
+install(TARGETS core quill
     EXPORT bolt-targets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}

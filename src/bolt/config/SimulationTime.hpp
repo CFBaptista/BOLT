@@ -6,67 +6,68 @@
 namespace bolt::config
 {
 
-/// @brief A class template representing the time for a numerical simulation.
+/// @brief Represents and manages the discrete time for a numerical simulation.
 ///
-/// This class manages the state of simulation time and provides methods to obtain the current time
-/// and to advance time by a time step.
-///
-/// @tparam Real The floating-point type to be used for representing time.
+/// @tparam Real Floating-point type to be used for real numbers.
 template <std::floating_point Real>
 class SimulationTime
 {
 public:
-    /// @brief The floating-point type value type.
+    /// @brief Floating-point value type.
     using value_type = Real;
 
-    /// @brief Constructor to initialize the simulation time.
+    /// @brief Constructs and initializes the simulation time.
     ///
-    /// @param start_time The initial time of the simulation.
-    /// @param time_step The time step to advance the simulation at each step.
-    /// @param number_of_steps The total number of steps in the simulation.
+    /// @param start_time Initial time of the simulation (seconds).
+    /// @param time_step Time increment when advancing the simulation by one step (seconds).
+    /// @param number_of_steps Total number of steps in the simulation.
     SimulationTime(
         const Real& start_time,
         const Real& time_step,
         const std::size_t& number_of_steps
     );
-    /// @brief Destructor.
-    ~SimulationTime() = default;
+
     SimulationTime(const SimulationTime&) = delete;
-    auto operator=(const SimulationTime&) -> SimulationTime& = delete;
     SimulationTime(SimulationTime&&) noexcept = delete;
+    auto operator=(const SimulationTime&) -> SimulationTime& = delete;
     auto operator=(SimulationTime&&) noexcept -> SimulationTime& = delete;
 
-    /// @brief Get the starting time of the simulation.
+    /// @brief Default destructor.
+    ~SimulationTime() = default;
+
+    /// @brief Gets the initial time of the simulation.
     ///
-    /// @return The starting time of the simulation.
+    /// @return Initial time (seconds).
     auto start_time() const -> Real;
 
-    /// @brief Get the time step of the simulation.
+    /// @brief Gets the time increment for advancing the simulation by one step.
     ///
-    /// @return The time step of the simulation.
+    /// @return Time increment (seconds).
     auto time_step() const -> Real;
 
-    /// @brief Get the total number of steps in the simulation.
+    /// @brief Gets the total number of steps in the simulation.
     ///
-    /// @return The total number of steps in the simulation.
+    /// @return Number of steps.
     auto number_of_steps() const -> std::size_t;
 
-    /// @brief Get the current step of the simulation.
+    /// @brief Gets the current step of the simulation.
     ///
-    /// @return The current step of the simulation.
+    /// @return Current step.
     auto current_step() const -> std::size_t;
 
-    /// @brief Get the current time of the simulation.
+    /// @brief Gets the current time of the simulation.
     ///
-    /// @return The current time of the simulation.
+    /// @return Current time (seconds).
     auto current_time() const -> Real;
-    /// @brief Get the end time of the simulation.
+
+    /// @brief Gets the end time of the simulation.
     ///
-    /// @return The end time of the simulation.
+    /// @return End time (seconds).
     auto end_time() const -> Real;
-    /// @brief Advance the simulation time by one time step.
+
+    /// @brief Advances the simulation in time by one time step.
     ///
-    /// @return False if the simulation has reached the end time, true otherwise.
+    /// @return `false` if the simulation has reached the end time, `true` otherwise.
     auto advance() -> bool;
 
 private:

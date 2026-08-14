@@ -1,5 +1,6 @@
 set(BOLT_CONFIG_HEADERS
     toml_parser.hpp
+    toml_parser.tpp
     validation.hpp
     validation.tpp
     SimulationTime.hpp
@@ -7,25 +8,20 @@ set(BOLT_CONFIG_HEADERS
 )
 
 set(BOLT_CONFIG_SOURCES
-    toml_parser.cpp
 )
 
-add_library(config STATIC)
+add_library(config INTERFACE)
 
 add_library(bolt::config ALIAS config)
 
-target_include_directories(config PUBLIC
+target_include_directories(config INTERFACE
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-target_link_libraries(config PUBLIC
+target_link_libraries(config INTERFACE
     tomlplusplus::tomlplusplus
     bolt_compile_settings
-)
-
-target_sources(config PRIVATE
-    ${BOLT_CONFIG_SOURCES}
 )
 
 set_target_properties(config PROPERTIES
@@ -36,7 +32,7 @@ install(FILES ${BOLT_CONFIG_HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/config
 )
 
-install(TARGETS config
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+install(TARGETS config tomlplusplus_tomlplusplus
+    EXPORT bolt-targets
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )

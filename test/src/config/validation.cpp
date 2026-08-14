@@ -16,7 +16,29 @@ SCENARIO("NumberValidator accepts values that satisfy the requested bounds")
 
         WHEN("It is checked to be greater than a smaller value")
         {
-            auto& result = validator.greater_than(lower_bound);
+            const auto& result = validator.greater_than(lower_bound);
+
+            THEN("The validator remains usable and preserves the original value")
+            {
+                REQUIRE(&result == &validator);
+                REQUIRE(validator.value() == value);
+            }
+        }
+
+        WHEN("It is checked to be greater than or equal to a smaller value")
+        {
+            const auto& result = validator.greater_or_equal(lower_bound);
+
+            THEN("The validator remains usable and preserves the original value")
+            {
+                REQUIRE(&result == &validator);
+                REQUIRE(validator.value() == value);
+            }
+        }
+
+        WHEN("It is checked to be greater than or equal to its own value")
+        {
+            const auto& result = validator.greater_or_equal(value);
 
             THEN("The validator remains usable and preserves the original value")
             {
@@ -27,7 +49,7 @@ SCENARIO("NumberValidator accepts values that satisfy the requested bounds")
 
         WHEN("It is checked to be less than a greater value")
         {
-            auto& result = validator.less_than(upper_bound);
+            const auto& result = validator.less_than(upper_bound);
 
             THEN("the validator remains usable and preserves the original value")
             {
@@ -36,9 +58,31 @@ SCENARIO("NumberValidator accepts values that satisfy the requested bounds")
             }
         }
 
+        WHEN("It is checked to be lesser than or equal to a greater value")
+        {
+            const auto& result = validator.less_or_equal(upper_bound);
+
+            THEN("The validator remains usable and preserves the original value")
+            {
+                REQUIRE(&result == &validator);
+                REQUIRE(validator.value() == value);
+            }
+        }
+
+        WHEN("It is checked to be lesser than or equal to its own value")
+        {
+            const auto& result = validator.less_or_equal(value);
+
+            THEN("The validator remains usable and preserves the original value")
+            {
+                REQUIRE(&result == &validator);
+                REQUIRE(validator.value() == value);
+            }
+        }
+
         WHEN("It is checked to be between the lower and upper bounds")
         {
-            auto& result = validator.between(lower_bound, upper_bound);
+            const auto& result = validator.between(lower_bound, upper_bound);
 
             THEN("The validator remains usable and preserves the original value")
             {
@@ -69,11 +113,31 @@ SCENARIO("NumberValidator rejects values that violate the requested bounds")
             }
         }
 
+        WHEN("It is checked to be greater than or equal to a greater value")
+        {
+            THEN("An invalid_argument exception is thrown")
+            {
+                REQUIRE_THROWS_AS(
+                    validator.greater_or_equal(greater_than_lower_bound), std::invalid_argument
+                );
+            }
+        }
+
         WHEN("It is checked to be less than its own value")
         {
             THEN("An invalid_argument exception is thrown")
             {
                 REQUIRE_THROWS_AS(validator.less_than(value), std::invalid_argument);
+            }
+        }
+
+        WHEN("It is checked to be less than or equal to a smaller value")
+        {
+            THEN("An invalid_argument exception is thrown")
+            {
+                REQUIRE_THROWS_AS(
+                    validator.less_or_equal(less_than_upper_bound), std::invalid_argument
+                );
             }
         }
 
