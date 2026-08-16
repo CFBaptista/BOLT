@@ -4,7 +4,7 @@
 #include <toml++/toml.hpp>
 
 #include "bolt/config/SimulationTime.hpp"
-#include "configuration_datatypes.hpp"
+#include "configuration.hpp"
 
 namespace bolt::app
 {

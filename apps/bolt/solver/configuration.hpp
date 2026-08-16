@@ -3,10 +3,20 @@
 #include <span>
 #include <string_view>
 
-#include "configuration_datatypes.hpp"
+#include "bolt/config/configuration_types.hpp"
 
 namespace bolt::app
 {
+
+/// @brief Complete configuration for the LBM application.
+// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init,hicpp-member-init)
+struct ApplicationConfiguration
+{
+    /// Input and output configuration.
+    bolt::config::IOConfiguration io;
+    /// Time configuration.
+    bolt::config::TimeConfiguration time;
+};
 
 /// @brief Parse command-line arguments and the input configuration file for the LBM solver.
 ///

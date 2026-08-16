@@ -1,3 +1,14 @@
+set(BOLT_APP_HEADERS
+    configuration.hpp
+    LBMSolver.hpp
+)
+
+set(BOLT_APP_SOURCES
+    configuration.cpp
+    LBMSolver.cpp
+    main.cpp
+)
+
 add_executable(bolt)
 
 target_include_directories(bolt INTERFACE
@@ -5,7 +16,6 @@ target_include_directories(bolt INTERFACE
 )
 
 target_link_libraries(bolt PRIVATE
-    CLI11::CLI11
     config
     core
     lbm
@@ -13,9 +23,7 @@ target_link_libraries(bolt PRIVATE
 )
 
 target_sources(bolt PRIVATE
-    configuration.cpp
-    main.cpp
-    LBMSolver.cpp
+    ${BOLT_APP_SOURCES}
 )
 
 install(TARGETS bolt

@@ -7,7 +7,6 @@
 #include "LBMSolver.hpp"
 #include "bolt/core/logger.hpp"
 #include "configuration.hpp"
-#include "configuration_datatypes.hpp"
 
 auto main(int argc, char* argv[]) -> int
 {
