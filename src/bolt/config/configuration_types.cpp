@@ -57,7 +57,7 @@ IOConfiguration::IOConfiguration(const toml::table& table, CLI::App& app)
 
 auto IOConfiguration::update_from_toml_(const toml::table& table) -> void
 {
-    log_level = get_toml_value<std::string>(table, "log_level");
+    log_level = bolt::config::get_toml_value<std::string>(table, "log_level");
 }
 
 auto IOConfiguration::bind_to_cli_(CLI::App& app) -> void
@@ -109,9 +109,9 @@ TimeConfiguration::TimeConfiguration(const toml::table& table, CLI::App& app)
 
 auto TimeConfiguration::update_from_toml_(const toml::table& table) -> void
 {
-    start_time = get_toml_value<double>(table, "start_time");
-    time_step = get_toml_value<double>(table, "time_step");
-    number_of_steps = get_toml_value<std::size_t>(table, "number_of_steps");
+    start_time = bolt::config::get_toml_value<double>(table, "start_time");
+    time_step = bolt::config::get_toml_value<double>(table, "time_step");
+    number_of_steps = bolt::config::get_toml_value<std::size_t>(table, "number_of_steps");
 }
 
 auto TimeConfiguration::validate() const -> void
