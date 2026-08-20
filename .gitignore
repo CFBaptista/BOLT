@@ -43,3 +43,6 @@ install
 
 # Editor folders
 .vscode
+
+# Cloud folders
+.github/agents
