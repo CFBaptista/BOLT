@@ -1,25 +1,15 @@
-set(BOLT_LBM_HEADERS
-    D1Q3.hpp
-    D2Q9.hpp
-    D3Q27.hpp
-    DistributionField.hpp
-    DistributionField.tpp
-    LatticeModel.hpp
-)
-
-set(BOLT_LBM_SOURCES
-)
-
 add_library(lbm INTERFACE)
 
 add_library(bolt::lbm ALIAS lbm)
 
 target_include_directories(lbm INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+    $<INSTALL_INTERFACE:${BOLT_INSTALL_INCLUDE_DIRECTORY}>
 )
 
 target_link_libraries(lbm INTERFACE
+    bolt::core
     bolt_compile_settings
 )
 
@@ -27,11 +17,14 @@ set_target_properties(lbm PROPERTIES
     OUTPUT_NAME bolt_lbm
 )
 
-install(FILES ${BOLT_LBM_HEADERS}
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/lbm
+install(DIRECTORY ${BOLT_INCLUDE_DIRECTORY}/lbm/
+    DESTINATION ${BOLT_INSTALL_INCLUDE_DIRECTORY}/lbm
+    FILES_MATCHING
+        PATTERN "*.hpp"
+        PATTERN "*.tpp"
 )
 
 install(TARGETS lbm
     EXPORT bolt-targets
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    INCLUDES DESTINATION ${BOLT_INSTALL_INCLUDE_DIRECTORY}
 )

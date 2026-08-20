@@ -2,8 +2,9 @@
 
 #include <cstddef>
 
-#include "DistributionField.hpp" // NOLINT(misc-header-include-cycle)
 #include "bolt/lbm/LatticeModel.hpp"
+
+#include "DistributionField.hpp" // NOLINT(misc-header-include-cycle)
 
 namespace bolt::lbm
 {

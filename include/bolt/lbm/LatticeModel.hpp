@@ -97,11 +97,9 @@ concept HasValidLatticeSoundSpeed = HasFloatingPointValueType<Lattice> && requir
 ///
 /// @tparam Lattice The lattice model to be checked.
 template <typename Lattice>
-concept LatticeModel = bolt::lbm::detail::HasFloatingPointValueType<Lattice> &&
-                       bolt::lbm::detail::HasValidDimension<Lattice> &&
-                       bolt::lbm::detail::HasValidLatticeSize<Lattice> &&
-                       bolt::lbm::detail::HasValidLatticeVelocities<Lattice> &&
-                       bolt::lbm::detail::HasValidLatticeWeights<Lattice> &&
-                       bolt::lbm::detail::HasValidLatticeSoundSpeed<Lattice>;
+concept LatticeModel =
+    detail::HasFloatingPointValueType<Lattice> && detail::HasValidDimension<Lattice> &&
+    detail::HasValidLatticeSize<Lattice> && detail::HasValidLatticeVelocities<Lattice> &&
+    detail::HasValidLatticeWeights<Lattice> && detail::HasValidLatticeSoundSpeed<Lattice>;
 
 } // namespace bolt::lbm

@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <string_view>
 
+#include <toml++/toml.hpp>
+
 #include "toml_parser.hpp" //NOLINT(misc-header-include-cycle)
 
 namespace bolt::config

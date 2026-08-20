@@ -1,8 +1,14 @@
 option(BUILD_DOCS "Build documentation" OFF)
 option(ENABLE_COVERAGE "Enable code coverage instrumentation" OFF)
 
+set(USE_SYSTEM_CATCH2 "AUTO" CACHE STRING "Use system-installed Catch2")
+set(USE_SYSTEM_CLI11 "AUTO" CACHE STRING "Use system-installed CLI11")
+set(USE_SYSTEM_QUILL "AUTO" CACHE STRING "Use system-installed Quill")
+set(USE_SYSTEM_TOMLPLUSPLUS "AUTO" CACHE STRING "Use system-installed TOML++")
+
 set(BOLT_APPLICATION_DIRECTORY ${CMAKE_SOURCE_DIR}/apps/bolt)
 set(BOLT_SOURCE_DIRECTORY ${CMAKE_SOURCE_DIR}/src/bolt)
+set(BOLT_INCLUDE_DIRECTORY ${CMAKE_SOURCE_DIR}/include/bolt)
 
 if (NOT DEFINED LOG_LEVEL)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")

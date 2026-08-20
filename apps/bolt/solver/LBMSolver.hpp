@@ -1,9 +1,9 @@
 #pragma once
 
 #include <quill/Logger.h>
-#include <toml++/toml.hpp>
 
 #include "bolt/config/SimulationTime.hpp"
+
 #include "configuration.hpp"
 
 namespace bolt::app

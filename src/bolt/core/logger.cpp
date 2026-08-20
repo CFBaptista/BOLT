@@ -15,7 +15,7 @@
 #include <quill/sinks/ConsoleSink.h>
 #include <quill/sinks/FileSink.h>
 
-#include "logger.hpp"
+#include "bolt/core/logger.hpp"
 
 namespace bolt::core
 {

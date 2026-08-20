@@ -2,6 +2,7 @@
 #include <cstddef>
 #include <filesystem>
 #include <iterator>
+#include <memory>
 #include <span>
 #include <stdexcept>
 #include <string>
@@ -11,9 +12,10 @@
 #include <CLI/CLI.hpp>
 #include <toml++/toml.hpp>
 
-#include "bolt/config/validation.hpp"
-#include "configuration_types.hpp"
+#include "bolt/config/configuration_types.hpp"
+
 #include "toml_parser.hpp"
+#include "validation.hpp"
 
 namespace
 {
@@ -43,21 +45,88 @@ auto cli11_compatible_args_from_main(std::span<const std::string_view> args)
     return argv;
 }
 
+/// @brief Parse command-line arguments.
+///
+/// @param app CLI application instance.
+/// @param args Command-line arguments.
+///
+/// @throws std::invalid_argument if the command-line arguments are invalid.
+/// @throws CLI::ParseError if the command-line arguments cannot be parsed.
+auto parse_cli(CLI::App& app, std::span<const std::string_view> args) -> void
+{
+    auto argv{cli11_compatible_args_from_main(args)};
+    app.parse(static_cast<int>(argv.size()), argv.data());
+}
+
+/// @brief Get the configuration file path from command-line arguments.
+///
+/// @param args Command-line arguments.
+///
+/// @return Path to the configuration file.
+auto get_configuration_filepath(std::span<const std::string_view> args) -> std::filesystem::path
+{
+    CLI::App app{};
+    std::filesystem::path configuration_filepath;
+
+    app.add_option(
+           "-c,--config_file", configuration_filepath,
+           "Path to a TOML configuration file for running a simulation with BOLT"
+    )
+        ->required()
+        ->check(CLI::ExistingFile);
+
+    app.allow_extras();
+
+    parse_cli(app, args);
+
+    return configuration_filepath;
+}
+
 } // anonymous namespace
 
 namespace bolt::config
 {
 
-IOConfiguration::IOConfiguration(const toml::table& table, CLI::App& app)
+struct ArgumentParser::Impl
+{
+    CLI::App app;
+    toml::table table;
+};
+
+ArgumentParser::ArgumentParser(std::span<const std::string_view> args)
+    : pimpl_{std::make_unique<Impl>()}, args_{args}
+{
+    const std::filesystem::path configuration_filepath{get_configuration_filepath(args)};
+    pimpl_->table = toml::parse_file(configuration_filepath.string());
+}
+
+ArgumentParser::~ArgumentParser() = default;
+
+auto ArgumentParser::parse() -> void
+{
+    parse_cli(pimpl_->app, args_);
+}
+
+auto ArgumentParser::get_app() -> CLI::App&
+{
+    return pimpl_->app;
+}
+
+auto ArgumentParser::get_table() -> toml::table&
+{
+    return pimpl_->table;
+}
+
+IOConfiguration::IOConfiguration(ArgumentParser& argument_parser)
     : configuration_file(""), output_directory(".")
 {
-    update_from_toml_(table);
-    bind_to_cli_(app);
+    update_from_toml_(argument_parser.get_table());
+    bind_to_cli_(argument_parser.get_app());
 }
 
 auto IOConfiguration::update_from_toml_(const toml::table& table) -> void
 {
-    log_level = bolt::config::get_toml_value<std::string>(table, "log_level");
+    log_level = get_toml_value<std::string>(table, "log_level");
 }
 
 auto IOConfiguration::bind_to_cli_(CLI::App& app) -> void
@@ -85,13 +154,9 @@ auto IOConfiguration::bind_to_cli_(CLI::App& app) -> void
 
 auto IOConfiguration::validate() const -> void
 {
-    bolt::config::DirectoryValidator(output_directory)
-        .exists()
-        .is_directory()
-        .readable()
-        .writable();
+    DirectoryValidator(output_directory).exists().is_directory().readable().writable();
 
-    bolt::config::FileValidator(configuration_file).exists().is_file().readable();
+    FileValidator(configuration_file).exists().is_file().readable();
 
     if (log_level != "trace" && log_level != "debug" && log_level != "info" &&
         log_level != "warning" && log_level != "error")
@@ -100,50 +165,24 @@ auto IOConfiguration::validate() const -> void
     }
 }
 
-TimeConfiguration::TimeConfiguration(const toml::table& table, CLI::App& app)
+TimeConfiguration::TimeConfiguration(ArgumentParser& argument_parser)
     : start_time(-1.0), time_step(0.0), number_of_steps(0)
 {
-    update_from_toml_(table);
-    (void)app;
+    update_from_toml_(argument_parser.get_table());
 }
 
 auto TimeConfiguration::update_from_toml_(const toml::table& table) -> void
 {
-    start_time = bolt::config::get_toml_value<double>(table, "start_time");
-    time_step = bolt::config::get_toml_value<double>(table, "time_step");
-    number_of_steps = bolt::config::get_toml_value<std::size_t>(table, "number_of_steps");
+    start_time = get_toml_value<double>(table, "start_time");
+    time_step = get_toml_value<double>(table, "time_step");
+    number_of_steps = get_toml_value<std::size_t>(table, "number_of_steps");
 }
 
 auto TimeConfiguration::validate() const -> void
 {
-    bolt::config::NumberValidator<double>(start_time).greater_or_equal(0.0);
-    bolt::config::NumberValidator<double>(time_step).greater_than(0.0);
-    bolt::config::NumberValidator<std::size_t>(number_of_steps).greater_than(0);
-}
-
-auto get_configuration_filepath(std::span<const std::string_view> args) -> std::filesystem::path
-{
-    CLI::App app{};
-    std::filesystem::path configuration_filepath;
-
-    app.add_option(
-           "-c,--config_file", configuration_filepath,
-           "Path to a TOML configuration file for running a simulation with BOLT"
-    )
-        ->required()
-        ->check(CLI::ExistingFile);
-
-    app.allow_extras();
-
-    parse_cli(app, args);
-
-    return configuration_filepath;
-}
-
-auto parse_cli(CLI::App& app, std::span<const std::string_view> args) -> void
-{
-    auto argv{cli11_compatible_args_from_main(args)};
-    app.parse(static_cast<int>(argv.size()), argv.data());
+    NumberValidator<double>(start_time).greater_or_equal(0.0);
+    NumberValidator<double>(time_step).greater_than(0.0);
+    NumberValidator<std::size_t>(number_of_steps).greater_than(0);
 }
 
 } // namespace bolt::config

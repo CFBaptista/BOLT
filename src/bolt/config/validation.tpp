@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "bolt/core/Number.hpp"
+
 #include "validation.hpp" // NOLINT(misc-header-include-cycle)
 
 namespace bolt::config

@@ -3,8 +3,9 @@
 #include <array>
 #include <cstddef>
 
-#include "LatticeModel.hpp"
 #include "bolt/core/array.hpp"
+
+#include "LatticeModel.hpp"
 
 namespace bolt::lbm
 {

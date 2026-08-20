@@ -41,3 +41,6 @@ install(TARGETS bolt_compile_settings
     EXPORT bolt-targets
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
+
+get_target_property(BOLT_CXX_STANDARD bolt_compile_settings CXX_STANDARD)
+get_target_property(BOLT_CXX_EXTENSIONS bolt_compile_settings CXX_EXTENSIONS)

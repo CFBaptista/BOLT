@@ -26,4 +26,4 @@ auto get_toml_value(const toml::table& table, std::string_view key) -> T;
 
 } // namespace bolt::config
 
-#include "toml_parser.tpp"
+#include "toml_parser.tpp" // IWYU pragma: export

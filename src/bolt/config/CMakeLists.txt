@@ -1,46 +1,39 @@
-set(BOLT_CONFIG_HEADERS
-    configuration_types.hpp
-    toml_parser.hpp
-    toml_parser.tpp
-    validation.hpp
-    validation.tpp
-    SimulationTime.hpp
-    SimulationTime.tpp
-)
-
-set(BOLT_CONFIG_SOURCES
-    configuration_types.cpp
-    validation.cpp
-)
-
 add_library(config STATIC)
 
 add_library(bolt::config ALIAS config)
 
 target_include_directories(config PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+    $<INSTALL_INTERFACE:${BOLT_INSTALL_INCLUDE_DIRECTORY}>
 )
 
-target_link_libraries(config PUBLIC
-    CLI11::CLI11
-    tomlplusplus::tomlplusplus
-    bolt_compile_settings
+target_link_libraries(config
+    PUBLIC
+        bolt_compile_settings
+    PRIVATE
+        CLI11::CLI11
+        tomlplusplus::tomlplusplus
 )
 
 target_sources(config PRIVATE
-    ${BOLT_CONFIG_SOURCES}
+    configuration_types.cpp
+    validation.cpp
 )
 
 set_target_properties(config PROPERTIES
     OUTPUT_NAME bolt_config
 )
 
-install(FILES ${BOLT_CONFIG_HEADERS}
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/config
+install(DIRECTORY ${BOLT_INCLUDE_DIRECTORY}/config/
+    DESTINATION ${BOLT_INSTALL_INCLUDE_DIRECTORY}/config
+    FILES_MATCHING
+        PATTERN "*.hpp"
+        PATTERN "*.tpp"
 )
 
-install(TARGETS config CLI11 tomlplusplus_tomlplusplus
+install(TARGETS config
     EXPORT bolt-targets
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${BOLT_INSTALL_INCLUDE_DIRECTORY}
 )

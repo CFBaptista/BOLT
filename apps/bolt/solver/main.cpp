@@ -1,11 +1,11 @@
 #include <string_view>
 #include <vector>
 
-#include <quill/LogMacros.h>
 #include <quill/Logger.h>
 
-#include "LBMSolver.hpp"
 #include "bolt/core/logger.hpp"
+
+#include "LBMSolver.hpp"
 #include "configuration.hpp"
 
 auto main(int argc, char* argv[]) -> int

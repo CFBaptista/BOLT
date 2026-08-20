@@ -14,6 +14,6 @@ target_link_libraries(solver_test PRIVATE
 catch_discover_tests(solver_test)
 
 target_sources(solver_test PRIVATE
+    configuration_test.cpp    
     ${BOLT_APPLICATION_DIRECTORY}/solver/configuration.cpp
-    configuration.cpp
 )

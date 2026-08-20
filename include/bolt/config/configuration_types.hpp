@@ -2,15 +2,75 @@
 
 #include <cstddef>
 #include <filesystem>
+#include <memory>
 #include <span>
 #include <string>
 #include <string_view>
 
-#include <CLI/CLI.hpp>
-#include <toml++/toml.hpp>
+// #include <CLI/CLI.hpp>
+// #include <toml++/toml.hpp>
+
+namespace CLI
+{
+class App;
+} // namespace CLI
+
+namespace toml
+{
+inline namespace v3
+{
+
+class table;
+
+} // namespace v3
+
+using table = v3::table;
+
+} // namespace toml
 
 namespace bolt::config
 {
+
+class ArgumentParser
+{
+public:
+    ArgumentParser() = delete;
+
+    /// @brief Initialize the class with command-line arguments.
+    explicit ArgumentParser(std::span<const std::string_view> args);
+
+    ArgumentParser(const ArgumentParser&) = delete;
+
+    /// @brief Move constructor.
+    ArgumentParser(ArgumentParser&&) = default;
+
+    auto operator=(const ArgumentParser&) -> ArgumentParser& = delete;
+
+    /// @brief Move assignment operator.
+    auto operator=(ArgumentParser&&) -> ArgumentParser& = default;
+
+    /// @brief Destructor.
+    ~ArgumentParser();
+
+    /// @brief Get the CLI application instance.
+    ///
+    /// @return Reference to the CLI application instance.
+    auto get_app() -> CLI::App&;
+
+    /// @brief Get the TOML table instance.
+    ///
+    /// @return Reference to the TOML table instance.
+    auto get_table() -> toml::table&;
+
+    /// @brief Parse the command-line arguments.
+    auto parse() -> void;
+
+private:
+    struct Impl;
+    std::unique_ptr<Impl> pimpl_;
+
+    std::span<const std::string_view> args_;
+};
 
 /// @brief Input and output sub-configuration for the LBM application.
 class IOConfiguration
@@ -33,7 +93,7 @@ public:
     ///
     /// @param table TOML table containing the configuration.
     /// @param app CLI application instance to bind options to.
-    IOConfiguration(const toml::table& table, CLI::App& app);
+    explicit IOConfiguration(ArgumentParser& argument_parser);
 
     /// @brief Validates the configuration.
     auto validate() const -> void;
@@ -62,7 +122,7 @@ public:
     ///
     /// @param table TOML table containing the configuration.
     /// @param app CLI application instance to bind options to.
-    TimeConfiguration(const toml::table& table, CLI::App& app);
+    explicit TimeConfiguration(ArgumentParser& argument_parser);
 
     /// @brief Validates the configuration.
     auto validate() const -> void;
@@ -70,21 +130,5 @@ public:
 private:
     auto update_from_toml_(const toml::table& table) -> void;
 };
-
-/// @brief Get the configuration file path from command-line arguments.
-///
-/// @param args Command-line arguments.
-///
-/// @return Path to the configuration file.
-auto get_configuration_filepath(std::span<const std::string_view> args) -> std::filesystem::path;
-
-/// @brief Parse command-line arguments.
-///
-/// @param app CLI application instance.
-/// @param args Command-line arguments.
-///
-/// @throws std::invalid_argument if the command-line arguments are invalid.
-/// @throws CLI::ParseError if the command-line arguments cannot be parsed.
-auto parse_cli(CLI::App& app, std::span<const std::string_view> args) -> void;
 
 } // namespace bolt::config

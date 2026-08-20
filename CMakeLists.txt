@@ -17,7 +17,7 @@ project(
     LANGUAGES CXX
 )
 
-include(cmake/initialization.cmake)
+include(cmake/include.cmake)
 
 add_subdirectory(src)
 add_subdirectory(apps)

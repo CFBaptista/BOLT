@@ -1,6 +1,5 @@
 #include <quill/LogMacros.h>
 #include <quill/Logger.h>
-#include <toml++/toml.hpp>
 
 #include "LBMSolver.hpp"
 #include "configuration.hpp"
