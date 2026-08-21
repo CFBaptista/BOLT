@@ -31,23 +31,32 @@ using table = v3::table;
 namespace bolt::config
 {
 
+/// @brief A class to parse command-line arguments and manage settings from input files.
 class ArgumentParser
 {
 public:
     ArgumentParser() = delete;
 
     /// @brief Initialize the class with command-line arguments.
+    ///
+    /// @param args A span of string views representing the command-line arguments.
     explicit ArgumentParser(std::span<const std::string_view> args);
 
     ArgumentParser(const ArgumentParser&) = delete;
 
     /// @brief Move constructor.
-    ArgumentParser(ArgumentParser&&) = default;
+    ///
+    /// @param other The other ArgumentParser instance to move from.
+    ArgumentParser(ArgumentParser&& other) = default;
 
     auto operator=(const ArgumentParser&) -> ArgumentParser& = delete;
 
     /// @brief Move assignment operator.
-    auto operator=(ArgumentParser&&) -> ArgumentParser& = default;
+    ///
+    /// @param other The other ArgumentParser instance to move from.
+    ///
+    /// @return Reference to the current ArgumentParser instance.
+    auto operator=(ArgumentParser&& other) -> ArgumentParser& = default;
 
     /// @brief Destructor.
     ~ArgumentParser();
@@ -91,8 +100,7 @@ public:
 
     /// @brief Initialize the class from a TOML table and bind to CLI options.
     ///
-    /// @param table TOML table containing the configuration.
-    /// @param app CLI application instance to bind options to.
+    /// @param argument_parser Argument parser instance to bind options to.
     explicit IOConfiguration(ArgumentParser& argument_parser);
 
     /// @brief Validates the configuration.
@@ -120,8 +128,7 @@ public:
 
     /// @brief Initialize the class from a TOML table and bind to CLI options.
     ///
-    /// @param table TOML table containing the configuration.
-    /// @param app CLI application instance to bind options to.
+    /// @param argument_parser Argument parser instance to bind options to.
     explicit TimeConfiguration(ArgumentParser& argument_parser);
 
     /// @brief Validates the configuration.
