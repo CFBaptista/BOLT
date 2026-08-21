@@ -7,9 +7,6 @@
 #include <string>
 #include <string_view>
 
-// #include <CLI/CLI.hpp>
-// #include <toml++/toml.hpp>
-
 namespace CLI
 {
 class App;
@@ -98,7 +95,7 @@ public:
 
     IOConfiguration() = delete;
 
-    /// @brief Initialize the class from a TOML table and bind to CLI options.
+    /// @brief Initialize the class using an argument parser.
     ///
     /// @param argument_parser Argument parser instance to bind options to.
     explicit IOConfiguration(ArgumentParser& argument_parser);
@@ -126,7 +123,7 @@ public:
 
     // NOLINTEND(misc-non-private-member-variables-in-classes)
 
-    /// @brief Initialize the class from a TOML table and bind to CLI options.
+    /// @brief Initialize the class using an argument parser.
     ///
     /// @param argument_parser Argument parser instance to bind options to.
     explicit TimeConfiguration(ArgumentParser& argument_parser);
