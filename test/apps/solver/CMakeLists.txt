@@ -8,7 +8,7 @@ target_link_libraries(solver_test PRIVATE
     Catch2::Catch2WithMain
     CLI11::CLI11
     config
-    bolt_compile_settings
+    bolt::compile_settings
 )
 
 catch_discover_tests(solver_test)

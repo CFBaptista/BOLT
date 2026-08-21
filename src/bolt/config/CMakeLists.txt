@@ -10,7 +10,7 @@ target_include_directories(config PUBLIC
 
 target_link_libraries(config
     PUBLIC
-        bolt_compile_settings
+        bolt::compile_settings
     PRIVATE
         CLI11::CLI11
         tomlplusplus::tomlplusplus

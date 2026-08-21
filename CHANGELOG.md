@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Initial CMake-based project structure for the BOLT library, including source, test, and documentation targets.
-- Interface target `bolt_compile_settings` for consolidation of compilation settings.
+- Interface target `compile_settings` for consolidation of compilation settings.
 - CMake presets supporting GNU and LLVM toolchains and debug, release and relWithDebInfo builds.
 - Development container configuration and Docker image definition for a reproducible development environment (also used by GitHub Action workflows).
 - GitHub Actions workflows for continuous integration and documentation deployment.

@@ -9,8 +9,8 @@ target_include_directories(lbm INTERFACE
 )
 
 target_link_libraries(lbm INTERFACE
+    bolt::compile_settings
     bolt::core
-    bolt_compile_settings
 )
 
 set_target_properties(lbm PROPERTIES

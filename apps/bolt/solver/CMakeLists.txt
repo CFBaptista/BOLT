@@ -1,10 +1,10 @@
 add_executable(bolt)
 
 target_link_libraries(bolt PRIVATE
+    bolt::compile_settings
     bolt::config
     bolt::core
     bolt::lbm
-    bolt_compile_settings
 )
 
 target_sources(bolt PRIVATE

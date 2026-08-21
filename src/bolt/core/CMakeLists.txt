@@ -10,7 +10,7 @@ target_include_directories(core PUBLIC
 
 target_link_libraries(core PUBLIC
     quill::quill
-    bolt_compile_settings
+    bolt::compile_settings
 )
 
 target_sources(core PRIVATE
