@@ -17,7 +17,7 @@ auto main(int argc, char* argv[]) -> int
     const bolt::app::ApplicationConfiguration configuration{bolt::app::parse_configuration(args)};
 
     quill::Logger* logger{
-        bolt::core::configure_logger(configuration.io.output_directory, configuration.io.log_level)
+        bolt::core::create_logger(configuration.io.output_directory, configuration.io.log_level)
     };
 
     bolt::app::LBMSolver solver(configuration, logger);

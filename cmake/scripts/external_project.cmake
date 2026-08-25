@@ -1,7 +1,7 @@
 function(provide_dependency DEPENDENCY_NAME GIT_REPOSITORY GIT_TAG CMAKE_ARGUMENT_LIST USE_SYSTEM_VERSION)
-    # Determine if we must use system, vendored, or try auto
     set(_need_build FALSE)
 
+    # Determine if we must use system, vendored, or try auto
     if(${USE_SYSTEM_VERSION} STREQUAL "ON")
         find_package(${DEPENDENCY_NAME} CONFIG REQUIRED)
 
@@ -15,6 +15,7 @@ function(provide_dependency DEPENDENCY_NAME GIT_REPOSITORY GIT_TAG CMAKE_ARGUMEN
         endif()
     endif()
 
+    # Build the external project if needed
     if(_need_build)
         build_external_project(
             ${DEPENDENCY_NAME}
@@ -29,8 +30,12 @@ function(provide_dependency DEPENDENCY_NAME GIT_REPOSITORY GIT_TAG CMAKE_ARGUMEN
         )
     endif()
 
+    # Expose local install directory to find_package
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH}" PARENT_SCOPE)
     set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" PARENT_SCOPE)
+
+    # Expose whether we built the dependency
+    set(BUILD_${DEPENDENCY_NAME} ${_need_build} PARENT_SCOPE)
 endfunction()
 
 function(build_external_project DEPENDENCY_NAME GIT_REPOSITORY GIT_TAG CMAKE_ARGUMENT_LIST)
@@ -56,6 +61,7 @@ function(build_external_project DEPENDENCY_NAME GIT_REPOSITORY GIT_TAG CMAKE_ARG
     # Define cached variables forwarded from parent project
     set(FORWARDED_ARGUMENT_LIST "")
 
+    # Forward CMake variables from parent project to external project
     if(CMAKE_CXX_COMPILER)
         list(APPEND FORWARDED_ARGUMENT_LIST "-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}")
     endif()
@@ -90,7 +96,7 @@ function(build_external_project DEPENDENCY_NAME GIT_REPOSITORY GIT_TAG CMAKE_ARG
         RESULT_VARIABLE cmake_build_result_code
     )
     if(NOT cmake_build_result_code EQUAL 0)
-        message(FATAL_ERROR "Failed to build/install dependency ${DEPENDENCY_NAME}")
+        message(FATAL_ERROR "Failed to build or install dependency ${DEPENDENCY_NAME}")
     endif()
 
     # Expose local install directory to find_package
@@ -102,14 +108,18 @@ function(build_external_project DEPENDENCY_NAME GIT_REPOSITORY GIT_TAG CMAKE_ARG
     set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" PARENT_SCOPE)
 endfunction()
 
-function(install_external_project DEPENDENCY_NAME)
+function(vendor_dependency DEPENDENCY_NAME)
+    # Define path for the external project
     set(DEPENDENCY_INSTALL "${CMAKE_BINARY_DIR}/_external_projects/${DEPENDENCY_NAME}-install")
     
+    # Vendor the dependency if it exists
     if(EXISTS "${DEPENDENCY_INSTALL}")
         message(STATUS "Installing vendored ${DEPENDENCY_NAME} to system...")
         install(
             DIRECTORY "${DEPENDENCY_INSTALL}/"
             DESTINATION "."
         )
+    else()
+        message(FATAL_ERROR "Vendored ${DEPENDENCY_NAME} not found.")
     endif()
 endfunction()

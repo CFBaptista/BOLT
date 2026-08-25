@@ -33,7 +33,7 @@ auto get_iso_8601_timestamp() -> std::string
 
 } // anonymous namespace
 
-auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
+auto create_logger(const std::filesystem::path& output_directory, const std::string& log_level)
     -> quill::Logger*
 {
     const std::string timestamp = get_iso_8601_timestamp();

@@ -10,12 +10,12 @@ namespace bolt::app
 
 auto parse_configuration(std::span<const std::string_view> args) -> ApplicationConfiguration
 {
-    bolt::config::ArgumentParser argument_parser{args};
+    bolt::config::ConfigurationManager configuration_manager{args};
 
-    const bolt::config::IOConfiguration io_configuration{argument_parser};
-    const bolt::config::TimeConfiguration time_configuration{argument_parser};
+    const bolt::config::IOConfiguration io_configuration{configuration_manager};
+    const bolt::config::TimeConfiguration time_configuration{configuration_manager};
 
-    argument_parser.parse();
+    configuration_manager.parse();
 
     io_configuration.validate();
     time_configuration.validate();

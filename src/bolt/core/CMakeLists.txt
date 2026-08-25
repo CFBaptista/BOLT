@@ -3,7 +3,7 @@ add_library(core STATIC)
 add_library(bolt::core ALIAS core)
 
 target_include_directories(core PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${BOLT_INCLUDE_DIRECTORY}/..>
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${BOLT_INSTALL_INCLUDE_DIRECTORY}>
 )

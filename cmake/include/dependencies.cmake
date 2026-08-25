@@ -33,3 +33,7 @@ provide_dependency(
     "-DBUILD_SHARED_LIBS=OFF"
     ${USE_SYSTEM_TOMLPLUSPLUS}
 )
+
+if(BUILD_quill)
+    vendor_dependency(quill)
+endif()

@@ -3,7 +3,7 @@ add_library(config STATIC)
 add_library(bolt::config ALIAS config)
 
 target_include_directories(config PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${BOLT_INCLUDE_DIRECTORY}/..>
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${BOLT_INSTALL_INCLUDE_DIRECTORY}>
 )
@@ -17,6 +17,7 @@ target_link_libraries(config
 )
 
 target_sources(config PRIVATE
+    ConfigurationManager.cpp
     configuration_types.cpp
     validation.cpp
 )

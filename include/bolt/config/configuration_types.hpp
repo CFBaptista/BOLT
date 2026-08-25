@@ -2,81 +2,11 @@
 
 #include <cstddef>
 #include <filesystem>
-#include <memory>
-#include <span>
 #include <string>
-#include <string_view>
 
-namespace CLI
-{
-class App;
-} // namespace CLI
-
-namespace toml
-{
-inline namespace v3
-{
-
-class table;
-
-} // namespace v3
-
-using table = v3::table;
-
-} // namespace toml
-
+#include "ConfigurationManager.hpp"
 namespace bolt::config
 {
-
-/// @brief A class to parse command-line arguments and manage settings from input files.
-class ArgumentParser
-{
-public:
-    ArgumentParser() = delete;
-
-    /// @brief Initialize the class with command-line arguments.
-    ///
-    /// @param args A span of string views representing the command-line arguments.
-    explicit ArgumentParser(std::span<const std::string_view> args);
-
-    ArgumentParser(const ArgumentParser&) = delete;
-
-    /// @brief Move constructor.
-    ///
-    /// @param other The other ArgumentParser instance to move from.
-    ArgumentParser(ArgumentParser&& other) = default;
-
-    auto operator=(const ArgumentParser&) -> ArgumentParser& = delete;
-
-    /// @brief Move assignment operator.
-    ///
-    /// @param other The other ArgumentParser instance to move from.
-    ///
-    /// @return Reference to the current ArgumentParser instance.
-    auto operator=(ArgumentParser&& other) -> ArgumentParser& = default;
-
-    /// @brief Destructor.
-    ~ArgumentParser();
-
-    /// @brief Get the CLI application instance.
-    ///
-    /// @return Reference to the CLI application instance.
-    auto get_app() -> CLI::App&;
-
-    /// @brief Get the TOML table instance.
-    ///
-    /// @return Reference to the TOML table instance.
-    auto get_table() -> toml::table&;
-
-    /// @brief Parse the command-line arguments.
-    auto parse() -> void;
-
-private:
-    struct Impl;
-    std::unique_ptr<Impl> pimpl_;
-
-    std::span<const std::string_view> args_;
-};
 
 /// @brief Input and output sub-configuration for the LBM application.
 class IOConfiguration
@@ -97,15 +27,15 @@ public:
 
     /// @brief Initialize the class using an argument parser.
     ///
-    /// @param argument_parser Argument parser instance to bind options to.
-    explicit IOConfiguration(ArgumentParser& argument_parser);
+    /// @param configuration_manager Argument parser instance to bind options to.
+    explicit IOConfiguration(ConfigurationManager& configuration_manager);
 
     /// @brief Validates the configuration.
     auto validate() const -> void;
 
 private:
-    auto update_from_toml_(const toml::table& table) -> void;
-    auto bind_to_cli_(CLI::App& app) -> void;
+    auto update_from_config_(const ConfigurationManager& configuration_manager) -> void;
+    auto bind_to_cli_(ConfigurationManager& configuration_manager) -> void;
 };
 
 /// @brief Time sub-configuration for the LBM application.
@@ -125,14 +55,14 @@ public:
 
     /// @brief Initialize the class using an argument parser.
     ///
-    /// @param argument_parser Argument parser instance to bind options to.
-    explicit TimeConfiguration(ArgumentParser& argument_parser);
+    /// @param configuration_manager Argument parser instance to bind options to.
+    explicit TimeConfiguration(ConfigurationManager& configuration_manager);
 
     /// @brief Validates the configuration.
     auto validate() const -> void;
 
 private:
-    auto update_from_toml_(const toml::table& table) -> void;
+    auto update_from_config_(const ConfigurationManager& configuration_manager) -> void;
 };
 
 } // namespace bolt::config

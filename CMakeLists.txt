@@ -26,6 +26,4 @@ if (BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
-if (BUILD_DOCS)
-    add_subdirectory(doc)
-endif()
+add_subdirectory(doc)

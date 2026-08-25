@@ -15,7 +15,7 @@ namespace bolt::core
 /// "debug", "info", "notice", "warning", "error", "critical".
 ///
 /// @return A pointer to the configured quill::Logger instance.
-auto configure_logger(const std::filesystem::path& output_directory, const std::string& log_level)
+auto create_logger(const std::filesystem::path& output_directory, const std::string& log_level)
     -> quill::Logger*;
 
 } // namespace bolt::core

@@ -3,7 +3,7 @@ add_library(lbm INTERFACE)
 add_library(bolt::lbm ALIAS lbm)
 
 target_include_directories(lbm INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${BOLT_INCLUDE_DIRECTORY}/..>
     $<BUILD_INTERFACE:${BOLT_SOURCE_DIRECTORY}/..>
     $<INSTALL_INTERFACE:${BOLT_INSTALL_INCLUDE_DIRECTORY}>
 )

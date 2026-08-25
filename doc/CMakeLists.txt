@@ -1,4 +1,4 @@
-find_package(Doxygen)
+find_package(Doxygen REQUIRED)
 
 if(DOXYGEN_FOUND)
     set(DOXYGEN_IN ${CMAKE_SOURCE_DIR}/doc/Doxyfile.in)
