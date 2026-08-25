@@ -14,6 +14,7 @@ target_compile_definitions(config_test PRIVATE
 catch_discover_tests(config_test)
 
 target_sources(config_test PRIVATE
+    ConfigurationManager_test.cpp
     configuration_types_test.cpp
     toml_parser_test.cpp
     validation_test.cpp
