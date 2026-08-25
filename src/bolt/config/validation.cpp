@@ -25,7 +25,10 @@ auto FileValidator::exists() -> FileValidator&
 {
     if (!std::filesystem::exists(file_path_))
     {
-        throw std::runtime_error("File does not exist: " + file_path_.string());
+        throw std::filesystem::filesystem_error(
+            "File does not exist", file_path_,
+            std::make_error_code(std::errc::no_such_file_or_directory)
+        );
     }
 
     return *this;
@@ -35,7 +38,10 @@ auto FileValidator::is_file() -> FileValidator&
 {
     if (!std::filesystem::is_regular_file(file_path_))
     {
-        throw std::runtime_error("Path is not a regular file: " + file_path_.string());
+        throw std::filesystem::filesystem_error(
+            "Path is not a regular file", file_path_,
+            std::make_error_code(std::errc::is_a_directory)
+        );
     }
 
     return *this;
@@ -49,7 +55,9 @@ auto FileValidator::readable() -> FileValidator&
     if (error_code ||
         (permissions & std::filesystem::perms::owner_read) == std::filesystem::perms::none)
     {
-        throw std::runtime_error("File is not readable: " + file_path_.string());
+        throw std::filesystem::filesystem_error(
+            "File is not readable", file_path_, std::make_error_code(std::errc::permission_denied)
+        );
     }
 
     return *this;
@@ -63,7 +71,9 @@ auto FileValidator::writable() -> FileValidator&
     if (error_code ||
         (permissions & std::filesystem::perms::owner_write) == std::filesystem::perms::none)
     {
-        throw std::runtime_error("File is not writable: " + file_path_.string());
+        throw std::filesystem::filesystem_error(
+            "File is not writable", file_path_, std::make_error_code(std::errc::permission_denied)
+        );
     }
 
     return *this;
@@ -87,7 +97,10 @@ auto DirectoryValidator::exists() -> DirectoryValidator&
 {
     if (!std::filesystem::exists(directory_path_))
     {
-        throw std::runtime_error("Directory does not exist: " + directory_path_.string());
+        throw std::filesystem::filesystem_error(
+            "Directory does not exist", directory_path_,
+            std::make_error_code(std::errc::no_such_file_or_directory)
+        );
     }
 
     return *this;
@@ -97,7 +110,10 @@ auto DirectoryValidator::is_directory() -> DirectoryValidator&
 {
     if (!std::filesystem::is_directory(directory_path_))
     {
-        throw std::runtime_error("Path is not a directory: " + directory_path_.string());
+        throw std::filesystem::filesystem_error(
+            "Path is not a directory", directory_path_,
+            std::make_error_code(std::errc::not_a_directory)
+        );
     }
 
     return *this;
@@ -111,7 +127,10 @@ auto DirectoryValidator::readable() -> DirectoryValidator&
     if (error_code ||
         (permissions & std::filesystem::perms::owner_read) == std::filesystem::perms::none)
     {
-        throw std::runtime_error("Directory is not readable: " + directory_path_.string());
+        throw std::filesystem::filesystem_error(
+            "Directory is not readable", directory_path_,
+            std::make_error_code(std::errc::permission_denied)
+        );
     }
 
     return *this;
@@ -125,7 +144,10 @@ auto DirectoryValidator::writable() -> DirectoryValidator&
     if (error_code ||
         (permissions & std::filesystem::perms::owner_write) == std::filesystem::perms::none)
     {
-        throw std::runtime_error("Directory is not writable: " + directory_path_.string());
+        throw std::filesystem::filesystem_error(
+            "Directory is not writable", directory_path_,
+            std::make_error_code(std::errc::permission_denied)
+        );
     }
 
     return *this;

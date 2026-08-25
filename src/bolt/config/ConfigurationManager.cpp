@@ -64,11 +64,9 @@ auto get_configuration_filepath(std::span<const std::string_view> args) -> std::
     std::filesystem::path configuration_filepath;
 
     app.add_option(
-           "-c,--config_file", configuration_filepath,
-           "Path to a TOML configuration file for running a simulation with BOLT"
-    )
-        ->required()
-        ->check(CLI::ExistingFile);
+        "-c,--config_file", configuration_filepath,
+        "Path to a TOML configuration file for running a simulation with BOLT"
+    );
 
     app.allow_extras();
 
