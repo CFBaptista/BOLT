@@ -7,9 +7,14 @@ target_link_libraries(config_test PRIVATE
     bolt::config
 )
 
+target_compile_definitions(config_test PRIVATE
+    BOLT_TEST_DATA_DIRECTORY="${CMAKE_SOURCE_DIR}/test/data"
+)
+
 catch_discover_tests(config_test)
 
 target_sources(config_test PRIVATE
+    configuration_types_test.cpp
     toml_parser_test.cpp
     validation_test.cpp
     SimulationTime_test.cpp
