@@ -52,7 +52,7 @@ auto IOConfiguration::validate() const -> void
     }
 }
 
-TimeConfiguration::TimeConfiguration(ConfigurationManager& configuration_manager)
+TimeConfiguration::TimeConfiguration(const ConfigurationManager& configuration_manager)
     : start_time(-1.0), time_step(0.0), number_of_steps(0)
 {
     update_from_config_(configuration_manager);

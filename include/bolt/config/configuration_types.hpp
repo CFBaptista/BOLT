@@ -56,7 +56,7 @@ public:
     /// @brief Initialize the class using an argument parser.
     ///
     /// @param configuration_manager Argument parser instance to bind options to.
-    explicit TimeConfiguration(ConfigurationManager& configuration_manager);
+    explicit TimeConfiguration(const ConfigurationManager& configuration_manager);
 
     /// @brief Validates the configuration.
     auto validate() const -> void;
