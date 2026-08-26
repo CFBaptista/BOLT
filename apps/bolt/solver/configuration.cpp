@@ -1,6 +1,7 @@
 #include <span>
 #include <string_view>
 
+#include "bolt/config/ConfigurationManager.hpp"
 #include "bolt/config/configuration_types.hpp"
 
 #include "configuration.hpp"

@@ -130,11 +130,42 @@ jobs:
       - name: Run documentation generator (Doxygen)
         run: cmake --build --preset linux-native-llvm-release --target docs
 
+  coverage:
+    needs: build-test
+    name: Report code coverage
+    runs-on: ubuntu-26.04
+    container:
+      image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
+
+    steps:
+      - name: Fix dubious ownership warning
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset linux-native-llvm-debug -DBUILD_DOCS=OFF -DBUILD_TESTING=ON -DENABLE_COVERAGE=ON
+
+      - name: Build project
+        run: cmake --build --preset linux-native-llvm-debug
+
+      - name: Generate coverage report
+        run: cmake --build --preset linux-native-llvm-debug --target coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: build/linux-native-llvm-debug/coverage/llvm/coverage.lcov
+          fail_ci_if_error: true
+
   success:
     needs:
       - format
       - build-test
       - documentation
+      - coverage
     name: Success
     runs-on: ubuntu-26.04
 

@@ -1,3 +1,5 @@
+include(cmake/scripts/external_project.cmake)
+
 if(BUILD_TESTING)
     include(CTest)
 

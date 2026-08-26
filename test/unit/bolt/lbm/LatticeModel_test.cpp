@@ -1,7 +1,12 @@
 #include <array>
 #include <cstddef>
 
+#include <catch2/catch_test_macros.hpp>
+
 #include "bolt/lbm/LatticeModel.hpp"
+
+namespace
+{
 
 template <typename Real, std::size_t Size>
 consteval auto filled_weights(Real value) -> std::array<Real, Size>
@@ -213,17 +218,26 @@ public:
     static constexpr value_type sound_speed_inverse_squared{0.0};
 };
 
-static_assert(bolt::lbm::LatticeModel<ValidLattice<float>>);
-static_assert(bolt::lbm::LatticeModel<ValidLattice<double>>);
-static_assert(!bolt::lbm::LatticeModel<NonFloatingValueTypeLattice>);
-static_assert(!bolt::lbm::LatticeModel<WrongDimensionTypeLattice>);
-static_assert(!bolt::lbm::LatticeModel<ZeroDimensionLattice>);
-static_assert(!bolt::lbm::LatticeModel<OversizedDimensionLattice>);
-static_assert(!bolt::lbm::LatticeModel<WrongSizeTypeLattice>);
-static_assert(!bolt::lbm::LatticeModel<ZeroSizeLattice>);
-static_assert(!bolt::lbm::LatticeModel<WrongVelocitiesTypeLattice>);
-static_assert(!bolt::lbm::LatticeModel<NonZeroVelocitySumLattice>);
-static_assert(!bolt::lbm::LatticeModel<WrongWeightsTypeLattice>);
-static_assert(!bolt::lbm::LatticeModel<NonUnitWeightSumLattice>);
-static_assert(!bolt::lbm::LatticeModel<WrongSoundSpeedTypeLattice>);
-static_assert(!bolt::lbm::LatticeModel<ZeroSoundSpeedLattice>);
+} // anonymous namespace
+
+SCENARIO("LatticeModel concept accepts valid lattice models")
+{
+    STATIC_REQUIRE(bolt::lbm::LatticeModel<ValidLattice<float>>);
+    STATIC_REQUIRE(bolt::lbm::LatticeModel<ValidLattice<double>>);
+}
+
+SCENARIO("LatticeModel concept rejects invalid lattice models")
+{
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<NonFloatingValueTypeLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<WrongDimensionTypeLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<ZeroDimensionLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<OversizedDimensionLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<WrongSizeTypeLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<ZeroSizeLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<WrongVelocitiesTypeLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<NonZeroVelocitySumLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<WrongWeightsTypeLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<NonUnitWeightSumLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<WrongSoundSpeedTypeLattice>);
+    STATIC_REQUIRE_FALSE(bolt::lbm::LatticeModel<ZeroSoundSpeedLattice>);
+}

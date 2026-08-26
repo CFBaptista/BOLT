@@ -34,7 +34,7 @@ SCENARIO("TimeConfiguration reads values from the configuration file")
 
         const std::string config_path{TEST_CONFIGURATION_FILE.string()};
         const std::vector<std::string_view> args{"test", "-c", config_path};
-        bolt::config::ConfigurationManager manager{args};
+        const bolt::config::ConfigurationManager manager{args};
 
         WHEN("A TimeConfiguration is constructed")
         {
@@ -65,7 +65,7 @@ SCENARIO("TimeConfiguration::validate() accepts and rejects configurations")
     {
         const std::string config_path{TEST_CONFIGURATION_FILE.string()};
         const std::vector<std::string_view> args{"test", "-c", config_path};
-        bolt::config::ConfigurationManager manager{args};
+        const bolt::config::ConfigurationManager manager{args};
         bolt::config::TimeConfiguration time_config{manager};
 
         WHEN("All field values are valid")

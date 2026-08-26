@@ -54,15 +54,7 @@ auto create_logger(const std::filesystem::path& output_directory, const std::str
         "bolt", {std::move(console_sink), std::move(file_sink)}, formatter_options
     );
 
-    if (log_level == "trace_l3")
-    {
-        logger->set_log_level(quill::LogLevel::TraceL3);
-    }
-    else if (log_level == "trace_l2")
-    {
-        logger->set_log_level(quill::LogLevel::TraceL2);
-    }
-    else if (log_level == "trace_l1")
+    if (log_level == "trace_l1")
     {
         logger->set_log_level(quill::LogLevel::TraceL1);
     }
@@ -74,10 +66,6 @@ auto create_logger(const std::filesystem::path& output_directory, const std::str
     {
         logger->set_log_level(quill::LogLevel::Info);
     }
-    else if (log_level == "notice")
-    {
-        logger->set_log_level(quill::LogLevel::Notice);
-    }
     else if (log_level == "warning")
     {
         logger->set_log_level(quill::LogLevel::Warning);
@@ -85,10 +73,6 @@ auto create_logger(const std::filesystem::path& output_directory, const std::str
     else if (log_level == "error")
     {
         logger->set_log_level(quill::LogLevel::Error);
-    }
-    else if (log_level == "critical")
-    {
-        logger->set_log_level(quill::LogLevel::Critical);
     }
     else
     {

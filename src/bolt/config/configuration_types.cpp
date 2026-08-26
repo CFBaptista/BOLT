@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <string>
 
+#include "bolt/config/ConfigurationManager.hpp"
 #include "bolt/config/configuration_types.hpp"
 
 #include "validation.hpp"

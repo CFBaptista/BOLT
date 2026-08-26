@@ -31,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 | 5 | `bolt::lbm` | Interface library | LBM models and numerical algorithms. |
 | 6 | `copy_compile_commands` | Utility | Utility for copying the `compile_commands.json` file from a preset's build directory to the root build directory. |
 | 7 | `docs` | Utility | Utility for building documentation.  |
+| 7 | `coverage` | Utility | Utility for generating a code coverage report in HTML. |
 
 **Dependencies**
 
@@ -38,9 +39,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 |---|------|-----------------|------| ------ | ------- |
 | 1 | [Catch2](https://github.com/catchorg/Catch2) | 3.5.11 | Private build-time dependency (optional)  | System or vendored  | Testing framework |
 | 2 | [CLI11](https://github.com/cliutils/cli11) | 2.6.2 | Private build-time dependency | System or vendored | Parse command-line arguments |
-| 3 | [Doxygen](https://github.com/doxygen/doxygen) | 1.15.0 | Private build-time dependency (optional) | System | Documentation framework |
+| 3 | [doxygen](https://github.com/doxygen/doxygen) | 1.15.0 | Private build-time dependency (optional) | System | Documentation framework |
 | 4 | [Quill](https://github.com/odygrd/quill) | 11.1.0 | Public interface dependency | System or vendored | Logging framework |
-| 5 | [TOML](https://github.com/toml-lang/toml) | 3.4.0 | Private build-time dependency | System or vendored | Read TOML file as configuration for the `bolt` application |
+| 5 | [toml++](https://github.com/marzer/tomlplusplus) | 3.4.0 | Private build-time dependency | System or vendored | Read TOML file as configuration for the `bolt` application |
 
 **Build system**
 - CMake C++23 project named `BOLT` with initial version `0.1.0`.
@@ -48,12 +49,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - CMake functions for managing third-party dependencies supporting both system and vendored versions.
 - Export of `BOLT` as CMake package, consumers can find it using `find_package(BOLT)`.
 - If `quill` is not found on the system or the user explicitly choses for the vendored version then `quill` is exported alongside `BOLT`.
+- Doxygen-based public API documentation and BibTex-based bibliography support (target: `docs`).
+- Code coverage using `lcov` and `genhtml` for `GNU` builds or `llvm-profdata` and `llvm-cov` for `LLVM` builds (target: `coverage`)
 
 **CI/CD**
 - Development container specification and Dockerfile for a reproducible development environment (also used on GitHub Actions).
 - GitHub Actions workflows for continuous integration and documentation deployment.
 - Tooling configuration for `clang-format`, `clang-tidy`, `clangd`, and `cppcheck`.
-- Doxygen-based public API documentation and BibTex-based bibliography support.
 
 ### Changed
 

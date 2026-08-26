@@ -8,6 +8,10 @@ target_link_libraries(lbm_test PRIVATE
 
 catch_discover_tests(lbm_test)
 
+set_source_files_properties(LatticeModel_test.cpp
+    PROPERTIES COMPILE_OPTIONS "-Wno-unused-const-variable"
+)
+
 target_sources(lbm_test PRIVATE
     D1Q3_test.cpp
     D2Q9_test.cpp

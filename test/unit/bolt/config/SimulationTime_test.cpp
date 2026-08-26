@@ -16,6 +16,21 @@ SCENARIO("Verify properties and state of simulation time")
 
         bolt::config::SimulationTime<double> time(start_time, time_step, number_of_steps);
 
+        THEN("The starting time is correctly set")
+        {
+            REQUIRE(time.start_time() == start_time);
+        }
+
+        THEN("The time step is correctly set")
+        {
+            REQUIRE(time.time_step() == time_step);
+        }
+
+        THEN("The number of steps is correctly set")
+        {
+            REQUIRE(time.number_of_steps() == number_of_steps);
+        }
+
         THEN("The current time is equal to the starting time")
         {
             REQUIRE(time.current_time() == start_time);
@@ -27,11 +42,21 @@ SCENARIO("Verify properties and state of simulation time")
             REQUIRE(time.end_time() == start_time + (time_step * number_of_steps));
         }
 
-        THEN("Advancing the simulation time updates the current time correctly")
+        THEN("Advancing the simulation time updates the state correctly")
         {
-            for (std::size_t step = 0; step < number_of_steps; ++step)
+            for (std::size_t step = 0; step < number_of_steps + 1; ++step)
             {
-                REQUIRE(time.current_time() == start_time + (time_step * step));
+                if (step < number_of_steps)
+                {
+                    REQUIRE(time.current_step() == step);
+                    REQUIRE(time.current_time() == start_time + (time_step * step));
+                }
+                else
+                {
+                    REQUIRE(time.current_step() == number_of_steps);
+                    REQUIRE(time.current_time() == time.end_time());
+                }
+
                 time.advance();
             }
 
