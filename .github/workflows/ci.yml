@@ -19,7 +19,7 @@ jobs:
     name: Check formatting
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.5.0-amd64
+      image: ghcr.io/cfbaptista/bolt-dev:0.5.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -59,10 +59,10 @@ jobs:
         include:
           - arch: x86_64
             runner: ubuntu-26.04
-            container: ghcr.io/cfbaptista/bolt-dev:0.5.0-amd64
+            container: ghcr.io/cfbaptista/bolt-dev:0.5.0
           - arch: aarch64
             runner: ubuntu-26.04-arm
-            container: ghcr.io/cfbaptista/bolt-dev:0.5.0-arm64
+            container: ghcr.io/cfbaptista/bolt-dev:0.5.0
       fail-fast: false
 
     steps:
@@ -115,7 +115,7 @@ jobs:
     name: Build documentation
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.5.0-amd64
+      image: ghcr.io/cfbaptista/bolt-dev:0.5.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -135,7 +135,7 @@ jobs:
     name: Report code coverage
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.5.0-amd64
+      image: ghcr.io/cfbaptista/bolt-dev:0.5.0
 
     steps:
       - name: Fix dubious ownership warning
