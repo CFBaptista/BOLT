@@ -26,9 +26,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 |---|------|------|-------------|
 | 1 | `bolt` | Executable | Command-line application for simulating fluid dynamics cases using the Lattice Boltzmann Method. The application depends on `quill` as the logging framework. |
 | 2 | `bolt::compile_settings` | Interface library | Empty library used only for propagating compilation settings. `BOLT` libraries inherit settings by linking against this library. |
-| 3 | `bolt::config` | Static library | Configuration types and configuration manager for parsing and validating inputs to an application from the command line and a configuration file. |
-| 4 | `bolt::core` | Static library | Fundamental utilities needed by other libraries (e.g. generic algorithms, containers, concepts, etc.). |
-| 5 | `bolt::lbm` | Interface library | LBM models and numerical algorithms. |
+| 3 | `bolt::config` | Static library | Application-only types and utilities. |
+| 4 | `bolt::core` | Static library | Fundamental types and utilities needed by other libraries (e.g. generic algorithms, containers, concepts, etc.). |
+| 5 | `bolt::lbm` | Interface library | Lattice Boltzmann algorithms, data and models. |
 | 6 | `copy_compile_commands` | Utility | Utility for copying the `compile_commands.json` file from a preset's build directory to the root build directory. |
 | 7 | `docs` | Utility | Utility for building documentation.  |
 | 7 | `coverage` | Utility | Utility for generating a code coverage report in HTML. |
