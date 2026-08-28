@@ -17,7 +17,6 @@ concurrency:
 jobs:
   format:
     name: Check formatting
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-26.04
     container:
       image: ghcr.io/cfbaptista/bolt-dev:0.5.0
@@ -145,7 +144,6 @@ jobs:
   documentation:
     needs: build-test
     name: Build documentation
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-26.04
     container:
       image: ghcr.io/cfbaptista/bolt-dev:0.5.0
