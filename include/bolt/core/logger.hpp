@@ -11,7 +11,7 @@ namespace bolt::core
 /// @brief Configures a Quill logger for the application.
 ///
 /// @param output_directory The directory where log files should be stored.
-/// @param log_level The logging level. Available levels are "trace_l1", "debug", "info", "warning",
+/// @param log_level The logging level. Available levels are "trace", "debug", "info", "warning",
 /// "error".
 ///
 /// @return A pointer to the configured quill::Logger instance.

@@ -13,9 +13,9 @@ SCENARIO("create_logger returns a valid logger for supported log levels")
     {
         const std::filesystem::path output_directory = std::filesystem::temp_directory_path();
 
-        THEN("No exception is thrown for the 'trace_l1' log level")
+        THEN("No exception is thrown for the 'trace' log level")
         {
-            REQUIRE_NOTHROW(bolt::core::create_logger(output_directory, "trace_l1"));
+            REQUIRE_NOTHROW(bolt::core::create_logger(output_directory, "trace"));
         }
 
         THEN("No exception is thrown for the 'debug' log level")

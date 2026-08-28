@@ -54,7 +54,7 @@ auto create_logger(const std::filesystem::path& output_directory, const std::str
         "bolt", {std::move(console_sink), std::move(file_sink)}, formatter_options
     );
 
-    if (log_level == "trace_l1")
+    if (log_level == "trace")
     {
         logger->set_log_level(quill::LogLevel::TraceL1);
     }
