@@ -137,9 +137,9 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           files: build/linux-native-llvm-debug/coverage/llvm/coverage.lcov
           flags: coverage
+          use_oidc: true
           verbose: true
           fail_ci_if_error: true
 
