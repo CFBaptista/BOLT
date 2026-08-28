@@ -1,8 +1,6 @@
 {
     "name": "BOLT Development Container",
-    "build": {
-        "dockerfile": "../docker/ubuntu.Dockerfile"
-    },
+    "image": "ghcr.io/cfbaptista/bolt-dev:0.5.0",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -13,7 +11,8 @@
                 "llvm-vs-code-extensions.vscode-clangd",
                 "redhat.vscode-yaml",
                 "samubarb.vscode-doxyfile",
-                "stevebushresearch.buildoutputcolorizer"
+                "stevebushresearch.buildoutputcolorizer",
+                "tamasfe.even-better-toml"
             ]
         }
     },

@@ -19,4 +19,4 @@ WarningsAsErrors: "*"
 
 CheckOptions:
     - key: misc-include-cleaner.IgnoreHeaders
-      value: ".*_deps/.*"
+      value: ".*_deps/.*;.*tomlplusplus.*"

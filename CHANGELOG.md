@@ -8,24 +8,54 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Initial CMake-based project structure for the BOLT library, including source, test, and documentation targets.
-- Interface target `bolt_compile_settings` for consolidation of compilation settings.
-- CMake presets supporting GNU and LLVM toolchains and debug, release and relWithDebInfo builds.
-- Development container configuration and Docker image definition for a reproducible development environment (also used by GitHub Action workflows).
+**API**
+- `bolt::aligned_allocator`: Custom aligned memory allocator.
+- `bolt::array`: Multi-dimensional container.
+- `bolt::lbm::LatticeModel`: Concept for validating lattice model requirements.
+- `bolt::lbm::D1Q3`, `bolt::lbm::D2Q9`, and `bolt::lbm::D3Q27`: Lattice model specifiers.
+- `bolt::lbm::DistributionField`: Class template for storing lattice distributions on 1D, 2D, and 3D Cartesian grids.
+- `bolt::core::create_logger`: Create a `quill`-based logger that logs to the console and a file on disk.
+- `bolt::config::ConfigurationManager`: Class for managing the parsing and validation of command-line arguments and configurations read from an input TOML file.
+- `bolt::config::IOConfiguration`: Class holding validated I/O configurations.
+- `bolt::config::TimeConfiguration`: Class holding simulation time configurations.
+- `bolt::config::SimulationTime`: Simulation time object managing discrete time in a solver.
+
+**Applications and libraries**
+
+| # | Name | Type | Description |
+|---|------|------|-------------|
+| 1 | `bolt` | Executable | Command-line application for simulating fluid dynamics cases using the Lattice Boltzmann Method. The application depends on `quill` as the logging framework. |
+| 2 | `bolt::compile_settings` | Interface library | Empty library used only for propagating compilation settings. `BOLT` libraries inherit settings by linking against this library. |
+| 3 | `bolt::config` | Static library | Application-only types and utilities. |
+| 4 | `bolt::core` | Static library | Fundamental types and utilities needed by other libraries (e.g. generic algorithms, containers, concepts, etc.). |
+| 5 | `bolt::lbm` | Interface library | Lattice Boltzmann algorithms, data and models. |
+| 6 | `copy_compile_commands` | Utility | Utility for copying the `compile_commands.json` file from a preset's build directory to the root build directory. |
+| 7 | `docs` | Utility | Utility for building documentation.  |
+| 7 | `coverage` | Utility | Utility for generating a code coverage report in HTML. |
+
+**Dependencies**
+
+| # | Name | Minimal version | Dependency Type | Source | Purpose |
+|---|------|-----------------|------| ------ | ------- |
+| 1 | [Catch2](https://github.com/catchorg/Catch2) | 3.5.11 | Private build-time dependency (optional)  | System or vendored  | Testing framework |
+| 2 | [CLI11](https://github.com/cliutils/cli11) | 2.6.2 | Private build-time dependency | System or vendored | Parse command-line arguments |
+| 3 | [doxygen](https://github.com/doxygen/doxygen) | 1.15.0 | Private build-time dependency (optional) | System | Documentation framework |
+| 4 | [Quill](https://github.com/odygrd/quill) | 11.1.0 | Public interface dependency | System or vendored | Logging framework |
+| 5 | [toml++](https://github.com/marzer/tomlplusplus) | 3.4.0 | Private build-time dependency | System or vendored | Read TOML file as configuration for the `bolt` application |
+
+**Build system**
+- CMake C++23 project named `BOLT` with initial version `0.1.0`.
+- CMake presets supporting `GNU` and `LLVM` toolchains and `Debug`, `Release` and `RelWithDebInfo` builds.
+- CMake functions for managing third-party dependencies supporting both system and vendored versions.
+- Export of `BOLT` as CMake package, consumers can find it using `find_package(BOLT)`.
+- If `quill` is not found on the system or the user explicitly choses for the vendored version then `quill` is exported alongside `BOLT`.
+- Doxygen-based public API documentation and BibTex-based bibliography support (target: `docs`).
+- Code coverage using `lcov` and `genhtml` for `GNU` builds or `llvm-profdata` and `llvm-cov` for `LLVM` builds (target: `coverage`)
+
+**CI/CD**
+- Development container specification and Dockerfile for a reproducible development environment (also used on GitHub Actions).
 - GitHub Actions workflows for continuous integration and documentation deployment.
-- CI includes `x86_64` and `aarch64` jobs.
-- Doxygen-based documentation build configuration and BibTex-based bibliography support.
-- Repository-wide tooling configuration for `clang-format`, `clang-tidy`, `clangd`, and `cppcheck`.
-
-- Aligned storage utilities with `AlignedAllocator` custom allocator and multi-dimensional `AlignedArray` container.
-- `LatticeModel` concept for validating lattice model requirements.
-- Lattice model interfaces for `D1Q3`, `D2Q9`, and `D3Q27`.
-- `DistributionField` template for storing lattice distributions on 1D, 2D, and 3D Cartesian grids.
-- `SimulationTime` template for managing fixed-step simulation time in the core module.
-
-- Command-line application for simulating CFD cases with the Lattice Boltzmann method. The application includes a CLI11-based command-line argument parser, a TOML-based configuration file parser, and a quill-based logger.
-- `ApplicationConfiguration` struct that holds parsed command-line arguments and settings read from a TOML configuration file.
-- Use `parse_configuration` to construct a `ApplicationConfiguration` from command-line arguments.
+- Tooling configuration for `clang-format`, `clang-tidy`, `clangd`, and `cppcheck`.
 
 ### Changed
 
@@ -41,7 +71,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- Added direct `<concepts>` includes to lattice model headers to satisfy include-cleaner diagnostics.
+- None
 
 ### Security
 

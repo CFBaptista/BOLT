@@ -1,13 +1,12 @@
 #include <string_view>
 #include <vector>
 
-#include <quill/LogMacros.h>
 #include <quill/Logger.h>
 
+#include "bolt/core/logger.hpp"
+
 #include "LBMSolver.hpp"
-#include "configuration/configuration.hpp"
-#include "configuration/configuration_datatypes.hpp"
-#include "configuration/logger.hpp"
+#include "configuration.hpp"
 
 auto main(int argc, char* argv[]) -> int
 {
@@ -18,7 +17,7 @@ auto main(int argc, char* argv[]) -> int
     const bolt::app::ApplicationConfiguration configuration{bolt::app::parse_configuration(args)};
 
     quill::Logger* logger{
-        bolt::app::configure_logger(configuration.io.output_directory, configuration.io.log_level)
+        bolt::core::create_logger(configuration.io.output_directory, configuration.io.log_level)
     };
 
     bolt::app::LBMSolver solver(configuration, logger);
