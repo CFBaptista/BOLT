@@ -139,6 +139,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: build/linux-native-llvm-debug/coverage/llvm/coverage.lcov
+          flags: coverage
+          verbose: true
           fail_ci_if_error: true
 
   documentation:

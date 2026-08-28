@@ -8,10 +8,17 @@ coverage:
       default:
         target: 85%
         threshold: 3%
+        branches: [master]
     patch:
       default:
         target: 80%
         threshold: 0%
+        branches: [master]
+
+comment:
+  layout: "reach,diff,flags,tree"
+  behavior: default
+  require_changes: false
 
 ignore:
   - "apps/**"
