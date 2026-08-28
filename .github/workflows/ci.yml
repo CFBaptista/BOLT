@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - master
-    tags: ["*"]
+    tags:
+      - "*"
   pull_request:
     branches:
       - master
@@ -16,9 +17,10 @@ concurrency:
 jobs:
   format:
     name: Check formatting
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
+      image: ghcr.io/cfbaptista/bolt-dev:0.5.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -41,73 +43,44 @@ jobs:
     name: ${{ matrix.arch }} / ${{ matrix.toolchain }} / ${{ matrix.build_type }}
     runs-on: ${{ matrix.runner }}
     container:
-      image: ${{ matrix.container_image }}
+      image: ${{ matrix.container }}
+    env:
+      PRESET: linux-native-${{ matrix.toolchain }}-${{ matrix.build_type }}
     strategy:
       matrix:
         arch:
           - x86_64
           - aarch64
-          # - riscv64
-        preset:
-          - linux-native-gnu-debug
-          - linux-native-gnu-release
-          - linux-native-llvm-debug
-          - linux-native-llvm-release
+        toolchain:
+          - gnu
+          - llvm
+        build_type:
+          - debug
+          - release
         include:
           - arch: x86_64
             runner: ubuntu-26.04
-            container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
+            container: ghcr.io/cfbaptista/bolt-dev:0.5.0
           - arch: aarch64
             runner: ubuntu-26.04-arm
-            container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-arm64
-          # - arch: riscv64
-          #   runner: ubuntu-24.04-riscv
-          #   container_image: ghcr.io/cfbaptista/bolt-dev:0.4.0-riscv64
-          - preset: linux-native-gnu-debug
-            toolchain: gnu
-            build_type: debug
-          - preset: linux-native-gnu-release
-            toolchain: gnu
-            build_type: release
-          - preset: linux-native-llvm-debug
-            toolchain: llvm
-            build_type: debug
-          - preset: linux-native-llvm-release
-            toolchain: llvm
-            build_type: release
+            container: ghcr.io/cfbaptista/bolt-dev:0.5.0
       fail-fast: false
 
     steps:
       - name: Fix dubious ownership warning
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Show architecture
-        run: uname -m
-
       - name: Checkout code
         uses: actions/checkout@v5
 
       - name: Configure project
-        run: cmake --preset ${{ matrix.preset }} -DBUILD_DOCS=OFF -DBUILD_TESTING=ON
+        run: cmake --preset ${{ env.PRESET }} -DBUILD_DOCS=OFF -DBUILD_TESTING=ON
 
-      - name: Build project
-        run: cmake --build --preset ${{ matrix.preset }}
-
-      - name: Test project
-        run: ctest --preset ${{ matrix.preset }}
-
-      - name: Run static analysis (clang-tidy)
-        if: contains(matrix.preset, 'llvm')
-        run: |
-          clang-tidy \
-            $(git ls-files '*.cpp') \
-            -p build/${{ matrix.preset }} \
-            2>&1
-
-      - name: Run static analysis (cppcheck)
+      - name: Run fast static analysis (cppcheck)
+        if: matrix.arch == 'x86_64' && matrix.toolchain == 'llvm' && matrix.build_type == 'debug'
         run: |
           cppcheck \
-            --project=build/${{ matrix.preset }}/compile_commands.json \
+            --project=build/${{ env.PRESET }}/compile_commands.json \
             --enable=all \
             --inconclusive \
             --force \
@@ -116,15 +89,66 @@ jobs:
             --inline-suppr \
             --std=c++23 \
             --error-exitcode=1 \
-            -i build/*/_deps \
+            -i build/${{ env.PRESET }}/_deps
             2>&1
+
+      - name: Build project
+        run: cmake --build --preset ${{ env.PRESET }}
+
+      - name: Run comprehensive static analysis (clang-tidy)
+        if: matrix.arch == 'x86_64' && matrix.toolchain == 'llvm' && matrix.build_type == 'debug'
+        run: |
+          clang-tidy \
+            $(git ls-files '*.cpp') \
+            -p build/${{ env.PRESET }} \
+            2>&1
+
+      - name: Test project
+        run: ctest --preset ${{ env.PRESET }}
+
+      - name: Install project
+        if: matrix.build_type == 'release'
+        run: cmake --install build/${{ env.PRESET }} --prefix install/${{ env.PRESET }}
+
+  coverage:
+    needs: build-test
+    name: Report code coverage
+    runs-on: ubuntu-26.04
+    container:
+      image: ghcr.io/cfbaptista/bolt-dev:0.5.0
+
+    steps:
+      - name: Fix dubious ownership warning
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure project
+        run: cmake --preset linux-native-llvm-debug -DBUILD_DOCS=OFF -DBUILD_TESTING=ON -DENABLE_COVERAGE=ON
+
+      - name: Build project
+        run: cmake --build --preset linux-native-llvm-debug
+
+      - name: Generate coverage report
+        run: cmake --build --preset linux-native-llvm-debug --target coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: build/linux-native-llvm-debug/coverage/llvm/coverage.lcov
+          flags: coverage
+          verbose: true
+          fail_ci_if_error: true
 
   documentation:
     needs: build-test
     name: Build documentation
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/cfbaptista/bolt-dev:0.4.0-amd64
+      image: ghcr.io/cfbaptista/bolt-dev:0.5.0
 
     steps:
       - name: Fix dubious ownership warning
@@ -140,7 +164,11 @@ jobs:
         run: cmake --build --preset linux-native-llvm-release --target docs
 
   success:
-    needs: [format, build-test, documentation]
+    needs:
+      - build-test
+      - coverage
+      - documentation
+      - format
     name: Success
     runs-on: ubuntu-26.04
 

@@ -17,7 +17,7 @@ project(
     LANGUAGES CXX
 )
 
-include(cmake/initialization.cmake)
+include(cmake/include.cmake)
 
 add_subdirectory(src)
 add_subdirectory(apps)
@@ -26,6 +26,4 @@ if (BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
-if (BUILD_DOCS)
-    add_subdirectory(doc)
-endif()
+add_subdirectory(doc)

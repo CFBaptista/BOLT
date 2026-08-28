@@ -18,13 +18,16 @@ RUN \
     apt-get install -y libc++-21-dev && \
     apt-get install -y lld-21 && \
     apt-get install -y lldb-21 && \
-    # Install additional tools
+    # Install additional development tools
     apt-get install -y cmake && \
     apt-get install -y cppcheck && \
     apt-get install -y doxygen && \
     apt-get install -y git && \
     apt-get install -y lcov && \
     apt-get install -y ninja-build && \
+    # Install CI/CD dependencies
+    apt-get install -y curl && \
+    apt-get install -y gpg && \
     # Clean up
     apt-get clean && \
     apt-get autoclean && \

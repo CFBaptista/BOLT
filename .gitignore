@@ -31,8 +31,9 @@
 *.out
 *.app
 
-# Build folders
+# Development folders
 build
+install
 
 # Caches
 .cache
@@ -42,3 +43,6 @@ build
 
 # Editor folders
 .vscode
+
+# Cloud folders
+.github/agents
