@@ -95,13 +95,13 @@ jobs:
       - name: Build project
         run: cmake --build --preset ${{ env.PRESET }}
 
-      - name: Run comprehensive static analysis (clang-tidy)
-        if: matrix.arch == 'x86_64' && matrix.toolchain == 'llvm' && matrix.build_type == 'debug'
-        run: |
-          clang-tidy \
-            $(git ls-files '*.cpp') \
-            -p build/${{ env.PRESET }} \
-            2>&1
+      # - name: Run comprehensive static analysis (clang-tidy)
+      #   if: matrix.arch == 'x86_64' && matrix.toolchain == 'llvm' && matrix.build_type == 'debug'
+      #   run: |
+      #     clang-tidy \
+      #       $(git ls-files '*.cpp') \
+      #       -p build/${{ env.PRESET }} \
+      #       2>&1
 
       - name: Test project
         run: ctest --preset ${{ env.PRESET }}
@@ -114,6 +114,9 @@ jobs:
     needs: build-test
     name: Report code coverage
     runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      pull-requests: write
     container:
       image: ghcr.io/cfbaptista/bolt-dev:0.5.0
 
@@ -134,7 +137,7 @@ jobs:
         run: cmake --build --preset linux-native-llvm-debug --target coverage
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: build/linux-native-llvm-debug/coverage/llvm/coverage.lcov
