@@ -95,13 +95,13 @@ jobs:
       - name: Build project
         run: cmake --build --preset ${{ env.PRESET }}
 
-      # - name: Run comprehensive static analysis (clang-tidy)
-      #   if: matrix.arch == 'x86_64' && matrix.toolchain == 'llvm' && matrix.build_type == 'debug'
-      #   run: |
-      #     clang-tidy \
-      #       $(git ls-files '*.cpp') \
-      #       -p build/${{ env.PRESET }} \
-      #       2>&1
+      - name: Run comprehensive static analysis (clang-tidy)
+        if: matrix.arch == 'x86_64' && matrix.toolchain == 'llvm' && matrix.build_type == 'debug'
+        run: |
+          clang-tidy \
+            $(git ls-files '*.cpp') \
+            -p build/${{ env.PRESET }} \
+            2>&1
 
       - name: Test project
         run: ctest --preset ${{ env.PRESET }}
